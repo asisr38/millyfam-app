@@ -31,7 +31,6 @@ export default function AnimatedBackground() {
       setParticles(prev => 
         prev.map(particle => ({
           ...particle,
-          y: particle.y - particle.speed,
           y: particle.y < -10 ? 110 : particle.y - particle.speed,
         }))
       )
