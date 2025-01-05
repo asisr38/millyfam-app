@@ -4,9 +4,10 @@ import React, { useMemo } from 'react'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const AnimatedBackground: React.FC = () => {
-  const moneySymbols = ['$', '💰', '💵', '🪙']
   const isDesktop = useMediaQuery('(min-width: 768px)')
   const symbolCount = isDesktop ? 10 : 5
+  
+  const moneySymbols = useMemo(() => ['$', '💰', '💵', '🪙'], [])
 
   const animatedElements = useMemo(() => {
     return Array.from({ length: symbolCount }, (_, i) => {
@@ -33,7 +34,7 @@ const AnimatedBackground: React.FC = () => {
         </div>
       )
     })
-  }, [isDesktop, symbolCount])
+  }, [isDesktop, symbolCount, moneySymbols])
 
   return <div className="absolute inset-0 overflow-hidden pointer-events-none">{animatedElements}</div>
 }
