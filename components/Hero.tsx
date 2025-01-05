@@ -1,6 +1,4 @@
-import { Button } from "@/components/ui/button";
 import AnimatedBackground from "./AnimatedBackground";
-import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -24,9 +22,6 @@ export default function Hero() {
               individuals.
             </p>
           </div>
-          {/* <Button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded text-sm sm:text-base md:text-lg">
-            <Link href="https://whop.com/milly-fam/">Subscribe Now</Link>
-          </Button> */}
         </div>
       </div>
     </section>
