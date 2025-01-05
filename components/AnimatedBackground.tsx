@@ -1,64 +1,31 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { DollarSign, Coins, PiggyBank, Wallet } from 'lucide-react'
 
-const icons = [DollarSign, Coins, PiggyBank, Wallet]
+import React from 'react'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
-export default function AnimatedBackground() {
-  const [particles, setParticles] = useState<Array<{
-    id: number;
-    x: number;
-    y: number;
-    speed: number;
-    icon: number;
-    opacity: number;
-  }>>([])
+const AnimatedBackground: React.FC = () => {
+  const moneySymbols = ['$', '💰', '💵', '🪙']
+  const isDesktop = useMediaQuery('(min-width: 768px)')
+  const symbolCount = isDesktop ? 10 : 5
 
-  useEffect(() => {
-    const particleCount = 15
-    const newParticles = Array.from({ length: particleCount }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      speed: 0.5 + Math.random() * 1,
-      icon: Math.floor(Math.random() * icons.length),
-      opacity: 0.3 + Math.random() * 0.3,
-    }))
-
-    setParticles(newParticles)
-
-    const animate = () => {
-      setParticles(prev => 
-        prev.map(particle => ({
-          ...particle,
-          y: particle.y < -10 ? 110 : particle.y - particle.speed,
-        }))
-      )
-    }
-
-    const intervalId = setInterval(animate, 50)
-    return () => clearInterval(intervalId)
-  }, [])
-
-  return (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map(particle => {
-        const Icon = icons[particle.icon]
-        return (
-          <div
-            key={particle.id}
-            className="absolute text-zinc-400"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              opacity: particle.opacity,
-              transform: 'translate(-50%, -50%)',
-            }}
-          >
-            <Icon size={24} />
-          </div>
-        )
-      })}
+  const animatedElements = Array.from({ length: symbolCount }, (_, i) => (
+    <div
+      key={i}
+      className="absolute text-[#D4AF37] opacity-30 animate-float"
+      style={{
+        left: `${Math.random() * 100}%`,
+        top: '-20%',
+        animationDelay: `${Math.random() * 5}s`,
+        fontSize: isDesktop ? `${Math.random() * 20 + 20}px` : `${Math.random() * 10 + 10}px`,
+        animationDuration: `${Math.random() * 5 + 10}s`,
+      }}
+    >
+      {moneySymbols[Math.floor(Math.random() * moneySymbols.length)]}
     </div>
-  )
-} 
+  ))
+
+  return <div className="absolute inset-0 overflow-hidden pointer-events-none">{animatedElements}</div>
+}
+
+export default AnimatedBackground
+
