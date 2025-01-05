@@ -20,9 +20,9 @@ export default function FAQ() {
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter text-center mb-6 md:mb-8 lg:mb-12">
           Frequently Asked Questions
         </h2>
-        <div className="max-w-3xl mx-auto space-y-4 md:space-y-6 lg:space-y-8">
+        <div className="max-w-3xl mx-auto space-y-4 md:space-y-6 lg:space-y-8  ">
           {faqs.map((faq, index) => (
-            <div key={index} className="space-y-2 md:space-y-3 p-4 md:p-6 bg-zinc-800 rounded-lg">
+            <div key={index} className="space-y-2 md:space-y-3 p-4 md:p-6 bg-zinc-800 rounded-xl">
               <h3 className="text-lg md:text-xl font-bold text-[#D4AF37]">{faq.question}</h3>
               <p className="text-sm md:text-base text-zinc-200">{faq.answer}</p>
             </div>

@@ -15,7 +15,7 @@ export default function Pricing() {
           </h2>
           <p className="text-sm md:text-base text-zinc-200">Join our exclusive community today</p>
         </div>
-        <div className="mx-auto mt-6 md:mt-8 max-w-[90%] md:max-w-md space-y-4 rounded-lg border border-zinc-800 p-4 md:p-6">
+        <div className="mx-auto mt-6 md:mt-8 max-w-[90%] md:max-w-md space-y-4 rounded-xl border border-zinc-800 p-4 md:p-6">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-2 md:gap-0">
             <span className="text-xl md:text-2xl font-bold text-center md:text-left">Monthly Subscription</span>
             <span className="text-xl md:text-2xl font-bold text-[#D4AF37] text-center md:text-left">$39.99</span>

@@ -20,9 +20,9 @@ export default function Testimonials() {
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter text-center mb-8">
             What Our Members Say
           </h2>
-          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
             {testimonials.map((testimonial, index) => (
-              <div key={index} className="bg-zinc-900 p-6 rounded-lg">
+              <div key={index} className="bg-zinc-900 p-6 rounded-xl">
                 <p className="text-lg mb-4">&ldquo;{testimonial.quote}&rdquo;</p>
                 <p className="text-[#D4AF37] font-bold">- {testimonial.author}</p>
               </div>
