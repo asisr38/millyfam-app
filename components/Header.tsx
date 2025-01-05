@@ -49,7 +49,7 @@ export default function Header() {
           )}
 
           <Button className="hidden md:inline-flex bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded">
-            Join Now
+            <Link href="https://whop.com/milly-fam/">Join Now</Link>
           </Button>
         </div>
       </div>
