@@ -5,7 +5,7 @@ import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import Contact from '@/components/Contact'
 import Footer from '@/components/Footer'
-
+import SocialLinks from '@/components/SocialLinks'
 export default function Home() {
   return (
     <div className="flex min-h-screen flex-col bg-black text-white">
@@ -16,6 +16,7 @@ export default function Home() {
         <Testimonials />
         <FAQ />
         <Contact />
+        <SocialLinks />
       </main>
       <Footer />
     </div>
