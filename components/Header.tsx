@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
-import logo from '@/public/MF-Logo1.png'
+import logo from '@/public/logo/MF-Logo1.png'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,7 +21,8 @@ export default function Header() {
           </div>
           <nav className="hidden md:flex space-x-4">
             <Link href="#pricing" className="text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="#testimonials" className="text-zinc-300 hover:text-white">Testimonials</Link>
+            <Link href="#winshowcase" className="text-zinc-300 hover:text-white">Testimonials</Link>
+            <Link href="#team" className="text-zinc-300 hover:text-white">Team</Link>
             <Link href="#faq" className="text-zinc-300 hover:text-white">FAQ</Link>
             <Link href="#contact" className="text-zinc-300 hover:text-white">Contact</Link>
           </nav>
@@ -42,7 +43,7 @@ export default function Header() {
         <div className="md:hidden mt-4 bg-zinc-900">
           <nav className="flex flex-col space-y-2 p-4">
             <Link href="#pricing" className="text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="#testimonials" className="text-zinc-300 hover:text-white">Testimonials</Link>
+            <Link href="#winshowcase" className="text-zinc-300 hover:text-white">Testimonials</Link>
             <Link href="#faq" className="text-zinc-300 hover:text-white">FAQ</Link>
             <Link href="#contact" className="text-zinc-300 hover:text-white">Contact</Link>
             <Button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full">

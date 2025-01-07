@@ -2,7 +2,7 @@ import AnimatedBackground from "./AnimatedBackground";
 
 export default function Hero() {
   return (
-    <section id="hero" className="relative w-full min-h-[80vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden">
+    <section id="hero" className="relative w-full min-h-[70vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden">
       <AnimatedBackground />
       <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center space-y-6 md:space-y-8">

@@ -3,26 +3,58 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
+  --primary: #FEAA03;
+  --primary-alt: #FEC602;
+  --accent: #27AE60;
+  --dark: #0F0F0F;
+  --dark-alt: #0D0C0A;
+  --neutral: #37372F;
+  --light: #F5F5F5;
+}
+
+/* Custom gradients */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-alt) 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, var(--dark) 0%, var(--dark-alt) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(180deg, var(--dark) 0%, var(--dark-alt) 100%);
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  color: #FFFFFF;
+  background-color: var(--dark);
   font-family: 'Montserrat', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Playfair Display', serif;
+/* Update text accent colors */
+.text-accent {
+  color: var(--accent);
 }
 
+.text-primary {
+  color: var(--primary);
+}
+
+/* Button gradients */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-alt) 100%);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--primary-alt) 0%, var(--primary) 100%);
+}
+
+/* Existing animations */
 @keyframes float {
   0% {
     transform: translateY(0);
