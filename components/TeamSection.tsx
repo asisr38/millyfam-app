@@ -2,13 +2,14 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const teamMembers = [
   {
-    name: 'John Doe',
+    name: 'MillyNish',
     title: 'Founder & CEO',
     specialty: 'Strategic Leadership',
-    image: '/placeholder.svg?height=300&width=300'
+    image: '/team/MF-Logo2.png'
   },
   {
     name: 'Jane Smith',
@@ -38,6 +39,7 @@ const teamMembers = [
 
 const TeamSection: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
+  const isDesktop = useMediaQuery('(min-width: 640px)')
 
   const nextMember = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length)
@@ -48,63 +50,74 @@ const TeamSection: React.FC = () => {
   }
 
   return (
-    <section className="w-full py-12 bg-black">
+    <section id="team" className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-zinc-900">
       <div className="container px-4 md:px-6">
-        <h2 className="text-3xl font-bold text-center text-white mb-8">Meet Our Team</h2>
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 sm:mb-8 md:mb-12 text-light">
+          Meet Our <span className="text-primary">TEAM</span>
+        </h2>
         
-        {/* Desktop view */}
-        <div className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {teamMembers.map((member, index) => (
-            <div key={index} className="flex flex-col items-center">
-              <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
-                <Image
-                  src={member.image}
-                  alt={member.name}
-                  width={300}
-                  height={300}
-                  className="object-cover w-full h-full"
+        {isDesktop ? (
+          // Desktop Grid View
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+            {teamMembers.map((member, index) => (
+              <div key={index} className="flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3">
+                <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
+                  <Image src={member.image} alt={member.name} fill className="object-cover" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-bold text-primary">{member.name}</h3>
+                <p className="text-sm sm:text-base text-light text-center">{member.title}</p>
+                <p className="text-xs sm:text-sm text-zinc-400 text-center">{member.specialty}</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Mobile Carousel View
+          <div className="sm:hidden relative max-w-[300px] mx-auto">
+            <div className="flex flex-col items-center p-4 space-y-3">
+              <div className="w-32 h-32 relative rounded-full overflow-hidden">
+                <Image 
+                  src={teamMembers[currentIndex].image} 
+                  alt={teamMembers[currentIndex].name} 
+                  fill 
+                  className="object-cover"
                 />
               </div>
-              <h3 className="text-xl font-semibold text-white">{member.name}</h3>
-              <p className="text-[#D4AF37]">{member.title}</p>
-              <p className="text-zinc-400 text-center mt-2">{member.specialty}</p>
+              <h3 className="text-xl font-bold text-primary">{teamMembers[currentIndex].name}</h3>
+              <p className="text-base text-light text-center">{teamMembers[currentIndex].title}</p>
+              <p className="text-sm text-zinc-400 text-center">{teamMembers[currentIndex].specialty}</p>
             </div>
-          ))}
-        </div>
 
-        {/* Mobile view */}
-        <div className="md:hidden">
-          <div className="flex flex-col items-center">
-            <div className="w-48 h-48 rounded-full overflow-hidden mb-4">
-              <Image
-                src={teamMembers[currentIndex].image}
-                alt={teamMembers[currentIndex].name}
-                width={300}
-                height={300}
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <h3 className="text-xl font-semibold text-white">{teamMembers[currentIndex].name}</h3>
-            <p className="text-[#D4AF37]">{teamMembers[currentIndex].title}</p>
-            <p className="text-zinc-400 text-center mt-2">{teamMembers[currentIndex].specialty}</p>
-          </div>
-          <div className="flex justify-center mt-4">
+            {/* Navigation Buttons */}
             <button
               onClick={prevMember}
-              className="bg-zinc-800 text-white p-2 rounded-full mr-4"
-              aria-label="Previous team member"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform -translate-x-1/2 transition-all duration-200"
+              aria-label="Previous member"
             >
-              <ChevronLeft size={24} />
+              <ChevronLeft className="w-6 h-6 text-primary" />
             </button>
             <button
               onClick={nextMember}
-              className="bg-zinc-800 text-white p-2 rounded-full"
-              aria-label="Next team member"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform translate-x-1/2 transition-all duration-200"
+              aria-label="Next member"
             >
-              <ChevronRight size={24} />
+              <ChevronRight className="w-6 h-6 text-primary" />
             </button>
+
+            {/* Dots indicator */}
+            <div className="flex justify-center space-x-2 mt-4">
+              {teamMembers.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-all duration-200 ${
+                    index === currentIndex ? "bg-primary w-4" : "bg-neutral"
+                  }`}
+                  aria-label={`Go to team member ${index + 1}`}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </section>
   )

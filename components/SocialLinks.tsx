@@ -16,7 +16,7 @@ const TikTokIcon = ({ color = "#000000" }) => {
 
 const SocialLinks = () => {
   return (
-    <section className="w-full py-12 bg-zinc-900">
+    <section className="w-full py-12 bg-black">
       <div className="container px-4 md:px-6">
         <h2 className="text-2xl font-bold text-center text-white mb-8">
           Connect With Us
@@ -33,12 +33,12 @@ const SocialLinks = () => {
             <span className="sr-only">Tiktok</span>
           </a>
           <a
-            href="https://x.com/millyfam96038?s=21"
+            href="https://x.com/MillyFam7"
             target="_blank"
             rel="noopener noreferrer"
             className="text-white hover:text-[#D4AF37] transition-colors"
           >
-            <Twitter size={24} />
+            <Twitter size={24} color="#D4AF37" />
             <span className="sr-only">Twitter</span>
           </a>
           <a
@@ -48,7 +48,7 @@ const SocialLinks = () => {
             rel="noopener noreferrer"
             className="text-white hover:text-[#D4AF37] transition-colors"
           >
-            <Instagram size={24} />
+            <Instagram size={24} color="#D4AF37" />
             <span className="sr-only">Instagram</span>
           </a>
         </div>
