@@ -6,7 +6,16 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function WinShowcase() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = ["/wins/win1.png", "/wins/win2.png", "/wins/win3.png", "/wins/win4.png"];
+  const images = [
+    "/wins/win1.png",
+    "/wins/win2.png",
+    "/wins/win3.png",
+    "/wins/win4.png",
+    "/wins/win5.png",
+    "/wins/win6.png",
+    "/wins/win8.png",
+    "/wins/win9.png",
+  ];
 
   const nextSlide = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -19,8 +28,11 @@ export default function WinShowcase() {
   };
 
   return (
-    <section id="winshowcase" className="w-full py-12 md:py-16 lg:py-24 bg-dark">
-      <div className="container px-4 md:px-6">
+    <section
+      id="winshowcase"
+      className="w-full py-12 md:py-16 lg:py-24 flex items-center justify-center bg-dark"
+    >
+      <div className="container px-4 md:px-6 mx-auto">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 md:mb-12 text-light">
           Some of our <span className="text-[#27Ae60]">WINS</span>
         </h2>
