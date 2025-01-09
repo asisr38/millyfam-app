@@ -13,18 +13,18 @@ const teamMembers = [
     social: 'https://www.instagram.com/millynish/'
   },
   {
-    name: 'Manish Shrestha',
+    name: 'Taran',
     title: 'Chief Financial Officer',
     specialty: 'Financial Planning',
     image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/manifesting_95/'
+    social: 'https://www.instagram.com/taran/'
   },
   {
-    name: 'Taran',
+    name: 'Manish Shrestha',
     title: 'Head of Marketing',
     specialty: 'Digital Marketing',
     image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/taran_shrestha_/'
+    social: 'https://www.instagram.com/manifesting_95/'
   }
 ]
 
@@ -41,7 +41,7 @@ const TeamSection: React.FC = () => {
   }
 
   return (
-    <section id="team" className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-zinc-900">
+    <section id="team" className="w-full flex items-center justify-center py-6 sm:py-10 md:py-14 lg:py-20 bg-zinc-900">
       <div className="container px-4 md:px-6">
         <h2 className="text-[28px] md:text-[35px] lg:text-[40px] font-bold text-center mb-6 sm:mb-8 md:mb-12 text-light">
           Meet Our <span className="text-primary">TEAM</span>
@@ -81,17 +81,17 @@ const TeamSection: React.FC = () => {
             {/* Navigation Buttons */}
             <button
               onClick={prevMember}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform -translate-x-1/2 transition-all duration-200"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-3 sm:p-2 rounded-full transform -translate-x-1/2 transition-all duration-200 touch-manipulation"
               aria-label="Previous member"
             >
-              <ChevronLeft className="w-6 h-6 text-primary" />
+              <ChevronLeft className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />
             </button>
             <button
               onClick={nextMember}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform translate-x-1/2 transition-all duration-200"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-3 sm:p-2 rounded-full transform translate-x-1/2 transition-all duration-200 touch-manipulation"
               aria-label="Next member"
             >
-              <ChevronRight className="w-6 h-6 text-primary" />
+              <ChevronRight className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />
             </button>
 
             {/* Dots indicator */}

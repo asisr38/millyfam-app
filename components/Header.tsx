@@ -16,7 +16,7 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2">
               <Image src={logo} alt="Millyfam" className="w-10 h-10" />
-              <span className="text-[28px] md:text-[35px] font-bold text-white">Millyfam</span>
+              <span className="text-[28px] md:text-[35px] font-bold text-white">MILLYFAM</span>
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
