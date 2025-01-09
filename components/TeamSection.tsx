@@ -13,18 +13,18 @@ const teamMembers = [
     social: 'https://www.instagram.com/millynish/'
   },
   {
-    name: 'Manish Shrestha',
+    name: 'Taran',
     title: 'Chief Financial Officer',
     specialty: 'Financial Planning',
     image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/manifesting_95/'
+    social: 'https://www.instagram.com/taran/'
   },
   {
-    name: 'Taran',
+    name: 'Manish Shrestha',
     title: 'Head of Marketing',
     specialty: 'Digital Marketing',
     image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/taran_shrestha_/'
+    social: 'https://www.instagram.com/manifesting_95/'
   }
 ]
 
@@ -41,7 +41,7 @@ const TeamSection: React.FC = () => {
   }
 
   return (
-    <section id="team" className="w-full py-8 sm:py-12 md:py-16 lg:py-24 bg-zinc-900">
+    <section id="team" className="w-full flex items-center justify-center py-6 sm:py-10 md:py-14 lg:py-20 bg-zinc-900">
       <div className="container px-4 md:px-6">
         <h2 className="text-[28px] md:text-[35px] lg:text-[40px] font-bold text-center mb-6 sm:mb-8 md:mb-12 text-light">
           Meet Our <span className="text-primary">TEAM</span>
