@@ -81,17 +81,17 @@ const TeamSection: React.FC = () => {
             {/* Navigation Buttons */}
             <button
               onClick={prevMember}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform -translate-x-1/2 transition-all duration-200"
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-3 sm:p-2 rounded-full transform -translate-x-1/2 transition-all duration-200 touch-manipulation"
               aria-label="Previous member"
             >
-              <ChevronLeft className="w-6 h-6 text-primary" />
+              <ChevronLeft className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />
             </button>
             <button
               onClick={nextMember}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-2 rounded-full transform translate-x-1/2 transition-all duration-200"
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-dark/50 hover:bg-dark/75 p-3 sm:p-2 rounded-full transform translate-x-1/2 transition-all duration-200 touch-manipulation"
               aria-label="Next member"
             >
-              <ChevronRight className="w-6 h-6 text-primary" />
+              <ChevronRight className="w-8 h-8 sm:w-6 sm:h-6 text-primary" />
             </button>
 
             {/* Dots indicator */}
