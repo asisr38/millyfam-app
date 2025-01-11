@@ -11,11 +11,10 @@ const AnimatedBackground: React.FC = () => {
 
   const animatedElements = useMemo(() => {
     return Array.from({ length: symbolCount }, (_, i) => {
-      // Use deterministic values based on index
       const leftPos = (i * (100 / symbolCount)) % 100
       const delay = (i * 0.5) % 5
       const duration = 10 + (i % 5)
-      const fontSize = isDesktop ? 40 + (i % 20) : 25 + (i % 10)
+      const fontSize = isDesktop ? 20 + (i % 20) : 30 + (i % 20)
       const symbolIndex = i % moneySymbols.length
 
       return (
