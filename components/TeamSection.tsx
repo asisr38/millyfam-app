@@ -1,63 +1,82 @@
-'use client'
-import React, { useState } from 'react'
-import Image from 'next/image'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { useMediaQuery } from '@/hooks/useMediaQuery'
+"use client";
+import React, { useState } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const teamMembers = [
   {
-    name: 'MillyNish',
-    title: 'Founder & CEO',
-    specialty: 'Strategic Leadership',
-    image: '/team/MF-Logo2.png',
-    social: 'https://www.instagram.com/millynish/'
+    name: "MillyNish",
+    title: "Founder & CEO",
+    specialty: "Strategic Leadership",
+    image: "/team/anish.jpg",
+    social: "https://www.instagram.com/millynish/",
   },
   {
-    name: 'Taran',
-    title: 'Chief Financial Officer',
-    specialty: 'Financial Planning',
-    image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/taran/'
+    name: "Taran",
+    title: "Chief Financial Officer",
+    specialty: "Financial Planning",
+    image: "/team/taran.jpg",
+    social: "https://www.instagram.com/taran/",
   },
   {
-    name: 'Manish Shrestha',
-    title: 'Head of Marketing',
-    specialty: 'Digital Marketing',
-    image: '/placeholder.svg?height=300&width=300',
-    social: 'https://www.instagram.com/manifesting_95/'
-  }
-]
+    name: "Manish",
+    title: "Head of Marketing",
+    specialty: "Digital Marketing",
+    image: "/team/manish.jpg",
+    social: "https://www.instagram.com/manifesting_95/",
+  },
+];
 
 const TeamSection: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const isDesktop = useMediaQuery('(min-width: 640px)')
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isDesktop = useMediaQuery("(min-width: 640px)");
 
   const nextMember = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length)
-  }
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % teamMembers.length);
+  };
 
   const prevMember = () => {
-    setCurrentIndex((prevIndex) => (prevIndex - 1 + teamMembers.length) % teamMembers.length)
-  }
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + teamMembers.length) % teamMembers.length
+    );
+  };
 
   return (
-    <section id="team" className="w-full flex items-center justify-center py-6 sm:py-10 md:py-14 lg:py-20 bg-zinc-900">
+    <section
+      id="team"
+      className="w-full flex items-center justify-center py-6 sm:py-10 md:py-14 lg:py-20 bg-zinc-900"
+    >
       <div className="container px-4 md:px-6">
         <h2 className="text-[28px] md:text-[35px] lg:text-[40px] font-bold text-center mb-6 sm:mb-8 md:mb-12 text-light">
           Meet Our <span className="text-primary">TEAM</span>
         </h2>
-        
+
         {isDesktop ? (
           // Desktop Grid View
           <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
             {teamMembers.map((member, index) => (
-              <div key={index} className="flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3">
+              <div
+                key={index}
+                className="flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3"
+              >
                 <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
-                  <Image src={member.image} alt={member.name} fill className="object-cover" />
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
-                <h3 className="text-[18px] sm:text-[20px] font-bold text-primary">{member.name}</h3>
-                <p className="text-[16px] sm:text-[18px] text-light text-center">{member.title}</p>
-                <p className="text-[14px] sm:text-[16px] text-zinc-400 text-center">{member.specialty}</p>
+                <h3 className="text-[18px] sm:text-[20px] font-bold text-primary">
+                  {member.name}
+                </h3>
+                <p className="text-[16px] sm:text-[18px] text-light text-center">
+                  {member.title}
+                </p>
+                <p className="text-[14px] sm:text-[16px] text-zinc-400 text-center">
+                  {member.specialty}
+                </p>
               </div>
             ))}
           </div>
@@ -66,16 +85,22 @@ const TeamSection: React.FC = () => {
           <div className="sm:hidden relative max-w-[300px] mx-auto">
             <div className="flex flex-col items-center p-4 space-y-3">
               <div className="w-32 h-32 relative rounded-full overflow-hidden">
-                <Image 
-                  src={teamMembers[currentIndex].image} 
-                  alt={teamMembers[currentIndex].name} 
-                  fill 
+                <Image
+                  src={teamMembers[currentIndex].image}
+                  alt={teamMembers[currentIndex].name}
+                  fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-xl font-bold text-primary">{teamMembers[currentIndex].name}</h3>
-              <p className="text-base text-light text-center">{teamMembers[currentIndex].title}</p>
-              <p className="text-sm text-zinc-400 text-center">{teamMembers[currentIndex].specialty}</p>
+              <h3 className="text-xl font-bold text-primary">
+                {teamMembers[currentIndex].name}
+              </h3>
+              <p className="text-base text-light text-center">
+                {teamMembers[currentIndex].title}
+              </p>
+              <p className="text-sm text-zinc-400 text-center">
+                {teamMembers[currentIndex].specialty}
+              </p>
             </div>
 
             {/* Navigation Buttons */}
@@ -111,8 +136,7 @@ const TeamSection: React.FC = () => {
         )}
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default TeamSection
-
+export default TeamSection;
