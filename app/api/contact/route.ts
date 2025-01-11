@@ -9,9 +9,7 @@ export async function POST(req: Request) {
     // 2. Create a transporter using your SMTP credentials
     //    (You can use Gmail, your domain's SMTP, or your own server)
     const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: parseInt(process.env.SMTP_PORT || "465", 10),
-      secure: true, // If using port 465, secure=true
+      service: "gmail",
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -21,24 +19,80 @@ export async function POST(req: Request) {
     // 3. Send the email
     const mailOptions = {
       from: `"Millyfam Team" <${process.env.SMTP_USER}>`, // sender address
-      to: " millyfam777@gmail.com",                    // your destination email
+      to: process.env.RECIPIENT_EMAIL,                    // your destination email
       subject: "New Contact Form Submission",
       html: `
-        <div style="font-family: 'Georgia', serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
-          <div style="background-color: #FEAA03; color: white; padding: 20px; text-align: center;">
-            <h1 style="margin: 0;">Millyfam Contact</h1>
-          </div>
-          <div style="padding: 20px;">
-            <h2 style="color: #4CAF50; font-family: 'Georgia', serif;">New Contact Form Submission</h2>
-            <p style="font-family: 'Georgia', serif;"><strong>Name:</strong> ${name}</p>
-            <p style="font-family: 'Georgia', serif;"><strong>Email:</strong> ${email}</p>
-            <p style="font-family: 'Georgia', serif;"><strong>Message:</strong></p>
-            <p style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; font-family: 'Georgia', serif;">${message}</p>
-          </div>
-          <div style="background-color: #f1f1f1; color: #555; padding: 10px; text-align: center; font-size: 12px;">
-            <p style="margin: 0;">Thank you for reaching out to us!</p>
-          </div>
-        </div>
+       <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>New Contact Form Submission</title>
+        <style>
+          body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+          table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+          img { -ms-interpolation-mode: bicubic; }
+          img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+          table { border-collapse: collapse !important; }
+          body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+          a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+          div[style*="margin: 16px 0;"] { margin: 0 !important; }
+        </style>
+      </head>
+      <body style="background-color: #f7f7f7; margin: 0 !important; padding: 0 !important;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td align="center" style="padding: 40px 10px 40px 10px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+                <tr>
+                  <td align="center" bgcolor="#000000" style="padding: 40px 20px 40px 20px; border-radius: 4px 4px 0px 0px;">
+                    <img src="https://drive.usercontent.google.com/download?id=1qmdJE69dxXIASMyA-ez8PZMUsbc9vMUO" alt="Millyfam Logo" width="100" height="100" style="display: block; border: 0px;" />
+                    <h1 style="font-size: 24px; color: #ffffff; font-family: Arial, sans-serif; margin-top: 20px;">New Contact Form Submission</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffffff" style="padding: 20px 10px 20px 10px; border-radius: 0px 0px 4px 4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
+                          <strong>Name:</strong> ${name}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
+                          <strong>Email:</strong> ${email}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
+                          <strong>Message:</strong>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="background-color: #f7f7f7; padding: 20px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 16px;">
+                          ${message}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#000000" style="padding: 20px; border-radius: 0px 0px 4px 4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" align="center">
+                          &copy; 2023 Millyfam. All rights reserved.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
       `,
     }
 
@@ -46,24 +100,77 @@ export async function POST(req: Request) {
 
     // 4. Send a confirmation email to the sender
     const confirmationMailOptions = {
-      from: `"Millyfam Site" <${process.env.SMTP_USER}>`, // sender address
+      from: `"Millyfam Contact Us" <${process.env.SMTP_USER}>`, // sender address
       to: email, // sender's email
       subject: "We Received Your Message",
       html: `
-        <div style="font-family: 'Georgia', serif; line-height: 1.6; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
-          <div style="background-color: #FEAA03; color: white; padding: 20px; text-align: center;">
-            <h1 style="margin: 0;">Thank You for Contacting Us!</h1>
-          </div>
-          <div style="padding: 20px;">
-            <p style="font-family: 'Georgia', serif;">Hi ${name},</p>
-            <p style="font-family: 'Georgia', serif;">Thank you for reaching out to us. We have received your message and will get back to you as soon as possible.</p>
-            <p style="font-family: 'Georgia', serif;">Best regards,</p>
-            <p style="font-family: 'Georgia', serif;">The Millyfam Team</p>
-          </div>
-          <div style="background-color: #f1f1f1; color: #555; padding: 10px; text-align: center; font-size: 12px;">
-            <p style="margin: 0;">This is an automated message, please do not reply.</p>
-          </div>
-        </div>
+        <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Thank You for Contacting Us</title>
+        <style>
+          body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+          table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
+          img { -ms-interpolation-mode: bicubic; }
+          img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
+          table { border-collapse: collapse !important; }
+          body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+          a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
+          div[style*="margin: 16px 0;"] { margin: 0 !important; }
+        </style>
+      </head>
+      <body style="background-color: #f7f7f7; margin: 0 !important; padding: 0 !important;">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td align="center" style="padding: 40px 10px 40px 10px;">
+              <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
+                <tr>
+                  <td align="center" bgcolor="#000000" style="padding: 20px 10px 20px 10px; border-radius: 4px 4px 0px 0px;">
+                    <img src="https://drive.usercontent.google.com/download?id=1qmdJE69dxXIASMyA-ez8PZMUsbc9vMUO" alt="Millyfam Logo" width="100" height="100" style="display: block; border: 0px;" />
+                    <h1 style="font-size: 24px; color: #ffffff; font-family: Arial, sans-serif; margin-top: 20px;">Thank You for Contacting Us!</h1>
+                  </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#ffffff" style="padding: 40px 20px 40px 20px; border-radius: 0px 0px 4px 4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
+                          Hi ${name},
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
+                          Thank you for reaching out to us. We have received your message and will get back to you as soon as possible.
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
+                          Best regards,<br>
+                          The Millyfam Team
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td bgcolor="#000000" style="padding: 20px; border-radius: 0px 0px 4px 4px;">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" align="center">
+                          This is an automated message, please do not reply.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </body>
+      </html>
       `,
     }
 
