@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section id="hero" className="relative w-full min-h-[90vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden">
       <AnimatedBackground />
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="container px-4 md:px- relative z-10">
         <div className="flex flex-col items-center space-y-6 md:space-y-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-[35px] font-bold tracking-tighter sm:text-[40px] md:text-[45px] lg:text-[50px] mb-4">

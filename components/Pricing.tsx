@@ -7,7 +7,7 @@ export default function Pricing() {
     <section id="pricing" className="w-full py-8 md:py-12 lg:py-24 bg-zinc-900">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <div className="mx-auto max-w-sm space-y-4 text-center">
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold tracking-tighter">
+          <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tighter">
             Pricing
           </h2>
           <p className="text-sm md:text-base text-zinc-200">

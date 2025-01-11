@@ -5,7 +5,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const AnimatedBackground: React.FC = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const symbolCount = isDesktop ? 10 : 5
+  const symbolCount = isDesktop ? 12 : 6
   
   const moneySymbols = useMemo(() => ['$', '💰', '💵', '🪙'], [])
 
@@ -20,7 +20,7 @@ const AnimatedBackground: React.FC = () => {
       return (
         <div
           key={i}
-          className="absolute text-[#D4AF37] opacity-30 animate-float"
+          className="absolute text-[#D4AF37] opacity-40 animate-float"
           style={{
             left: `${leftPos}%`,
             top: '-20%',
