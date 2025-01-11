@@ -51,7 +51,7 @@ export async function POST(req: Request) {
                   </td>
                 </tr>
                 <tr>
-                  <td bgcolor="#ffffff" style="padding: 40px 20px 40px 20px; border-radius: 0px 0px 4px 4px;">
+                  <td bgcolor="#ffffff" style="padding: 20px 10px 20px 10px; border-radius: 0px 0px 4px 4px;">
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
@@ -127,7 +127,7 @@ export async function POST(req: Request) {
             <td align="center" style="padding: 40px 10px 40px 10px;">
               <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
                 <tr>
-                  <td align="center" bgcolor="#000000" style="padding: 40px 20px 40px 20px; border-radius: 4px 4px 0px 0px;">
+                  <td align="center" bgcolor="#000000" style="padding: 20px 10px 20px 10px; border-radius: 4px 4px 0px 0px;">
                     <img src="https://drive.usercontent.google.com/download?id=1qmdJE69dxXIASMyA-ez8PZMUsbc9vMUO" alt="Millyfam Logo" width="100" height="100" style="display: block; border: 0px;" />
                     <h1 style="font-size: 24px; color: #ffffff; font-family: Arial, sans-serif; margin-top: 20px;">Thank You for Contacting Us!</h1>
                   </td>
