@@ -61,15 +61,19 @@ const TeamSection: React.FC = () => {
                 className="flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3"
               >
                 <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
-                  <Image
-                    src={member.image}
-                    alt={member.name}
-                    fill
-                    className="object-cover"
-                  />
+                  <a href={member.social} target="_blank" rel="noopener noreferrer">
+                    <Image
+                      src={member.image}
+                      alt={member.name}
+                      fill
+                      className="object-cover"
+                    />
+                  </a>
                 </div>
                 <h3 className="text-[18px] sm:text-[20px] font-bold text-primary">
-                  {member.name}
+                  <a href={member.social} target="_blank" rel="noopener noreferrer">
+                    {member.name}
+                  </a>
                 </h3>
                 <p className="text-[16px] sm:text-[18px] text-light text-center">
                   {member.title}
@@ -85,15 +89,19 @@ const TeamSection: React.FC = () => {
           <div className="sm:hidden relative max-w-[300px] mx-auto">
             <div className="flex flex-col items-center p-4 space-y-3">
               <div className="w-32 h-32 relative rounded-full overflow-hidden">
-                <Image
-                  src={teamMembers[currentIndex].image}
-                  alt={teamMembers[currentIndex].name}
-                  fill
-                  className="object-cover"
-                />
+                <a href={teamMembers[currentIndex].social} target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src={teamMembers[currentIndex].image}
+                    alt={teamMembers[currentIndex].name}
+                    fill
+                    className="object-cover"
+                  />
+                </a>
               </div>
               <h3 className="text-xl font-bold text-primary">
-                {teamMembers[currentIndex].name}
+                <a href={teamMembers[currentIndex].social} target="_blank" rel="noopener noreferrer">
+                  {teamMembers[currentIndex].name}
+                </a>
               </h3>
               <p className="text-base text-light text-center">
                 {teamMembers[currentIndex].title}
