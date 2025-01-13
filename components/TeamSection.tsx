@@ -10,14 +10,14 @@ const teamMembers = [
     title: "Founder & CEO",
     specialty: "Strategic Leadership",
     image: "/team/anish.jpg",
-    social: "https://www.instagram.com/millynish/",
+    social: "https://www.instagram.com/millynish7/",
   },
   {
     name: "Taran",
     title: "Chief Financial Officer",
     specialty: "Financial Planning",
     image: "/team/taran.jpg",
-    social: "https://www.instagram.com/taran/",
+    social: "https://www.instagram.com/taran_23/",
   },
   {
     name: "Manish",
