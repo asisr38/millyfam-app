@@ -6,7 +6,7 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const teamMembers = [
   {
-    name: "MillyNish",
+    name: "Anish",
     title: "Founder & CEO",
     specialty: "Strategic Leadership",
     image: "/team/anish.jpg",
@@ -25,6 +25,13 @@ const teamMembers = [
     specialty: "Digital Marketing",
     image: "/team/manish.jpg",
     social: "https://www.instagram.com/manifesting_95/",
+  },
+  {
+    name: "Sajan",
+    title: "HR",
+    specialty: "Human Resources",
+    image: "/team/sajan.jpg",
+    social: "https://www.instagram.com/sajanpradhan12/",
   },
 ];
 
