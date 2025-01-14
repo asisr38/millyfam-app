@@ -61,14 +61,20 @@ const TeamSection: React.FC = () => {
 
         {isDesktop ? (
           // Desktop Grid View
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto">
+          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto justify-items-center">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3"
+                className={`flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3 ${
+                  teamMembers.length === 4 && index === 3 ? "col-span-3" : ""
+                }`}
               >
                 <div className="w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 relative rounded-full overflow-hidden">
-                  <a href={member.social} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={member.social}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <Image
                       src={member.image}
                       alt={member.name}
@@ -78,7 +84,11 @@ const TeamSection: React.FC = () => {
                   </a>
                 </div>
                 <h3 className="text-[18px] sm:text-[20px] font-bold text-primary">
-                  <a href={member.social} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={member.social}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     {member.name}
                   </a>
                 </h3>
@@ -96,7 +106,11 @@ const TeamSection: React.FC = () => {
           <div className="sm:hidden relative max-w-[300px] mx-auto">
             <div className="flex flex-col items-center p-4 space-y-3">
               <div className="w-32 h-32 relative rounded-full overflow-hidden">
-                <a href={teamMembers[currentIndex].social} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={teamMembers[currentIndex].social}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <Image
                     src={teamMembers[currentIndex].image}
                     alt={teamMembers[currentIndex].name}
@@ -106,7 +120,11 @@ const TeamSection: React.FC = () => {
                 </a>
               </div>
               <h3 className="text-xl font-bold text-primary">
-                <a href={teamMembers[currentIndex].social} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={teamMembers[currentIndex].social}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {teamMembers[currentIndex].name}
                 </a>
               </h3>
