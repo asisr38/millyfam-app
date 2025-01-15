@@ -1,13 +1,14 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Playfair_Display, Montserrat } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
+import Header from "@/components/Header"
+import Footer from "@/components/Footer"
 
-const playfair = Playfair_Display({ subsets: ['latin'], weight: ['400', '700'] })
-const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '600'] })
+const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Millyfam - Exclusive Wealth-Building Community',
-  description: 'Join Millyfam and start building wealth now. Exclusive access to a tight-knit community focused on financial success.',
+  title: 'Millyfam - Financial Success Community',
+  description: 'Join Millyfam\'s exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.',
 }
 
 export default function RootLayout({
@@ -16,8 +17,12 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.className} ${montserrat.className}`}>
-      <body>{children}</body>
+    <html lang="en">
+      <body className={montserrat.className}>
+        <Header />
+        <main>{children}</main>
+        <Footer />
+      </body>
     </html>
   )
 }

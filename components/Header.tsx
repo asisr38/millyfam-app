@@ -16,19 +16,19 @@ export default function Header() {
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2">
               <Image src={logo} alt="Millyfam" className="w-10 h-10" />
-              <span className="text-[28px] md:text-[35px] font-bold text-white">MILLYFAM</span>
+              <span className="text-[32px] md:text-[40px] font-bold text-white">MILLYFAM</span>
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="#pricing" className="text-[14px] md:text-[16px] text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="#winshowcase" className="text-zinc-300 hover:text-white text-sm">Testimonials</Link>
-            <Link href="#team" className="text-zinc-300 hover:text-white text-sm">Team</Link>
-            <Link href="#faq" className="text-zinc-300 hover:text-white text-sm">FAQ</Link>
-            <Link href="#contact" className="text-zinc-300 hover:text-white text-sm">Contact</Link>
+            <Link href="/about" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">About Us</Link>
+            <Link href="/#pricing" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Pricing</Link>
+            <Link href="/#winshowcase" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Testimonials</Link>
+            <Link href="/#team" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Team</Link>
+            <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">FAQ</Link>
           </nav>
           <div className="flex items-center space-x-3">
-            <Button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded hidden sm:block">
-              Join Now
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded hidden sm:block text-[16px] md:text-[18px]">
+              <Link href="https://whop.com/milly-fam/">Join Now</Link>
             </Button>
             <button
               className="md:hidden text-white"
@@ -43,12 +43,13 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden mt-4 bg-zinc-900">
           <nav className="flex flex-col space-y-2 p-4">
-            <Link href="#pricing" className="text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="#winshowcase" className="text-zinc-300 hover:text-white">Testimonials</Link>
-            <Link href="#faq" className="text-zinc-300 hover:text-white">FAQ</Link>
-            <Link href="#contact" className="text-zinc-300 hover:text-white">Contact</Link>
-            <Button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full">
-              Join Now
+            <Link href="/about" className="text-[16px] text-zinc-300 hover:text-white">About Us</Link>
+            <Link href="/#pricing" className="text-[16px] text-zinc-300 hover:text-white">Pricing</Link>
+            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white">Testimonials</Link>
+            <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white">Team</Link>
+            <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white">FAQ</Link>
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+              <Link href="https://whop.com/milly-fam/">Join Now</Link>
             </Button>
           </nav>
         </div>

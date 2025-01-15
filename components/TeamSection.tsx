@@ -33,6 +33,13 @@ const teamMembers = [
     image: "/team/sajan.jpg",
     social: "https://www.instagram.com/sajanpradhan12/",
   },
+  {
+    name: "Mingo",
+    title: "Artist",
+    specialty: "Pudgy Penguin Artist",
+    image: "/team/sajan.jpg",
+    social: "https://www.instagram.com/sajanpradhan12/",
+  }
 ];
 
 const TeamSection: React.FC = () => {

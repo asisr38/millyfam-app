@@ -37,7 +37,7 @@ export default function Pricing() {
             ))}
           </ul>
           <Button
-            className="w-full bg-[#D4AF37]  hover:scale-105 transition-all duration-300  text-black hover:bg-[#C4A030] font-bold py-3 px-6 rounded"
+            className="w-full bg-[#D4AF37] hover:scale-105 transition-all duration-300 text-black hover:bg-[#C4A030] font-bold py-4 md:py-6 px-8 rounded-xl text-[18px] md:text-[22px] mt-6"
             asChild
           >
             <Link href="https://whop.com/milly-fam/">Subscribe Now</Link>
