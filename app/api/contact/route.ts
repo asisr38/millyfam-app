@@ -18,7 +18,7 @@ export async function POST(req: Request) {
 
     // 3. Send the email
     const mailOptions = {
-      from: `"Millyfam Team" <${process.env.SMTP_USER}>`, // sender address
+      from: `"MillyFam Team" <${process.env.SMTP_USER}>`, // sender address
       to: process.env.RECIPIENT_EMAIL,                    // your destination email
       subject: "New Contact Form Submission",
       html: `
@@ -81,7 +81,7 @@ export async function POST(req: Request) {
                     <table border="0" cellpadding="0" cellspacing="0" width="100%">
                       <tr>
                         <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" align="center">
-                          &copy; 2023 Millyfam. All rights reserved.
+                          &copy; 2023 MillyFam. All rights reserved.
                         </td>
                       </tr>
                     </table>
@@ -100,7 +100,7 @@ export async function POST(req: Request) {
 
     // 4. Send a confirmation email to the sender
     const confirmationMailOptions = {
-      from: `"Millyfam Contact Us" <${process.env.SMTP_USER}>`, // sender address
+      from: `"MillyFam Contact Us" <${process.env.SMTP_USER}>`, // sender address
       to: email, // sender's email
       subject: "We Received Your Message",
       html: `
@@ -148,7 +148,7 @@ export async function POST(req: Request) {
                       <tr>
                         <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
                           Best regards,<br>
-                          The Millyfam Team
+                          The MillyFam Team
                         </td>
                       </tr>
                     </table>

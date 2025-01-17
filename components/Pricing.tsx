@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import Link from "next/link";
+import DisclaimerDialog from "./DisclaimerDialog";
 
 export default function Pricing() {
   return (
@@ -36,12 +37,16 @@ export default function Pricing() {
               </li>
             ))}
           </ul>
-          <Button
-            className="w-full bg-[#D4AF37]  hover:scale-105 transition-all duration-300  text-black hover:bg-[#C4A030] font-bold py-3 px-6 rounded"
-            asChild
-          >
-            <Link href="https://whop.com/milly-fam/">Subscribe Now</Link>
-          </Button>
+          <div className="space-y-4">
+            <Button
+              className="w-full bg-[#D4AF37] hover:scale-105 transition-all duration-300 text-black hover:bg-[#C4A030] font-bold py-4 md:py-6 px-8 rounded-xl text-[18px] md:text-[22px]"
+              asChild
+            >
+              <Link href="https://whop.com/milly-fam/">Subscribe Now</Link>
+            </Button>
+            
+            <DisclaimerDialog />
+          </div>
         </div>
       </div>
     </section>
