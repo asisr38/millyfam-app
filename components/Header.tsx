@@ -9,6 +9,14 @@ import logo from '@/public/logo/MF-Logo1.png'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen)
+  }
+
+  const handleLinkClick = () => {
+    setIsMenuOpen(false)
+  }
+
   return (
     <header className="w-full py-4 bg-black border-b border-zinc-800 sticky top-0 z-50">
       <div className="container px-4 md:px-6 max-w-6xl mx-auto">
@@ -32,7 +40,7 @@ export default function Header() {
             </Button>
             <button
               className="md:hidden text-white"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              onClick={handleMenuToggle}
               title="Toggle Menu"
             >
               <Menu />
@@ -43,12 +51,12 @@ export default function Header() {
       {isMenuOpen && (
         <div className="md:hidden mt-4 bg-zinc-900">
           <nav className="flex flex-col space-y-2 p-4">
-            <Link href="/about" className="text-[16px] text-zinc-300 hover:text-white">About Us</Link>
-            <Link href="/#pricing" className="text-[16px] text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white">Testimonials</Link>
-            <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white">Team</Link>
-            <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white">FAQ</Link>
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+            <Link href="/about" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>About Us</Link>
+            <Link href="/#pricing" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Pricing</Link>
+            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Testimonials</Link>
+            <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
+            <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]" onClick={handleLinkClick}>
               <Link href="https://whop.com/milly-fam/">Join Now</Link>
             </Button>
           </nav>
