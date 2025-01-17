@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Accordion,
   AccordionContent,
@@ -59,6 +61,14 @@ export default function FAQ() {
     }
   ]
 
+  const handleAccordionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const target = e.currentTarget;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  };
+
   return (
     <section id="faq" className="w-full py-12 md:py-24 lg:py-32 bg-black">
       <div className="container px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
@@ -73,17 +83,11 @@ export default function FAQ() {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="border border-zinc-800 rounded-lg bg-zinc-900/50 px-4"
+                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4"
               >
                 <AccordionTrigger 
                   className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const target = e.currentTarget;
-                    requestAnimationFrame(() => {
-                      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                    });
-                  }}
+                  onClick={handleAccordionClick}
                 >
                   {faq.question}
                 </AccordionTrigger>
