@@ -6,8 +6,10 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { useState } from "react"
 
 export default function FAQ() {
+  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
   const faqs = [
     {
       question: "What is MillyFam?",
@@ -61,11 +63,9 @@ export default function FAQ() {
     }
   ]
 
-  const handleAccordionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const target = e.currentTarget;
-    setTimeout(() => {
-      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
+  const handleAccordionClick = (value: string) => {
+    // Toggle the accordion
+    setOpenItem(openItem === value ? undefined : value);
   };
 
   return (
@@ -77,7 +77,13 @@ export default function FAQ() {
         </div>
 
         <div className="relative">
-          <Accordion type="single" collapsible className="w-full space-y-4">
+          <Accordion 
+            type="single" 
+            collapsible 
+            className="w-full space-y-4"
+            value={openItem}
+            onValueChange={setOpenItem}
+          >
             {faqs.map((faq, index) => (
               <AccordionItem 
                 key={index} 
@@ -86,7 +92,7 @@ export default function FAQ() {
               >
                 <AccordionTrigger 
                   className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline"
-                  onClick={handleAccordionClick}
+                  onClick={() => handleAccordionClick(`item-${index}`)}
                 >
                   {faq.question}
                 </AccordionTrigger>
