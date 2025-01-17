@@ -37,8 +37,8 @@ const teamMembers = [
     name: "Mingo",
     title: "Artist",
     specialty: "Pudgy Penguin Artist",
-    image: "/team/sajan.jpg",
-    social: "https://www.instagram.com/sajanpradhan12/",
+    image: "/team/mingo.jpg",
+    social: "https://www.instagram.com/ming0bling/",
   }
 ];
 

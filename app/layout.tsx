@@ -7,8 +7,8 @@ import Footer from "@/components/Footer"
 const montserrat = Montserrat({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Millyfam - Financial Success Community',
-  description: 'Join Millyfam\'s exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.',
+  title: 'MillyFam - Financial Success Community',
+  description: 'Join MillyFam\'s exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.',
 }
 
 export default function RootLayout({
