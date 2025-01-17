@@ -62,11 +62,10 @@ export default function FAQ() {
   ]
 
   const handleAccordionClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     const target = e.currentTarget;
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    });
+    }, 100);
   };
 
   return (
