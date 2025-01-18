@@ -13,8 +13,17 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen)
   }
 
-  const handleLinkClick = () => {
-    setIsMenuOpen(false)
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const href = e.currentTarget.getAttribute('href')
+    if (href?.startsWith('/#')) {
+      // For same-page navigation links, add a small delay
+      setTimeout(() => {
+        setIsMenuOpen(false)
+      }, 150)
+    } else {
+      // For external links or different pages, close immediately
+      setIsMenuOpen(false)
+    }
   }
 
   return (
@@ -22,21 +31,21 @@ export default function Header() {
       <div className="container px-4 md:px-6 max-w-6xl mx-auto">
         <div className="flex items-center justify-between md:justify-around">
           <div className="flex items-center space-x-2">
-            <Link href="/" className="flex items-center space-x-2">
+            <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
               <Image src={logo} alt="Millyfam" className="w-10 h-10" />
               <span className="text-[32px] md:text-[40px] font-bold text-white">MILLYFAM</span>
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
-            <Link href="/about" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">About Us</Link>
-            <Link href="/#pricing" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Pricing</Link>
-            <Link href="/#winshowcase" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Testimonials</Link>
-            <Link href="/#team" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Team</Link>
-            <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">FAQ</Link>
+            <Link href="/about" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>About Us</Link>
+            <Link href="/#pricing" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Pricing</Link>
+            <Link href="/#winshowcase" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Wins</Link>
+            <Link href="/#team" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
+            <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
           </nav>
           <div className="flex items-center space-x-3">
             <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded hidden sm:block text-[16px] md:text-[18px]">
-              <Link href="https://whop.com/milly-fam/">Join Now</Link>
+              <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
             <button
               className="md:hidden text-white"
@@ -53,11 +62,11 @@ export default function Header() {
           <nav className="flex flex-col space-y-2 p-4">
             <Link href="/about" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>About Us</Link>
             <Link href="/#pricing" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Pricing</Link>
-            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Testimonials</Link>
+            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Wins</Link>
             <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
             <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]" onClick={handleLinkClick}>
-              <Link href="https://whop.com/milly-fam/">Join Now</Link>
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+              <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
           </nav>
         </div>

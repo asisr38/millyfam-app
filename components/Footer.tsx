@@ -10,7 +10,7 @@ export default function Footer() {
             <nav className="flex flex-col space-y-2">
               <Link href="/about" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">About Us</Link>
               <Link href="/#pricing" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Pricing</Link>
-              <Link href="/#winshowcase" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Testimonials</Link>
+              <Link href="/#winshowcase" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Wins</Link>
               <Link href="/#team" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Team</Link>
               <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">FAQ</Link>
               <Link href="/#contact" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white">Contact</Link>
