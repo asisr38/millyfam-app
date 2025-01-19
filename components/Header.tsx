@@ -5,6 +5,7 @@ import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 import logo from '@/public/logo/MF-Logo1.png'
+// import logo from '@/public/logo/MFWHITESOLO.png'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -32,8 +33,8 @@ export default function Header() {
         <div className="flex items-center justify-between md:justify-around">
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
-              <Image src={logo} alt="Millyfam" className="w-10 h-10" />
-              <span className="text-[32px] md:text-[40px] font-bold text-white">MILLYFAM</span>
+              <Image src={logo} alt="MillyFam" className='h-16 w-16' />
+              <span className="text-[32px] md:text-[40px] font-bold text-white ml-0">MillyFam</span>
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
