@@ -28,7 +28,7 @@ export default function Header() {
       const targetElement = document.getElementById(targetId)
       if (targetElement) {
         const isMobile = window.innerWidth < 768
-        const offset = isMobile ? 330 : 100
+        const offset = isMobile ? 330 : 70
         const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - offset
         window.scrollTo({ top: offsetTop, behavior: 'smooth' })
       }

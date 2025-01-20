@@ -4,9 +4,12 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
+import { CheckCircle2, XCircle } from "lucide-react"
 
 export default function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showPopup, setShowPopup] = useState(false)
+  const [popupMessage, setPopupMessage] = useState({ type: '', message: '' })
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -18,7 +21,6 @@ export default function Contact() {
     setIsSubmitting(true)
 
     try {
-      // Make a POST request to your API route
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -31,12 +33,21 @@ export default function Contact() {
         throw new Error(`Request failed with status ${response.status}`)
       }
 
-      // On success, reset the form
       setFormData({ name: "", email: "", message: "" })
-      alert("Message sent successfully!")
+      setPopupMessage({ 
+        type: 'success', 
+        message: 'Message sent successfully! We will get back to you soon.' 
+      })
+      setShowPopup(true)
+      setTimeout(() => setShowPopup(false), 5000) // Hide after 5 seconds
     } catch (error) {
       console.error("Error sending email:", error)
-      alert("Failed to send message. Please try again.")
+      setPopupMessage({ 
+        type: 'error', 
+        message: 'Failed to send message. Please try again.' 
+      })
+      setShowPopup(true)
+      setTimeout(() => setShowPopup(false), 5000)
     } finally {
       setIsSubmitting(false)
     }
@@ -44,6 +55,18 @@ export default function Contact() {
 
   return (
     <section id="contact" className="w-full min-h-[50vh] flex items-center justify-center py-10 bg-zinc-900">
+      {showPopup && (
+        <div className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 flex items-center space-x-2 transition-all duration-300 ${
+          popupMessage.type === 'success' ? 'bg-[#27AE60]/90 text-white' : 'bg-red-500/90 text-white'
+        }`}>
+          {popupMessage.type === 'success' ? (
+            <CheckCircle2 className="h-5 w-5" />
+          ) : (
+            <XCircle className="h-5 w-5" />
+          )}
+          <p className="text-sm font-medium">{popupMessage.message}</p>
+        </div>
+      )}
       <div className="container px-4 md:px-6">
         <div className="mx-auto max-w-[600px] space-y-8">
           <div className="text-center space-y-3">
