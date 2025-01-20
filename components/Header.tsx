@@ -5,7 +5,6 @@ import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 import logo from '@/public/logo/MF-Logo1.png'
-// import logo from '@/public/logo/MFWHITESOLO.png'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -45,7 +44,7 @@ export default function Header() {
             <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
           </nav>
           <div className="flex items-center space-x-3">
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded hidden sm:block text-[16px] md:text-[18px]">
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
               <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
             <button
@@ -66,8 +65,8 @@ export default function Header() {
             <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Testimonials</Link>
             <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
             <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]" onClick={handleLinkClick}>
-              <Link href="https://whop.com/milly-fam/">Join Now</Link>
+            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+              <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
           </nav>
         </div>
