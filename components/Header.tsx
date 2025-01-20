@@ -16,12 +16,26 @@ export default function Header() {
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const href = e.currentTarget.getAttribute('href')
     if (href?.startsWith('/#')) {
-      // For same-page navigation links, add a small delay
+      e.preventDefault()
+      const targetId = href.substring(2)
+      
+      // If we're on the about page, redirect to home first
+      if (window.location.pathname === '/about') {
+        window.location.href = `${href}`
+        return
+      }
+
+      const targetElement = document.getElementById(targetId)
+      if (targetElement) {
+        const isMobile = window.innerWidth < 768
+        const offset = isMobile ? 330 : 100
+        const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - offset
+        window.scrollTo({ top: offsetTop, behavior: 'smooth' })
+      }
       setTimeout(() => {
         setIsMenuOpen(false)
       }, 150)
     } else {
-      // For external links or different pages, close immediately
       setIsMenuOpen(false)
     }
   }
@@ -32,8 +46,8 @@ export default function Header() {
         <div className="flex items-center justify-between md:justify-around">
           <div className="flex items-center space-x-2">
             <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
-              <Image src={logo} alt="MillyFam" className='h-16 w-16' />
-              <span className="text-[32px] md:text-[40px] font-bold text-white ml-0">MillyFam</span>
+              <Image src={logo} alt="MillyFam" className='h-14 w-14' />
+              <span className="text-[32px] md:text-[30px] sm:text-[28px] font-bold text-white ml-0">MillyFam</span>
             </Link>
           </div>
           <nav className="hidden md:flex items-center space-x-6">
@@ -62,7 +76,7 @@ export default function Header() {
           <nav className="flex flex-col space-y-2 p-4">
             <Link href="/about" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>About Us</Link>
             <Link href="/#pricing" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Pricing</Link>
-            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Testimonials</Link>
+            <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Wins</Link>
             <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
             <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
             <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">

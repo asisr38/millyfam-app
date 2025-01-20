@@ -68,11 +68,11 @@ const TeamSection: React.FC = () => {
 
         {isDesktop ? (
           // Desktop Grid View
-          <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto justify-items-center">
+          <div className="hidden sm:grid relative sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 max-w-6xl mx-auto justify-items-center">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className={`flex flex-col items-center p-4 sm:p-6 space-y-2 sm:space-y-3 ${
+                className={`flex flex-col relative items-center p-4 sm:p-6 space-y-2 sm:space-y-3 ${
                   teamMembers.length === 4 && index === 3 ? "col-span-3" : ""
                 }`}
               >
@@ -111,7 +111,7 @@ const TeamSection: React.FC = () => {
         ) : (
           // Mobile Carousel View
           <div className="sm:hidden relative max-w-[300px] mx-auto">
-            <div className="flex flex-col items-center p-4 space-y-3">
+            <div className="flex flex-col items-center p-4 space-y-3 ">
               <div className="w-32 h-32 relative rounded-full overflow-hidden">
                 <a
                   href={teamMembers[currentIndex].social}
@@ -123,6 +123,7 @@ const TeamSection: React.FC = () => {
                     alt={teamMembers[currentIndex].name}
                     fill
                     className="object-cover"
+                    sizes="20vw"
                   />
                 </a>
               </div>
