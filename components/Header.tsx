@@ -5,7 +5,6 @@ import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 import logo from '@/public/logo/MF-Logo1.png'
-// import logo from '@/public/logo/MFWHITESOLO.png'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
