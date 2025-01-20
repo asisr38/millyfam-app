@@ -44,7 +44,7 @@ export default function Header() {
             <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
           </nav>
           <div className="flex items-center space-x-3">
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+            <Button asChild className="hidden md:block bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
               <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
             <button
