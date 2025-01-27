@@ -1,17 +1,18 @@
 'use client'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import { Menu } from 'lucide-react'
+// import { Menu } from 'lucide-react'
 import { useState } from 'react'
 import Image from 'next/image'
 import logo from '@/public/logo/MF-Logo1.png'
+import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+  // const handleMenuToggle = () => {
+  //   setIsMenuOpen(!isMenuOpen)
+  // }
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     const href = e.currentTarget.getAttribute('href')
@@ -57,7 +58,19 @@ export default function Header() {
             <Link href="/#team" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
             <Link href="/#faq" className="text-[16px] md:text-[18px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
           </nav>
-          <div className="flex items-center space-x-3">
+          <div>
+          <SignedOut>
+            <SignInButton>
+              <button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded text-[16px]">
+                Sign In
+              </button>
+            </SignInButton>
+          </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+          </div>
+          {/* <div className="flex items-center space-x-3">
             <Button asChild className="hidden md:block bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
               <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
             </Button>
@@ -68,7 +81,7 @@ export default function Header() {
             >
               <Menu />
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
       {isMenuOpen && (
@@ -79,9 +92,21 @@ export default function Header() {
             <Link href="/#winshowcase" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Wins</Link>
             <Link href="/#team" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>Team</Link>
             <Link href="/#faq" className="text-[16px] text-zinc-300 hover:text-white" onClick={handleLinkClick}>FAQ</Link>
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
+            <div>
+            <SignedOut>
+              <SignInButton>
+                <button className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded text-[16px]">
+                  Sign In
+                </button>
+              </SignInButton>
+            </SignedOut>
+            <SignedIn>
+              <UserButton />
+            </SignedIn>
+            </div>
+            {/* <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded w-full text-[16px]">
               <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>Join Now</Link>
-            </Button>
+            </Button> */}
           </nav>
         </div>
       )}

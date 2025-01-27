@@ -3,6 +3,8 @@ import type { Metadata } from 'next'
 import { Montserrat } from 'next/font/google'
 import Header from "@/components/Header"
 import Footer from "@/components/Footer"
+import { ClerkProvider} from '@clerk/nextjs'
+
 
 const montserrat = Montserrat({ subsets: ['latin'] })
 
@@ -17,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
+    <ClerkProvider>
     <html lang="en">
       <body className={montserrat.className}>
         <Header />
@@ -24,6 +27,7 @@ export default function RootLayout({
         <Footer />
       </body>
     </html>
+    </ClerkProvider>
   )
 }
 
