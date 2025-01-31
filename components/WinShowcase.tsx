@@ -11,12 +11,17 @@ export default function WinShowcase() {
     "/wins/win2.png",
     "/wins/win3.png",
     "/wins/win4.png",
-    "/wins/win5.png",
+    "/wins/win5.jpg",
     "/wins/win6.png",
     "/wins/win8.png",
     "/wins/win9.png",
     "/wins/win10.png",
-    "/wins/win11.png"
+    "/wins/win11.png",
+    "/wins/win12.png",
+    "/wins/win13.png",
+    "/wins/win14.jpg",
+    "/wins/win15.png",
+    "/wins/win16.jpg",
   ];
 
   const nextSlide = () => {
