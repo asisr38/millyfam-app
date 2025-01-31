@@ -79,3 +79,9 @@ body {
   animation: float linear infinite;
 }
 
+@layer utilities {
+  .no-scroll-anchor {
+    overflow-anchor: none;
+  }
+}
+
