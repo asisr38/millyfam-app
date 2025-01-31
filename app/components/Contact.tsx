@@ -54,7 +54,7 @@ export default function Contact() {
   }
 
   return (
-    <section id="contact" className="w-full min-h-[50vh] flex items-center justify-center py-10 bg-zinc-900">
+    <section id="contact" className="w-full min-h-[30vh] flex items-center justify-center py-10 bg-zinc-900">
       {showPopup && (
         <div className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 flex items-center space-x-2 transition-all duration-300 ${
           popupMessage.type === 'success' ? 'bg-[#27AE60]/90 text-white' : 'bg-red-500/90 text-white'
