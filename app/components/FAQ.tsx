@@ -88,6 +88,7 @@ export default function FAQ() {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
+                data-value={`item-${index}`}
                 className="border border-zinc-800 rounded-xl bg-zinc-900 px-4"
               >
                 <AccordionTrigger 
