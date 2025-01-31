@@ -63,11 +63,6 @@ export default function FAQ() {
     }
   ]
 
-  const handleAccordionClick = (value: string) => {
-    // Toggle the accordion
-    setOpenItem(openItem === value ? undefined : value);
-  };
-
   return (
     <section id="faq" className="w-full py-8 md:py-12 lg:py-24 bg-black">
       <div className="container px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
@@ -80,7 +75,7 @@ export default function FAQ() {
           <Accordion 
             type="single" 
             collapsible 
-            className="w-full space-y-4 scroll-lock"
+            className="w-full space-y-4"
             value={openItem}
             onValueChange={setOpenItem}
           >
@@ -88,11 +83,14 @@ export default function FAQ() {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4 no-scroll-anchor"
+                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4"
               >
                 <AccordionTrigger 
-                  className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline"
-                  onClick={() => handleAccordionClick(`item-${index}`)}
+                  className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline [&[data-state=open]]:no-underline"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenItem(openItem === `item-${index}` ? undefined : `item-${index}`);
+                  }}
                 >
                   {faq.question}
                 </AccordionTrigger>
