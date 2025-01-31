@@ -80,7 +80,7 @@ export default function FAQ() {
           <Accordion 
             type="single" 
             collapsible 
-            className="w-full space-y-4"
+            className="w-full space-y-4 scroll-lock"
             value={openItem}
             onValueChange={setOpenItem}
           >
@@ -88,8 +88,7 @@ export default function FAQ() {
               <AccordionItem 
                 key={index} 
                 value={`item-${index}`}
-                data-value={`item-${index}`}
-                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4"
+                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4 no-scroll-anchor"
               >
                 <AccordionTrigger 
                   className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline"

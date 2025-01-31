@@ -82,6 +82,11 @@ body {
 @layer utilities {
   .no-scroll-anchor {
     overflow-anchor: none;
+    scroll-behavior: auto !important;
+  }
+  
+  .scroll-lock {
+    touch-action: manipulation;
   }
 }
 
