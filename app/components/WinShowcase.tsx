@@ -37,7 +37,7 @@ export default function WinShowcase() {
   return (
     <section
       id="winshowcase"
-      className="w-full py-12 md:py-16 lg:py-24 flex items-center justify-center bg-dark"
+      className="w-full py-8 md:py-12 lg:py-26 flex items-center justify-center bg-dark"
     >
       <div className="container px-4 md:px-6 mx-auto">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 md:mb-12 text-light">

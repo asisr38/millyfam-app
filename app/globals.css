@@ -2,14 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #FEAA03;
-  --primary-alt: #FEC602;
-  --accent: #27AE60;
-  --dark: #0F0F0F;
-  --dark-alt: #0D0C0A;
-  --neutral: #37372F;
-  --light: #F5F5F5;
+@layer base {
+  :root {
+    --primary: #FEAA03;
+    --primary-alt: #FEC602;
+    --accent: #27AE60;
+    --dark: #0F0F0F;
+    --dark-alt: #0D0C0A;
+    --neutral: #37372F;
+    --light: #F5F5F5;
+  }
 }
 
 /* Custom gradients */
