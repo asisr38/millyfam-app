@@ -22,7 +22,7 @@ export default function Contact() {
   const { toast } = useToast();
 
   const { trigger, isMutating } = useSWRMutation(
-    "/api/contact",
+    "/api/contact/route",
     sendContactForm
   );
 
