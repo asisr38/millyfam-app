@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
-
-import { CheckCircle2, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,12 +14,12 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useToast } from "@/hooks/use-toast";
 import { sendContactForm } from "@/app/api/contact";
 import { contactFormSchema, type ContactFormValues } from "@/lib/schemas";
 
 export default function Contact() {
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState({ type: "", message: "" });
+  const { toast } = useToast();
 
   const { trigger, isMutating } = useSWRMutation(
     "/api/contact",
@@ -42,19 +39,17 @@ export default function Contact() {
     try {
       await trigger(data);
       form.reset();
-      setPopupMessage({
-        type: "success",
-        message: "Message sent successfully! We will get back to you soon.",
+      toast({
+        title: "Message sent!",
+        description: "We will get back to you soon.",
+        variant: "default",
       });
     } catch (error) {
-      console.error("Error sending email:", error);
-      setPopupMessage({
-        type: "error",
-        message: "Failed to send message. Please try again.",
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
       });
-    } finally {
-      setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 5000);
     }
   };
 
@@ -63,22 +58,6 @@ export default function Contact() {
       id="contact"
       className="w-full min-h-[50vh] flex items-center justify-center py-10 bg-zinc-900"
     >
-      {showPopup && (
-        <div
-          className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 flex items-center space-x-2 transition-all duration-300 ${
-            popupMessage.type === "success"
-              ? "bg-[#27AE60]/90 text-white"
-              : "bg-red-500/90 text-white"
-          }`}
-        >
-          {popupMessage.type === "success" ? (
-            <CheckCircle2 className="h-5 w-5" />
-          ) : (
-            <XCircle className="h-5 w-5" />
-          )}
-          <p className="text-sm font-medium">{popupMessage.message}</p>
-        </div>
-      )}
       <div className="container px-4 md:px-6">
         <div className="mx-auto max-w-[600px] space-y-8">
           <div className="text-center space-y-3">
