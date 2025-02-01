@@ -14,14 +14,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-<<<<<<< HEAD
 import { sendContactForm } from "@/app/api/contact/route";
-=======
-import { useToast } from "@/hooks/use-toast";
-import { sendContactForm } from "@/app/api/contact";
->>>>>>> c0ee450 (chore: move utils back to /lib)
 import { contactFormSchema, type ContactFormValues } from "@/lib/schemas";
-import { toast } from "@/hooks/use-toast";
+import { useToast } from "@/hooks/use-toast";
 
 export default function Contact() {
   const { toast } = useToast();
