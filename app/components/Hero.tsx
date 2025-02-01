@@ -1,5 +1,8 @@
-import { Typewriter } from "@/components/ui/typewriter";
+"use client";
+
+import React from "react";
 import AnimatedBackground from "./AnimatedBackground";
+import { Typewriter } from "@/components/ui/typewriter";
 
 export default function Hero() {
   return (
@@ -8,7 +11,7 @@ export default function Hero() {
       className="relative w-full min-h-[90vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden"
     >
       <AnimatedBackground />
-      <div className="container px-4 md:px- relative z-10">
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center space-y-6 md:space-y-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-[35px] font-bold tracking-tighter sm:text-[40px] md:text-[45px] lg:text-[50px] mb-4">
@@ -20,15 +23,14 @@ export default function Hero() {
                 <Typewriter
                   text={[
                     "build wealth 💰",
-                    "secure the bag 🏦",
+                    "secure the bag 💼",
                     "invest wisely 📈",
-                    "create financial freedom 🚀",
-                    "level up our lives 🔥",
+                    "level up our lives ⭐",
                   ]}
-                  speed={70}
+                  speed={80}
                   className="text-yellow-500"
-                  waitTime={1500}
-                  deleteSpeed={40}
+                  waitTime={2000}
+                  deleteSpeed={50}
                   cursorChar={"_"}
                 />
               </p>
