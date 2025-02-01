@@ -33,7 +33,7 @@ const SocialLinks = () => {
   return (
     <section
       id="socialLinks"
-      className="w-full min-h-[20vh] flex items-center justify-center py-4 md:py-6 lg:py-8 bg-black"
+      className="w-full min-h-[20vh] flex items-center justify-center py-6 md:py-4 lg:py-8 bg-black"
     >
       <div className="container px-4 md:px-6">
         <h2 className="text-2xl font-bold text-center text-white mb-8">

@@ -1,11 +1,11 @@
-import Hero from '@/app/components/Hero'
-import Pricing from '@/app/components/Pricing'
-import FAQ from '@/app/components/FAQ'
-import Contact from '@/app/components/Contact'
-import SocialLinks from '@/app/components/SocialLinks'
-import WinShowcase from '@/app/components/WinShowcase'
-import TeamSection from '@/app/components/TeamSection'
-import CountdownTimer from '@/app/components/CountdownTimer'
+import Hero from "@/components/features/home/Hero";
+import CountdownTimer from "@/components/features/home/CountdownTimer";
+import Pricing from "@/components/features/home/Pricing";
+import FAQ from "@/components/features/home/FAQ";
+import Contact from "@/components/features/home/Contact";
+import SocialLinks from "@/components/features/home/SocialLinks";
+import WinShowcase from "@/components/features/home/WinShowcase";
+import TeamSection from "@/components/features/home/TeamSection";
 
 export default function Home() {
   return (
@@ -15,12 +15,11 @@ export default function Home() {
         <CountdownTimer />
         <Pricing />
         <WinShowcase />
-        <TeamSection /> 
+        <TeamSection />
         <FAQ />
         <Contact />
         <SocialLinks />
       </main>
     </div>
-  )
+  );
 }
-

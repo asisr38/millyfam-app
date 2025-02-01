@@ -1,15 +1,19 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Header from "@/app/components/Header";
-import Footer from "@/app/components/Footer";
-import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import Header from "@/components/layout/Header";
+import ErrorBoundary from "@/components/layout/ErrorBoundary";
+import Footer from "@/components/layout/Footer";
+import { Toaster } from "@/components/ui/toaster";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MillyFam - Financial Success Community",
+  metadataBase: new URL("https://millyfam.com"), // Add this
+  title: {
+    template: "%s | MillyFam",
+    default: "MillyFam - Financial Success Community",
+  },
   description:
     "Join MillyFam's exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.",
 };
@@ -22,11 +26,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={montserrat.className}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
+        <ErrorBoundary>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <Toaster />
+        </ErrorBoundary>
       </body>
     </html>
   );
