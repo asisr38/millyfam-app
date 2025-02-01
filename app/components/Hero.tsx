@@ -5,7 +5,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[80vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden"
+      className="relative w-full min-h-[90vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden"
     >
       <AnimatedBackground />
       <div className="container px-4 md:px- relative z-10">
