@@ -75,10 +75,10 @@ const TeamSection2: React.FC = () => {
         {isDesktop ? (
           // Desktop Grid View
           <div className="flex justify-center items-center w-full">
-            <div className={`${isDesktop ? 'scale-[2]' : ''} transition-transform duration-300 py-20`}>
+            <div className={`${isDesktop ? 'scale-[2.3]' : ''} transition-transform duration-300 py-20`}>
               <AnimatedTooltip 
                 items={teamMembers} 
-                className="flex-wrap justify-center gap-8 md:gap-6" 
+                className="flex-wrap justify-center gap-10 md:gap-8" 
               />
             </div>
           </div>
