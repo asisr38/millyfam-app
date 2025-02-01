@@ -12,7 +12,11 @@ import {
   useFormContext,
 } from "react-hook-form";
 
+<<<<<<< HEAD
 import { cn } from "@/lib/utils";
+=======
+import { cn } from "@/app/api/contact/utils";
+>>>>>>> 2ac8f33 (chore: add zod, use form standards, separate code a little more)
 import { Label } from "@/components/ui/label";
 
 const Form = FormProvider;

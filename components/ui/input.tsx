@@ -1,6 +1,10 @@
 import * as React from "react";
 
+<<<<<<< HEAD
 import { cn } from "@/lib/utils";
+=======
+import { cn } from "@/app/api/contact/utils";
+>>>>>>> 2ac8f33 (chore: add zod, use form standards, separate code a little more)
 
 const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<"input">>(
   ({ className, type, ...props }, ref) => {

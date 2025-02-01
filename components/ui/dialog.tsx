@@ -2,7 +2,11 @@ import * as React from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
+<<<<<<< HEAD
 import { cn } from "@/lib/utils";
+=======
+import { cn } from "@/app/api/contact/utils";
+>>>>>>> 2ac8f33 (chore: add zod, use form standards, separate code a little more)
 
 const Dialog = DialogPrimitive.Root;
 

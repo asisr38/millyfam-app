@@ -1,8 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import useSWRMutation from "swr/mutation";
+
+import { CheckCircle2, XCircle } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -14,12 +17,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
-import { sendContactForm } from "@/app/api/contact";
+import { sendContactForm } from "@/app/api/contact/route";
 import { contactFormSchema, type ContactFormValues } from "@/lib/schemas";
+import { toast } from "@/hooks/use-toast";
 
 export default function Contact() {
-  const { toast } = useToast();
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState({ type: "", message: "" });
 
   const { trigger, isMutating } = useSWRMutation(
     "/api/contact",
@@ -58,6 +62,22 @@ export default function Contact() {
       id="contact"
       className="w-full min-h-[50vh] flex items-center justify-center py-10 bg-zinc-900"
     >
+      {showPopup && (
+        <div
+          className={`fixed top-4 right-4 p-4 rounded-lg shadow-lg z-50 flex items-center space-x-2 transition-all duration-300 ${
+            popupMessage.type === "success"
+              ? "bg-[#27AE60]/90 text-white"
+              : "bg-red-500/90 text-white"
+          }`}
+        >
+          {popupMessage.type === "success" ? (
+            <CheckCircle2 className="h-5 w-5" />
+          ) : (
+            <XCircle className="h-5 w-5" />
+          )}
+          <p className="text-sm font-medium">{popupMessage.message}</p>
+        </div>
+      )}
       <div className="container px-4 md:px-6">
         <div className="mx-auto max-w-[600px] space-y-8">
           <div className="text-center space-y-3">
