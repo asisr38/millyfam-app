@@ -22,6 +22,7 @@ export default function WinShowcase() {
     "/wins/win14.jpg",
     "/wins/win15.png",
     "/wins/win16.jpg",
+    "/wins/win17.png",
   ];
 
   const nextSlide = () => {
