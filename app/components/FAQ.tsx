@@ -70,6 +70,8 @@ export default function FAQ() {
         <div className="relative">
           <Accordions 
             type="single"
+            collapsible
+            defaultValue=""
             className="bg-transparent divide-y-0 border-none space-y-4"
           >
             {faqs.map((faq, index) => (
