@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useEffect, useLayoutEffect, useMemo, useState } from "react"
+import { memo, useEffect, useLayoutEffect, useMemo, useState, useRef } from "react"
 import {
   AnimatePresence,
   motion,
@@ -181,6 +181,7 @@ function ThreeDPhotoCarousel() {
   const [isCarouselActive, setIsCarouselActive] = useState(true)
   const controls = useAnimation()
   const cards = useMemo(() => winImages, [])
+  const imageContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -189,12 +190,28 @@ function ThreeDPhotoCarousel() {
       }
     }
 
+    const handleClickOutside = (e: MouseEvent) => {
+      if (imageContainerRef.current && !imageContainerRef.current.contains(e.target as Node)) {
+        handleClose()
+      }
+    }
+
+    const handleTouchOutside = (e: TouchEvent) => {
+      if (imageContainerRef.current && !imageContainerRef.current.contains(e.target as Node)) {
+        handleClose()
+      }
+    }
+
     if (activeImg) {
       document.addEventListener("keydown", handleKeyDown)
+      document.addEventListener("mousedown", handleClickOutside)
+      document.addEventListener("touchstart", handleTouchOutside)
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("touchstart", handleTouchOutside)
     }
   }, [activeImg])
 
@@ -227,7 +244,7 @@ function ThreeDPhotoCarousel() {
             layoutId={`img-container-${activeImg}`}
             layout="position"
             onClick={handleClose}
-            className="fixed inset-0 bg-black/80 flex items-center justify-center z-50 m-2 md:m-36 lg:mx-[19rem] rounded-3xl backdrop-blur-sm"
+            className="fixed inset-0 bg-black/80 flex flex-col items-center justify-center z-50 m-2 md:m-36 lg:mx-[19rem] rounded-3xl backdrop-blur-sm touch-none"
             style={{ willChange: "opacity" }}
             transition={transitionOverlay}
             drag="x"
@@ -236,47 +253,63 @@ function ThreeDPhotoCarousel() {
               const swipe = offset.x + velocity.x * 50
               if (Math.abs(swipe) > 100) {
                 if (swipe > 0) {
-                  handleSwipe(-1) // Swipe right, go to previous
+                  handleSwipe(-1)
                 } else {
-                  handleSwipe(1) // Swipe left, go to next
+                  handleSwipe(1)
                 }
               }
             }}
           >
-            <motion.img
-              layoutId={`img-${activeImg}`}
-              src={activeImg}
-              className="w-full h-full md:max-w-[90%] md:max-h-[90%] rounded-lg shadow-lg object-contain p-4"
-              initial={{ scale: 1 }}
-              animate={{ scale: 1 }}
-              transition={{
-                delay: 0.5,
-                duration: 0.5,
-                ease: [0.25, 0.1, 0.25, 1],
-              }}
-              style={{
-                willChange: "transform",
-              }}
-            />
-            <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleSwipe(-1)
+            <button
+              onClick={handleClose}
+              className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white z-50 p-2 text-xl"
+            >
+              ✕
+            </button>
+            <div className="text-white/50 text-sm mb-4">Tap outside to close</div>
+            <div 
+              ref={imageContainerRef} 
+              className="relative flex items-center justify-center w-full h-full max-w-[95%] max-h-[90%]"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.img
+                layoutId={`img-${activeImg}`}
+                src={activeImg}
+                className="w-full h-full rounded-lg shadow-lg object-contain p-4"
+                initial={{ scale: 1 }}
+                animate={{ scale: 1 }}
+                transition={{
+                  delay: 0.5,
+                  duration: 0.5,
+                  ease: [0.25, 0.1, 0.25, 1],
                 }}
-                className="bg-white/20 hover:bg-white/30 rounded-full p-2"
-              >
-                ←
-              </button>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  handleSwipe(1)
+                style={{
+                  willChange: "transform",
                 }}
-                className="bg-white/20 hover:bg-white/30 rounded-full p-2"
+              />
+              <div 
+                className="absolute bottom-4 left-0 right-0 flex justify-center gap-2"
+                onClick={(e) => e.stopPropagation()}
               >
-                →
-              </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleSwipe(-1)
+                  }}
+                  className="bg-white/20 hover:bg-white/30 rounded-full p-2"
+                >
+                  ←
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    handleSwipe(1)
+                  }}
+                  className="bg-white/20 hover:bg-white/30 rounded-full p-2"
+                >
+                  →
+                </button>
+              </div>
             </div>
           </motion.div>
         )}
