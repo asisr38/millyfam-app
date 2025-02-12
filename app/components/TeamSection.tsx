@@ -146,7 +146,7 @@ const TeamSection = () => {
 
         {isDesktop ? (
           <div className="flex justify-center items-center w-full">
-            <div className={`${isDesktop ? 'scale-[2]' : ''} transition-transform duration-300 py-20`}>
+            <div className={`${isDesktop ? 'scale-[2.3]' : ''} transition-transform duration-300 py-20`}>
               <AnimatedTooltip 
                 items={TEAM_MEMBERS} 
                 className="flex-wrap justify-center gap-8 md:gap-6" 
