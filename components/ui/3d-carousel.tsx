@@ -171,9 +171,14 @@ export function ThreeDPhotoCarousel() {
   const [activeImg, setActiveImg] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
   const [isCarouselActive, setIsCarouselActive] = useState(true);
+  const [isMounted, setIsMounted] = useState(false);
   const controls = useAnimation();
   const cards = useMemo(() => WIN_IMAGES, []);
   const imageContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleClick = useCallback((imgUrl: string, index: number) => {
     setActiveImg(imgUrl);
@@ -222,6 +227,10 @@ export function ThreeDPhotoCarousel() {
       document.removeEventListener("touchstart", handleTouchOutside);
     };
   }, [activeImg, handleClose]);
+
+  if (!isMounted) {
+    return <div className="h-[300px] md:h-[400px] lg:h-[500px]" />;
+  }
 
   return (
     <motion.div layout className="relative">
