@@ -1,15 +1,8 @@
 "use client"
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import { useState } from "react"
+import { Accordions, Accordion } from "@/components/ui/accordion"
 
 export default function FAQ() {
-  const [openItem, setOpenItem] = useState<string | undefined>(undefined);
   const faqs = [
     {
       question: "What is MillyFam?",
@@ -72,34 +65,21 @@ export default function FAQ() {
         </div>
 
         <div className="relative">
-          <Accordion 
-            type="single" 
-            collapsible 
-            className="w-full space-y-4"
-            value={openItem}
-            onValueChange={setOpenItem}
+          <Accordions 
+            type="single"
+            className="bg-transparent divide-y-0 border-none space-y-4"
           >
             {faqs.map((faq, index) => (
-              <AccordionItem 
-                key={index} 
-                value={`item-${index}`}
-                className="border border-zinc-800 rounded-xl bg-zinc-900 px-4"
+              <Accordion
+                key={index}
+                id={`faq-${index}`}
+                title={faq.question}
+                className="bg-zinc-900/50 border border-zinc-800 hover:bg-zinc-900/70 transition-colors duration-200 rounded-xl overflow-hidden shadow-[0_0_1px_rgba(255,255,255,0.1)]"
               >
-                <AccordionTrigger 
-                  className="text-lg md:text-xl text-white hover:text-[#D4AF37] hover:no-underline [&[data-state=open]]:no-underline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenItem(openItem === `item-${index}` ? undefined : `item-${index}`);
-                  }}
-                >
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-zinc-300 whitespace-pre-line text-base md:text-lg">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                {faq.answer}
+              </Accordion>
             ))}
-          </Accordion>
+          </Accordions>
         </div>
       </div>
     </section>

@@ -4,42 +4,67 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { CheckCircle2, XCircle } from "lucide-react"
+import { CheckCircle2, XCircle, Mail, User, MessageSquare } from "lucide-react"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form"
+
+const formSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  message: z.string().min(10, {
+    message: "Message must be at least 10 characters.",
+  }),
+})
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [showPopup, setShowPopup] = useState(false)
   const [popupMessage, setPopupMessage] = useState({ type: '', message: '' })
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      message: "",
+    },
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+  const { isSubmitting } = form.formState
 
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(values),
       })
 
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`)
       }
 
-      setFormData({ name: "", email: "", message: "" })
+      form.reset()
       setPopupMessage({ 
         type: 'success', 
         message: 'Message sent successfully! We will get back to you soon.' 
       })
       setShowPopup(true)
-      setTimeout(() => setShowPopup(false), 5000) // Hide after 5 seconds
+      setTimeout(() => setShowPopup(false), 5000)
     } catch (error) {
       console.error("Error sending email:", error)
       setPopupMessage({ 
@@ -48,8 +73,6 @@ export default function Contact() {
       })
       setShowPopup(true)
       setTimeout(() => setShowPopup(false), 5000)
-    } finally {
-      setIsSubmitting(false)
     }
   }
 
@@ -77,40 +100,87 @@ export default function Contact() {
               Have questions? Reach out to us!
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
-            <Input
-              className="w-full text-sm md:text-base rounded-xl bg-zinc-800/50 border-zinc-700 focus:border-primary"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              required
-              disabled={isSubmitting}
-            />
-            <Input
-              className="w-full text-sm md:text-base rounded-xl bg-zinc-800/50 border-zinc-700 focus:border-primary"
-              type="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              required
-              disabled={isSubmitting}
-            />
-            <Textarea
-              className="w-full text-sm md:text-base min-h-[120px] rounded-xl bg-zinc-800/50 border-zinc-700 focus:border-primary"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-              required
-              disabled={isSubmitting}
-            />
-            <Button
-              type="submit"
-              className="w-full gradient-primary text-black font-bold py-3 px-4 rounded-xl text-sm md:text-base"
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? "Sending..." : "Send Message"}
-            </Button>
-          </form>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
+              <div className="relative group">
+                <FormField
+                  control={form.control}
+                  name="name"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="sr-only">Name</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            placeholder="Your Name"
+                            className="w-full text-sm md:text-base rounded-xl bg-zinc-800/50 border-zinc-700 pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                          <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-primary transition-colors duration-200" />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs mt-1" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="relative group">
+                <FormField
+                  control={form.control}
+                  name="email"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="sr-only">Email</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Input
+                            type="email"
+                            placeholder="Your Email"
+                            className="w-full text-sm md:text-base rounded-xl bg-zinc-800/50 border-zinc-700 pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400 group-focus-within:text-primary transition-colors duration-200" />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs mt-1" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <div className="relative group">
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="sr-only">Message</FormLabel>
+                      <FormControl>
+                        <div className="relative">
+                          <Textarea
+                            placeholder="Your Message"
+                            className="w-full text-sm md:text-base min-h-[120px] rounded-xl bg-zinc-800/50 border-zinc-700 pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
+                            disabled={isSubmitting}
+                            {...field}
+                          />
+                          <MessageSquare className="absolute left-3 top-4 h-4 w-4 text-zinc-400 group-focus-within:text-primary transition-colors duration-200" />
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-xs mt-1" />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              <Button
+                type="submit"
+                className="w-full gradient-primary text-black font-bold py-3 px-4 rounded-xl text-sm md:text-base hover:scale-[1.02] transition-all duration-200 shadow-lg shadow-primary/20"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Sending..." : "Send Message"}
+              </Button>
+            </form>
+          </Form>
         </div>
       </div>
     </section>
