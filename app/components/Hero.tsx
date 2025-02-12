@@ -1,34 +1,43 @@
 "use client"
 
+import { useMemo } from "react";
 import { Typewriter } from "@/components/ui/typewriter";
 import { IconCloud } from "@/components/ui/interactive-icon-cloud";
 
-const financeIcons = [
-  "bitcoin",
-  "ethereum",
-  "binance",
-  "coinbase",
-  "mastercard",
-  "visa",
-  "paypal",
-  "stripe",
-  "cashapp",
-  "venmo",
-  "chase",
-  "americanexpress",
-  "robinhood",
-  "xrp",
-  "litecoin",
-  "dogecoin",
-  "monero",
-  "tether",
-  "discord", // for community aspect
-  "tradingview", // for trading
-  "notion", // for resources
-  "trello", // for organization
+const TYPEWRITER_TEXTS = [
+  "build wealth 💰",
+  "secure the bag 🏦",
+  "invest wisely 📈",
+  "create financial freedom 🚀",
+  "level up our lives 🔥",
 ];
 
 export default function Hero() {
+  const financeIcons = useMemo(() => [
+    "bitcoin",
+    "ethereum",
+    "binance",
+    "coinbase",
+    "mastercard",
+    "visa",
+    "paypal",
+    "stripe",
+    "cashapp",
+    "venmo",
+    "chase",
+    "americanexpress",
+    "robinhood",
+    "xrp",
+    "litecoin",
+    "dogecoin",
+    "monero",
+    "tether",
+    "discord",
+    "tradingview",
+    "notion",
+    "trello",
+  ], []);
+
   return (
     <section
       id="hero"
@@ -53,13 +62,7 @@ export default function Hero() {
               <p className="whitespace-pre-wrap">
                 <span>{"We're here to "}</span>
                 <Typewriter
-                  text={[
-                    "build wealth 💰",
-                    "secure the bag 🏦",
-                    "invest wisely 📈",
-                    "create financial freedom 🚀",
-                    "level up our lives 🔥",
-                  ]}
+                  text={TYPEWRITER_TEXTS}
                   speed={70}
                   className="text-yellow-500"
                   waitTime={1500}

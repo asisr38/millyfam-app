@@ -6,12 +6,18 @@ import Footer from "@/app/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 
-const montserrat = Montserrat({ subsets: ["latin"] });
+const montserrat = Montserrat({ 
+  subsets: ["latin"],
+  display: 'swap', // Optimize font loading
+  preload: true,
+});
 
 export const metadata: Metadata = {
   title: "MillyFam - Financial Success Community",
   description:
     "Join MillyFam's exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.",
+  viewport: "width=device-width, initial-scale=1",
+  themeColor: "#000000",
 };
 
 export default function RootLayout({
@@ -21,9 +27,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={montserrat.className}>
+      <body className={`${montserrat.className} antialiased`}>
         <Header />
-        <main>{children}</main>
+        <main className="flex-1">{children}</main>
         <Footer />
         <Analytics />
         <SpeedInsights />
