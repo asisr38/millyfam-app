@@ -4,15 +4,13 @@ import * as AccordionPrimitive from '@radix-ui/react-accordion';
 import { Check, ChevronRight, LinkIcon } from 'lucide-react';
 import { forwardRef, type ComponentPropsWithoutRef, useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
-import { buttonVariants } from '@/components/ui/button';
 
 export const Accordions = forwardRef<
   HTMLDivElement,
-  | Omit<AccordionPrimitive.AccordionSingleProps, 'value' | 'onValueChange'>
-  | Omit<AccordionPrimitive.AccordionMultipleProps, 'value' | 'onValueChange'>
+  AccordionPrimitive.AccordionSingleProps | AccordionPrimitive.AccordionMultipleProps
 >(({ type = 'single', className, defaultValue, ...props }, ref) => {
   const [value, setValue] = useState<string | string[]>(
-    type === 'single' ? (defaultValue ?? '') : (defaultValue ?? [])
+    type === 'single' ? (defaultValue as string ?? '') : (defaultValue as string[] ?? [])
   );
 
   useEffect(() => {
@@ -22,18 +20,32 @@ export const Accordions = forwardRef<
     }
   }, []);
 
+  if (type === 'single') {
+    return (
+      <AccordionPrimitive.Root
+        ref={ref}
+        value={value as string}
+        onValueChange={(v: string) => setValue(v)}
+        collapsible
+        className={cn(
+          'divide-y divide-border overflow-hidden rounded-lg border bg-card',
+          className
+        )}
+        {...(props as AccordionPrimitive.AccordionSingleProps)}
+      />
+    );
+  }
+
   return (
     <AccordionPrimitive.Root
-      type={type}
       ref={ref}
-      value={value}
-      onValueChange={setValue}
-      collapsible={type === 'single' ? true : undefined}
+      value={value as string[]}
+      onValueChange={(v: string[]) => setValue(v)}
       className={cn(
         'divide-y divide-border overflow-hidden rounded-lg border bg-card',
         className
       )}
-      {...props}
+      {...(props as AccordionPrimitive.AccordionMultipleProps)}
     />
   );
 });

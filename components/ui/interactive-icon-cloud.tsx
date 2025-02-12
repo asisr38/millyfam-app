@@ -33,7 +33,6 @@ export const cloudProps: Omit<ICloud, "children"> = {
     outlineColour: "#0000",
     maxSpeed: 0.04,
     minSpeed: 0.02,
-    // dragControl: false,
   },
 }
 
@@ -52,37 +51,49 @@ export const renderCustomIcon = (icon: SimpleIcon, theme: string) => {
       href: undefined,
       target: undefined,
       rel: undefined,
-      onClick: (e: any) => e.preventDefault(),
+      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault(),
     },
   })
 }
 
-export type DynamicCloudProps = {
+export type IconCloudProps = {
   iconSlugs: string[]
 }
 
-type IconData = Awaited<ReturnType<typeof fetchSimpleIcons>>
-
-export function IconCloud({ iconSlugs }: DynamicCloudProps) {
-  const [data, setData] = useState<IconData | null>(null)
-  const { theme } = useTheme()
+export function IconCloud({ iconSlugs }: IconCloudProps) {
+  const { theme = "dark" } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const [icons, setIcons] = useState<SimpleIcon[]>([])
 
   useEffect(() => {
-    fetchSimpleIcons({ slugs: iconSlugs }).then(setData)
-  }, [iconSlugs])
+    setMounted(true)
+  }, [])
 
-  const renderedIcons = useMemo(() => {
-    if (!data) return null
+  useEffect(() => {
+    const loadIcons = async () => {
+      try {
+        const result = await fetchSimpleIcons({ slugs: iconSlugs })
+        setIcons(Object.values(result.simpleIcons))
+      } catch (error) {
+        console.error("Failed to load icons:", error)
+      }
+    }
 
-    return Object.values(data.simpleIcons).map((icon) =>
-      renderCustomIcon(icon, theme || "light"),
-    )
-  }, [data, theme])
+    if (mounted) {
+      loadIcons()
+    }
+  }, [iconSlugs, mounted])
+
+  const renderedIcons = useMemo(
+    () => icons.map((icon) => renderCustomIcon(icon, theme)),
+    [icons, theme]
+  )
+
+  if (!mounted) return null
 
   return (
-    // @ts-ignore
     <Cloud {...cloudProps}>
-      <>{renderedIcons}</>
+      {renderedIcons}
     </Cloud>
   )
 }
