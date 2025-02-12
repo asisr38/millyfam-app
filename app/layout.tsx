@@ -1,5 +1,5 @@
 import "./globals.css";
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
 import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
@@ -16,7 +16,11 @@ export const metadata: Metadata = {
   title: "MillyFam - Financial Success Community",
   description:
     "Join MillyFam's exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.",
-  viewport: "width=device-width, initial-scale=1",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
   themeColor: "#000000",
 };
 
