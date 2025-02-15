@@ -80,7 +80,7 @@ export default {
   		},
   		backgroundImage: {
   			'grid-pattern': '',
-  			'grid-pattern-light':'' 
+  			'grid-pattern-light': ''
   		}
   	}
   }
