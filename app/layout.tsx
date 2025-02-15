@@ -9,9 +9,37 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MillyFam - Financial Success Community",
+  title: "MillyFam - Exclusive Wealth Building Community",
   description:
-    "Join MillyFam's exclusive Discord community for crypto plays, sports betting tips, stock insights, and more.",
+    "Join MillyFam for exclusive access to wealth-building strategies, sports betting insights, and a tight-knit community focused on financial success.",
+  openGraph: {
+    title: "MillyFam - Exclusive Wealth Building Community",
+    description: "Join MillyFam for exclusive access to wealth-building strategies and a tight-knit community focused on financial success.",
+    url: "https://millyfam.com",
+    siteName: "MillyFam",
+    images: [
+      {
+        url: "/logo/Logo-2.png",
+        width: 1200,
+        height: 1200,
+        alt: "MillyFam Logo",
+      }
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "MillyFam",
+    description: "Join MillyFam for exclusive access to wealth-building strategies and a tight-knit community focused on financial success.",
+    images: ["/logo/Logo-2.png"],
+    creator: "@MillyFam7"
+  },
+  icons: {
+    icon: "/logo/Logo-2.png",
+    shortcut: "/logo/Logo-2.png",
+    apple: "/logo/Logo-2.png",
+  }
 };
 
 export default function RootLayout({
