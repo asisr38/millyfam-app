@@ -60,11 +60,11 @@ export default function FAQ() {
   const faqs = useMemo(() => FAQ_DATA, []);
 
   return (
-    <section id="faq" className="w-full py-8 md:py-12 lg:py-24 bg-black">
+    <section id="faq" className="w-full py-8 md:py-12 lg:py-24">
       <div className="container px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">Frequently Asked Questions</h2>
-          <p className="text-lg md:text-xl text-zinc-300">Find answers to common questions about MillyFam</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">Frequently Asked Questions</h2>
+          <p className="text-lg md:text-xl text-muted-foreground">Find answers to common questions about MillyFam</p>
         </div>
 
         <div className="relative">
@@ -79,7 +79,11 @@ export default function FAQ() {
                 key={`faq-${index}`}
                 id={`faq-${index}`}
                 title={faq.question}
-                className="bg-zinc-900/50 border border-zinc-800 hover:bg-zinc-900/70 transition-colors duration-200 rounded-xl overflow-hidden shadow-[0_0_1px_rgba(255,255,255,0.1)]"
+                className={`${
+                  index % 2 === 0 
+                    ? "bg-muted/50 dark:bg-muted/10" 
+                    : "bg-background border-border"
+                } border hover:bg-muted/70 dark:hover:bg-muted/20 transition-colors duration-200 rounded-xl overflow-hidden shadow-[0_0_1px_rgba(255,255,255,0.1)]`}
               >
                 {faq.answer}
               </Accordion>

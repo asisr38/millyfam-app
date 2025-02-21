@@ -27,7 +27,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 2,
     name: "Taran",
-    designation: "Chief Financial Officer",
+    designation: "Operations Manager",
     specialty: "Financial Planning",
     image: "/team/taran.jpg",
     social: "https://www.instagram.com/taran_23/",
@@ -137,7 +137,7 @@ const TeamSection = () => {
   return (
     <section
       id="team"
-      className="w-full flex items-center justify-center py-4 sm:py-10 md:py-12 lg:py-16 bg-zinc-900"
+      className="w-full flex items-center justify-center py-4 sm:py-10 md:py-12 lg:py-16"
     >
       <div className="container px-4 md:px-6">
         <h2 className="text-[28px] md:text-[35px] lg:text-[40px] font-bold text-center mb-6 sm:mb-6 md:mb-12 text-light">

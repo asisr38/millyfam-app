@@ -5,6 +5,7 @@ import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const montserrat = Montserrat({ 
   subsets: ["latin"],
@@ -13,6 +14,7 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://millyfam.com'),
   title: "MillyFam - Exclusive Wealth Building Community",
   description:
     "Join MillyFam for exclusive access to wealth-building strategies, sports betting insights, and a tight-knit community focused on financial success.",
@@ -58,13 +60,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <Analytics />
-        <SpeedInsights />
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`${montserrat.className} antialiased w-full overflow-x-hidden`} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <Header />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
+          <Analytics />
+          <SpeedInsights />
+        </ThemeProvider>
       </body>
     </html>
   );

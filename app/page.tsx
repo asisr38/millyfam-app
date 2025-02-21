@@ -8,15 +8,29 @@ import TeamSection from '@/app/components/TeamSection'
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col bg-black text-white">
-      <main>
-        <Hero />
-        <Pricing />
-        <WinShowcase />
-        <TeamSection /> 
-        <FAQ />
-        <Contact />
-        <SocialLinks />
+    <div className="flex min-h-screen flex-col bg-background text-foreground w-full">
+      <main className="w-full">
+        <div className="bg-background w-full">
+          <Hero />
+        </div>
+        <div className="bg-muted/40 dark:bg-muted/20 w-full">
+          <Pricing />
+        </div>
+        <div className="bg-background w-full">
+          <WinShowcase />
+        </div>
+        <div className="bg-muted/30 dark:bg-muted/10 w-full">
+          <TeamSection />
+        </div>
+        <div className="bg-background w-full">
+          <FAQ />
+        </div>
+        <div className="bg-muted/30 dark:bg-muted/10 w-full">
+          <Contact />
+        </div>
+        <div className="bg-background w-full">
+          <SocialLinks />
+        </div>
       </main>
     </div>
   )

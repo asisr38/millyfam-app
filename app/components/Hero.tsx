@@ -33,9 +33,7 @@ const FINANCE_ICONS = [
   "tether",
   "discord",
   "tradingview",
-  "notion",
-  "trello",
-];
+ ];
 
 export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
@@ -48,7 +46,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden"
+      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 text-foreground"
     >
       {/* Icon Cloud Background */}
       {isMounted && (
@@ -61,13 +59,13 @@ export default function Hero() {
         </div>
       )}
 
-      <div className="container px-4 md:px-6 relative z-10">
+      <div className="container px-2 sm:px-4 md:px-6 relative z-10">
         <div className="flex flex-col items-center space-y-6 md:space-y-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-[35px] font-bold tracking-tighter sm:text-[40px] md:text-[45px] lg:text-[50px] mb-4">
               Join the <span className="text-[#27AE60]">MILLYFAM</span>
             </h1>
-            <div className="w-full h-full md:text-4xl lg:text-5xl sm:text-3xl text-2xl flex flex-row items-start justify-start bg-background font-normal overflow-hidden p-4 pt-2">
+            <div className="w-full h-full md:text-4xl lg:text-5xl sm:text-3xl text-2xl flex flex-row items-start justify-start bg-background font-normal p-4 pt-2">
               <p className="whitespace-pre-wrap">
                 <span>{"We're here to "}</span>
                 {isMounted && (
@@ -82,7 +80,7 @@ export default function Hero() {
                 )}
               </p>
             </div>
-            <p className="mx-auto max-w-[700px] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] text-zinc-200">
+            <p className="mx-auto max-w-[700px] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] text-muted-foreground">
               Exclusive access to a tight-knit community focused on
               wealth-building, ongoing content, and networking with like-minded
               individuals.
