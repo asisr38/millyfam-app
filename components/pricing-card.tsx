@@ -4,7 +4,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/ca
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, AlertCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 interface PricingFeature {
@@ -20,6 +20,7 @@ interface PricingCardProps {
   features: PricingFeature[];
   buttonText?: string;
   onButtonClick?: () => void;
+  disclaimer?: React.ReactNode;
 }
 
 export function PricingCard({
@@ -30,6 +31,7 @@ export function PricingCard({
   features,
   buttonText = "Get Started",
   onButtonClick,
+  disclaimer
 }: PricingCardProps) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
@@ -111,7 +113,7 @@ export function PricingCard({
                   )}
                 </div>
                 <span className="block text-sm text-muted-foreground">
-                  one-time payment
+                  per month
                 </span>
               </motion.div>
             </div>
@@ -120,6 +122,17 @@ export function PricingCard({
                 {buttonText}
               </Button>
             </motion.div>
+            {disclaimer && (
+              <motion.div 
+                className="mt-4 flex items-center justify-center gap-2 text-center"
+                variants={itemVariants}
+              >
+                <AlertCircle className="w-4 h-4 text-muted-foreground flex-shrink-0" />
+                <div className="text-sm text-muted-foreground">
+                  {disclaimer}
+                </div>
+              </motion.div>
+            )}
           </motion.div>
           <Separator className="lg:my-6 lg:hidden" />
           <motion.div

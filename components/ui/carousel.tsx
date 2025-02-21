@@ -109,7 +109,6 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
               sizes="(max-width: 768px) 90vw, 70vmin"
               priority={priority || index === current}
               quality={85}
-              loading={priority ? "eager" : "lazy"}
               onLoad={imageLoaded}
             />
           </div>
@@ -150,6 +149,8 @@ interface CarouselProps {
 export function Carousel({ slides }: CarouselProps) {
   const [current, setCurrent] = useState(0);
   const [modalImage, setModalImage] = useState<string | null>(null);
+  const [isPaused, setIsPaused] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   const handlePreviousClick = () => {
     const previous = current - 1;
@@ -175,6 +176,25 @@ export function Carousel({ slides }: CarouselProps) {
     setModalImage(null);
   };
 
+  // Auto-scroll functionality
+  useEffect(() => {
+    const startInterval = () => {
+      intervalRef.current = setInterval(() => {
+        if (!isPaused) {
+          handleNextClick();
+        }
+      }, 5000); // Change slide every 5 seconds
+    };
+
+    startInterval();
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, [current, isPaused]);
+
   const id = useId();
 
   return (
@@ -182,6 +202,8 @@ export function Carousel({ slides }: CarouselProps) {
       <div
         className="relative w-[70vmin] h-[70vmin] mx-auto"
         aria-labelledby={`carousel-heading-${id}`}
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
       >
         <ul
           className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
