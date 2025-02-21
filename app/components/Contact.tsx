@@ -78,7 +78,7 @@ const FormFieldWithIcon = memo(({
               {isTextArea ? (
                 <Textarea
                   placeholder={placeholder}
-                  className="w-full text-sm md:text-base min-h-[120px] rounded-xl bg-zinc-800/50 border-zinc-700 pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
+                  className="w-full text-sm md:text-base min-h-[120px] rounded-xl bg-background border-input pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
                   disabled={disabled}
                   {...field}
                 />
@@ -86,12 +86,12 @@ const FormFieldWithIcon = memo(({
                 <Input
                   type={type}
                   placeholder={placeholder}
-                  className="w-full text-sm md:text-base rounded-xl bg-zinc-800/50 border-zinc-700 pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
+                  className="w-full text-sm md:text-base rounded-xl bg-background border-input pl-10 focus:border-primary transition-colors duration-200 focus:ring-2 focus:ring-primary/20"
                   disabled={disabled}
                   {...field}
                 />
               )}
-              <Icon className={`absolute ${isTextArea ? 'top-4' : 'top-1/2 -translate-y-1/2'} left-3 h-4 w-4 text-zinc-400 group-focus-within:text-primary transition-colors duration-200`} />
+              <Icon className={`absolute ${isTextArea ? 'top-4' : 'top-1/2 -translate-y-1/2'} left-3 h-4 w-4 text-muted-foreground group-focus-within:text-primary transition-colors duration-200`} />
             </div>
           </FormControl>
           <FormMessage className="text-xs mt-1" />
@@ -148,17 +148,17 @@ const Contact = () => {
   }, [form, showNotification]);
 
   return (
-    <section id="contact" className="w-full min-h-[30vh] flex items-center justify-center py-10 bg-zinc-900">
+    <section id="contact" className="w-full min-h-[30vh] flex items-center justify-center py-10">
       {showPopup && (
         <Notification type={popupMessage.type} message={popupMessage.message} />
       )}
       <div className="container px-4 md:px-6">
         <div className="mx-auto max-w-[600px] space-y-8">
           <div className="text-center space-y-3">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter text-foreground">
               Contact <span className="text-primary">Us</span>
             </h2>
-            <p className="text-sm md:text-base text-zinc-200">
+            <p className="text-sm md:text-base text-muted-foreground">
               Have questions? Reach out to us!
             </p>
           </div>

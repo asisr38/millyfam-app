@@ -33,9 +33,7 @@ const FINANCE_ICONS = [
   "tether",
   "discord",
   "tradingview",
-  "notion",
-  "trello",
-];
+ ];
 
 export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
@@ -48,7 +46,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 bg-black text-white overflow-hidden"
+      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 text-foreground overflow-hidden"
     >
       {/* Icon Cloud Background */}
       {isMounted && (

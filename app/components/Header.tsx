@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, Users, DollarSign, Trophy, UserRound, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import logo from "@/public/logo/MF-Logo1.png";
 import { NavBar } from "@/components/ui/tubelight-navbar";
 
@@ -56,13 +57,13 @@ export default function Header() {
   if (!mounted) return null;
 
   return (
-    <header className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b border-zinc-800 z-50">
+    <header className="fixed top-0 w-full bg-background/80 backdrop-blur-md border-b z-50">
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
         <div className="flex items-center justify-between py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick}>
             <Image src={logo} alt="MillyFam Logo" className="h-12 w-12" />
-            <span className="text-2xl font-bold text-white">MillyFam</span>
+            <span className="text-2xl font-bold text-foreground">MillyFam</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -70,13 +71,14 @@ export default function Header() {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-             {/* Join Button */}
+            <ThemeToggle />
+            {/* Join Button */}
             <Button asChild className="hidden md:block bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 pb-4 rounded-xl text-lg">
               <Link href="https://whop.com/milly-fam/">Join Now</Link>
             </Button>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-white" onClick={handleMenuToggle} title="Toggle Menu">
+            <button className="md:hidden text-foreground" onClick={handleMenuToggle} title="Toggle Menu">
               <Menu size={28} />
             </button>
           </div>
@@ -85,7 +87,7 @@ export default function Header() {
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden bg-zinc-900 border-t border-zinc-800">
+        <div className="md:hidden bg-background border-t">
           <nav className="flex flex-col space-y-3 p-4">
             {navItems.map((item) => {
               const Icon = item.icon;
@@ -93,7 +95,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.url}
-                  className="flex items-center gap-3 text-lg text-zinc-300 hover:text-white transition-all duration-200"
+                  className="flex items-center gap-3 text-lg text-muted-foreground hover:text-foreground transition-all duration-200"
                   onClick={handleLinkClick}
                 >
                   <Icon size={20} />
@@ -101,6 +103,10 @@ export default function Header() {
                 </Link>
               );
             })}
+            <div className="flex items-center gap-3 py-2">
+              <ThemeToggle />
+              <span className="text-lg text-muted-foreground">Theme</span>
+            </div>
             <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-3 rounded-lg text-lg">
               <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>
                 Join Now
