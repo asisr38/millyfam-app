@@ -27,7 +27,7 @@ const TEAM_MEMBERS: TeamMember[] = [
   {
     id: 2,
     name: "Taran",
-    designation: "Chief Financial Officer",
+    designation: "Operations Manager",
     specialty: "Financial Planning",
     image: "/team/taran.jpg",
     social: "https://www.instagram.com/taran_23/",
