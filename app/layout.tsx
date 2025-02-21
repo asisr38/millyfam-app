@@ -60,7 +60,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${montserrat.className} antialiased`}>
+      <body className={`${montserrat.className} antialiased w-full overflow-x-hidden`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -68,7 +68,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Header />
-          <main className="flex-1">{children}</main>
+          <main className="flex-1 w-full">{children}</main>
           <Footer />
           <Analytics />
           <SpeedInsights />

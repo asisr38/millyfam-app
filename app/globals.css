@@ -53,10 +53,24 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
+  }
+  html {
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  ::-webkit-scrollbar {
+    width: 0;  /* Remove scrollbar space */
+    background: transparent;  /* Optional: just make scrollbar invisible */
+  }
+  /* Optional: show position indicator in red */
+  ::-webkit-scrollbar-thumb {
+    background: transparent;
   }
   body {
-    @apply bg-background text-foreground overflow-x-hidden;
+    @apply bg-background text-foreground;
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
   }
 }
 
