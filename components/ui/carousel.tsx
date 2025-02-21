@@ -1,6 +1,7 @@
 "use client";
 import { IconArrowNarrowRight, IconX } from "@tabler/icons-react";
 import { useState, useRef, useId, useEffect } from "react";
+import Image from "next/image";
 
 interface SlideData {
   title: string;
@@ -20,7 +21,7 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
 
   const xRef = useRef(0);
   const yRef = useRef(0);
-  const frameRef = useRef<number>();
+  const frameRef = useRef<number | null>(null);
 
   useEffect(() => {
     const animate = () => {
@@ -38,7 +39,7 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
     frameRef.current = requestAnimationFrame(animate);
 
     return () => {
-      if (frameRef.current) {
+      if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
       }
     };
@@ -95,17 +96,21 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
                 : "none",
           }}
         >
-          <img
-            className="w-full h-full object-contain opacity-100 transition-opacity duration-600 ease-in-out"
-            style={{
-              opacity: current === index ? 1 : 0.5,
-            }}
-            alt={title}
-            src={src}
-            onLoad={imageLoaded}
-            loading="eager"
-            decoding="sync"
-          />
+          <div className="relative w-full h-full">
+            <Image
+              className="object-contain transition-opacity duration-600 ease-in-out"
+              style={{
+                opacity: current === index ? 1 : 0.5,
+              }}
+              alt={title}
+              src={src}
+              fill
+              sizes="70vmin"
+              priority={index === current}
+              quality={85}
+              onLoad={imageLoaded}
+            />
+          </div>
         </div>
       </li>
     </div>
@@ -221,12 +226,18 @@ export function Carousel({ slides }: CarouselProps) {
             >
               <IconX size={24} />
             </button>
-            <img
-              src={modalImage}
-              alt="Full size"
-              className="max-w-full max-h-[90vh] object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
+            <div className="relative w-full h-[90vh]">
+              <Image
+                src={modalImage}
+                alt="Full size"
+                className="object-contain"
+                fill
+                sizes="90vw"
+                quality={90}
+                priority
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
           </div>
         </div>
       )}

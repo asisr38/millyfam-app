@@ -35,8 +35,8 @@ export default function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="w-full bg-background">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="pricing" className="w-full ">
+      <div className="container mx-auto px-4 pt-8 md:px-6">
         <div className="mx-auto max-w-sm space-y-4 text-center mb-8">
           <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tighter text-foreground">
             Pricing

@@ -13,19 +13,19 @@ export default function Home() {
         <div className="bg-background w-full">
           <Hero />
         </div>
-        <div className="bg-muted w-full">
+        <div className="bg-muted/40 dark:bg-muted/20 w-full">
           <Pricing />
         </div>
         <div className="bg-background w-full">
           <WinShowcase />
         </div>
-        <div className="bg-muted w-full">
+        <div className="bg-muted/30 dark:bg-muted/10 w-full">
           <TeamSection />
         </div>
         <div className="bg-background w-full">
           <FAQ />
         </div>
-        <div className="bg-muted w-full">
+        <div className="bg-muted/30 dark:bg-muted/10 w-full">
           <Contact />
         </div>
         <div className="bg-background w-full">

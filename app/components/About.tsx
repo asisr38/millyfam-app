@@ -7,34 +7,42 @@ export default function About() {
     {
       title: "Crypto & Sports Betting",
       description: "Access expert insights and strategies for cryptocurrency trading and sports betting. Our experienced team provides real-time analysis and proven strategies to help you make informed decisions and maximize your potential returns.",
+      className: "bg-muted/50 dark:bg-muted/10"
     },
     {
       title: "Stock Market",
       description: "Navigate the stock market with confidence using our curated insights and analysis.",
+      className: "bg-background"
     },
     {
       title: "Financial Planning",
       description: "Get personalized guidance on building and managing your investment portfolio.",
+      className: "bg-muted/50 dark:bg-muted/10"
     },
     {
       title: "Real Estate",
       description: "Discover opportunities in real estate investment and property management.",
+      className: "bg-background"
     },
     {
       title: "Wealth Building",
       description: "Learn proven strategies for creating and growing long-term wealth.",
+      className: "bg-muted/50 dark:bg-muted/10"
     },
     {
       title: "Community & Network",
       description: "Join our thriving community of ambitious individuals. Share experiences, learn from others' successes, and build valuable connections. Our platform facilitates networking opportunities and collaborative learning to accelerate your growth.",
+      className: "bg-background"
     },
     {
       title: "Education",
       description: "Access our comprehensive learning resources and workshops.",
+      className: "bg-muted/50 dark:bg-muted/10"
     },
     {
       title: "Support",
       description: "Get 24/7 support from our experienced team of financial advisors.",
+      className: "bg-background"
     }
   ]
 

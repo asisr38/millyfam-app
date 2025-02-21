@@ -79,7 +79,11 @@ export default function FAQ() {
                 key={`faq-${index}`}
                 id={`faq-${index}`}
                 title={faq.question}
-                className="bg-muted/50 border border-border hover:bg-muted/70 transition-colors duration-200 rounded-xl overflow-hidden shadow-[0_0_1px_rgba(255,255,255,0.1)]"
+                className={`${
+                  index % 2 === 0 
+                    ? "bg-muted/50 dark:bg-muted/10" 
+                    : "bg-background border-border"
+                } border hover:bg-muted/70 dark:hover:bg-muted/20 transition-colors duration-200 rounded-xl overflow-hidden shadow-[0_0_1px_rgba(255,255,255,0.1)]`}
               >
                 {faq.answer}
               </Accordion>

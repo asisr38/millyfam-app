@@ -47,7 +47,7 @@ function BentoGridItem({
     <motion.div
       whileHover={{ scale: 1.02 }}
       className={cn(
-        "row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 md:p-8 bg-card border border-border hover:border-primary/50 relative overflow-hidden",
+        "row-span-1 rounded-xl group/bento hover:shadow-xl transition duration-200 shadow-input dark:shadow-none p-4 md:p-8 border border-border hover:border-primary/50 relative overflow-hidden",
         className
       )}
     >
