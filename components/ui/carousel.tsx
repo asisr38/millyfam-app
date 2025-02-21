@@ -6,6 +6,7 @@ import Image from "next/image";
 interface SlideData {
   title: string;
   src: string;
+  priority?: boolean;
 }
 
 interface SlideProps {
@@ -63,7 +64,7 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
     event.currentTarget.style.opacity = "1";
   };
 
-  const { src, title } = slide;
+  const { src, title, priority } = slide;
 
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
@@ -105,9 +106,10 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
               alt={title}
               src={src}
               fill
-              sizes="70vmin"
-              priority={index === current}
+              sizes="(max-width: 768px) 90vw, 70vmin"
+              priority={priority || index === current}
               quality={85}
+              loading={priority ? "eager" : "lazy"}
               onLoad={imageLoaded}
             />
           </div>

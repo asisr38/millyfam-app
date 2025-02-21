@@ -76,7 +76,10 @@ export default function WinShowcase() {
       title: "Win 18",
       src: "/wins/win18.png",
     },
-  ];
+  ].map((slide, index) => ({
+    ...slide,
+    priority: index < 4, // Only prioritize loading first 4 images
+  }));
 
   return (
     <section
