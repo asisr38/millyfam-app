@@ -1,61 +1,58 @@
 "use client"
 
-import { PricingCard } from "@/components/pricing-card"
-import DisclaimerDialog from "./DisclaimerDialog"
+import { PricingContainer } from "@/components/ui/pricing-container"
 
 export default function Pricing() {
-  const pricingFeatures = [
+  const plans = [
     {
-      title: "Core Features",
-      items: [
-        "Exclusive Discord access",
-        "Real-time market updates",
-        "Community support",
-        "Basic educational resources",
+      name: "Millyfam Essentials",
+      monthlyPrice: 19.99,
+      features: [
+        "Discord community access",
+        "Daily sports/crypto insights",
+        "Beginner onboarding guides",
+        "Basic trading strategies",
+        "7-day free trial"
       ],
+      accent: "bg-[#27AE60]/60",
+      link: "https://whop.com/checkout/plan_VNALXsiUGHOyE?d2c=true"
     },
     {
-      title: "Investment Tools",
-      items: [
-        "Sports betting strategies",
-        "Crypto trading insights",
-        "Stock market analysis",
-        "Real estate opportunities",
+      name: "Millyfam Pro",
+      monthlyPrice: 39.99,
+      features: [
+        "Everything in Essentials +",
+        "Exclusive Trading Trends channel",
+        "Daily live classes (7PM EST)",
+        "Advanced wealth-building",
+        "7-day free trial"
       ],
+      isPopular: true,
+      accent: "bg-primary/60",
+      link: "https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true"
     },
     {
-      title: "Premium Benefits",
-      items: [
-        "One-on-one consultations",
-        "Priority support access",
-        "Advanced trading signals",
-        "Networking events",
+      name: "Millyfam Elite",
+      price: 89.99,
+      billingPeriod: "3 months",
+      features: [
+        "Everything in Pro +",
+        "Premium tools/resources",
+        "Priority support",
+        "Success optimization toolkit",
+        "3-month subscription (Best Value)"
       ],
-    },
+      accent: "bg-[#9333EA]/60",
+      link: "https://whop.com/checkout/plan_9ZfXpKcRrvqv1?d2c=true"
+    }
   ]
 
   return (
-    <section id="pricing" className="w-full">
-      <div className="container mx-auto px-4 pt-8 md:px-6">
-        <div className="mx-auto max-w-sm space-y-4 text-center mb-8">
-          <h2 className="text-2xl md:text-4xl lg:text-4xl font-bold tracking-tighter text-foreground">
-            Pricing
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground">
-            Join our exclusive community today
-          </p>
-        </div>
-
-        <PricingCard
-          title="Premium Plan"
-          description="Get access to our exclusive community and start your journey to financial freedom"
-          price={39.99}
-          features={pricingFeatures}
-          buttonText="Subscribe Now"
-          onButtonClick={() => window.location.href = 'https://whop.com/milly-fam/'}
-          disclaimer={<DisclaimerDialog />}
-        />
-      </div>
+    <section id="pricing" className="w-full flex items-center justify-center ">
+      <PricingContainer
+        title="Membership Plans"
+        plans={plans}
+      />
     </section>
   )
 }

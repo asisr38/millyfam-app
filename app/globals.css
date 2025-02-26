@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    /* Light theme */
-    --background: 0 0% 100%; /* White */
-    --foreground: 0 0% 0%; /* Black text */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 43 74% 49%; /* #D4AF37 - Your gold color */
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 0%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 43 74% 49%;
-    --accent-foreground: 0 0% 0%;
+    /* Light theme - slightly dimmed */
+    --background: 0 0% 98%; /* Slightly off-white */
+    --foreground: 0 0% 12%; /* Darker text for better contrast */
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 12%;
+    --popover: 0 0% 98%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 43 74% 60%;
+    --primary-foreground: 0 0% 12%;
+    --secondary: 0 0% 94%; /* Slightly darker secondary */
+    --secondary-foreground: 0 0% 12%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 40%;
+    --accent: 43 74% 60%;
+    --accent-foreground: 0 0% 12%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 43 74% 49%;
+    --border: 0 0% 88%; /* Slightly darker border */
+    --input: 0 0% 88%;
+    --ring: 43 74% 60%;
     --radius: 0.5rem;
   }
 
@@ -35,19 +35,19 @@
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 6%;
     --popover-foreground: 0 0% 100%;
-    --primary: 43 74% 49%; /* Keep gold color consistent */
+    --primary: 43 74% 60%; /* Brighter gold color */
     --primary-foreground: 0 0% 0%;
     --secondary: 0 0% 12%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 12%;
     --muted-foreground: 0 0% 63%;
-    --accent: 43 74% 49%;
+    --accent: 43 74% 60%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 63% 31%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 12%;
     --input: 0 0% 12%;
-    --ring: 43 74% 49%;
+    --ring: 43 74% 60%;
   }
 }
 
