@@ -1,6 +1,6 @@
 "use client"
-import React, { useRef, useState, useEffect } from 'react'
-import { motion, useMotionValue, useSpring, useTransform, animate } from 'framer-motion'
+import React, { useRef, useEffect } from 'react'
+import { motion, animate } from 'framer-motion'
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
 
@@ -24,7 +24,7 @@ interface PricingProps {
 
 // Counter Component
 const Counter = ({ from, to }: { from: number; to: number }) => {
-    const nodeRef = useRef(null);
+    const nodeRef = useRef<HTMLSpanElement>(null);
 
     useEffect(() => {
         const node = nodeRef.current;
