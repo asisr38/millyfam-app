@@ -48,11 +48,15 @@ export default function Pricing() {
   ]
 
   return (
-    <section id="pricing" className="w-full flex items-center justify-center ">
-      <PricingContainer
-        title="Membership Plans"
-        plans={plans}
-      />
+    <section id="pricing" className="w-full bg-background">
+      <div className="w-full flex items-center justify-center py-12 md:py-24">
+        <div className="w-full max-w-[1400px] px-6 md:px-8">
+          <PricingContainer
+            title="Membership Plans"
+            plans={plans}
+          />
+        </div>
+      </div>
     </section>
   )
 }

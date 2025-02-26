@@ -173,11 +173,11 @@ const PricingCard = ({
 // Main Container Component
 export const PricingContainer = ({ title = "Pricing Plans", plans, className = "" }: PricingProps) => {
     return (
-        <section className={cn("relative overflow-hidden py-16", className)}>
+        <div className={cn("relative w-full", className)}>
             <BackgroundEffects />
-            <div className="container relative space-y-8 px-4 md:px-6">
+            <div className="relative space-y-12 w-full">
                 <PricingHeader title={title} />
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full">
                     {plans.map((plan, i) => (
                         <PricingCard
                             key={i}
@@ -187,6 +187,6 @@ export const PricingContainer = ({ title = "Pricing Plans", plans, className = "
                     ))}
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
