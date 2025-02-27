@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
 import logo from "@/public/logo/MF-Logo1.png";
 import { NavBar } from "@/components/ui/tubelight-navbar";
+import { motion } from "framer-motion";
 
 const navItems = [
   { name: "About Us", url: "/about", icon: Users },
@@ -25,33 +26,12 @@ export default function Header() {
     setMounted(true);
   }, []);
 
-  const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
+  const handleLinkClick = () => {
+    setIsMenuOpen(false);
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const href = e.currentTarget.getAttribute("href");
-    if (href?.startsWith("/#")) {
-      e.preventDefault();
-      const targetId = href.substring(2);
-
-      if (window.location.pathname === "/about") {
-        window.location.href = href;
-        return;
-      }
-
-      const targetElement = document.getElementById(targetId);
-      if (targetElement) {
-        const isMobile = window.innerWidth < 768;
-        const offset = isMobile ? 330 : 70;
-        const offsetTop = targetElement.getBoundingClientRect().top + window.scrollY - offset;
-        window.scrollTo({ top: offsetTop, behavior: "smooth" });
-      }
-
-      setTimeout(() => setIsMenuOpen(false), 150);
-    } else {
-      setIsMenuOpen(false);
-    }
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   if (!mounted) return null;
@@ -74,47 +54,68 @@ export default function Header() {
             <ThemeToggle />
             {/* Join Button */}
             <Button asChild className="hidden md:block bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 pb-4 rounded-xl text-lg">
-              <Link href="https://whop.com/milly-fam/">Join Now</Link>
+              <Link href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" target="_blank" rel="noopener noreferrer">Join Now</Link>
             </Button>
 
             {/* Mobile Menu Button */}
-            <button className="md:hidden text-foreground" onClick={handleMenuToggle} title="Toggle Menu">
-              <Menu size={28} />
-            </button>
+            <motion.button 
+              className="md:hidden text-foreground"
+              onClick={handleMenuToggle}
+              title="Toggle Menu"
+              whileTap={{ scale: 0.8 }}
+              whileHover={{ scale: 1.1 }}
+            >
+              <motion.div
+                initial={false}
+                animate={{ 
+                  rotate: isMenuOpen ? 180 : 0,
+                  scale: isMenuOpen ? 1.1 : 1
+                }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20
+                }}
+              >
+                <Menu size={28} />
+              </motion.div>
+            </motion.button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-background border-t">
-          <nav className="flex flex-col space-y-3 p-4">
-            {navItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.name}
-                  href={item.url}
-                  className="flex items-center gap-3 text-lg text-muted-foreground hover:text-foreground transition-all duration-200"
-                  onClick={handleLinkClick}
-                >
-                  <Icon size={20} />
-                  {item.name}
-                </Link>
-              );
-            })}
-            <div className="flex items-center gap-3 py-2">
-              <ThemeToggle />
-              <span className="text-lg text-muted-foreground">Theme</span>
-            </div>
-            <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-3 rounded-lg text-lg">
-              <Link href="https://whop.com/milly-fam/" onClick={handleLinkClick}>
-                Join Now
+      <motion.div 
+        className="md:hidden bg-background border-t"
+        initial={{ opacity: 0, height: 0 }}
+        animate={{ 
+          opacity: isMenuOpen ? 1 : 0,
+          height: isMenuOpen ? "auto" : 0
+        }}
+        transition={{ duration: 0.3 }}
+      >
+        <nav className="flex flex-col space-y-3 p-4">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.name}
+                href={item.url}
+                className="flex items-center gap-3 text-lg text-muted-foreground hover:text-foreground transition-all duration-200"
+                onClick={handleLinkClick}
+              >
+                <Icon size={20} />
+                {item.name}
               </Link>
-            </Button>
-          </nav>
-        </div>
-      )}
+            );
+          })}
+          <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-3 rounded-lg text-lg">
+            <Link href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" target="_blank" rel="noopener noreferrer">
+              Join Now
+            </Link>
+          </Button>
+        </nav>
+      </motion.div>
     </header>
   );
 }

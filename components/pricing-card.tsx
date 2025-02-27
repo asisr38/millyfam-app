@@ -7,19 +7,14 @@ import { Button } from "@/components/ui/button";
 import { Check, AlertCircle } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
-interface PricingFeature {
-  title: string;
-  items: string[];
-}
-
 interface PricingCardProps {
   title: string;
-  description: string;
+  description?: string;
   price: number;
   originalPrice?: number;
-  features: PricingFeature[];
-  buttonText?: string;
-  onButtonClick?: () => void;
+  features: { title: string; items: string[] }[];
+  buttonText: string;
+  onButtonClick: () => void;
   disclaimer?: React.ReactNode;
 }
 

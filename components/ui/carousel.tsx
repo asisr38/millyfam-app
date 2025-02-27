@@ -19,7 +19,6 @@ interface SlideProps {
 
 const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideProps) => {
   const slideRef = useRef<HTMLLIElement>(null);
-
   const xRef = useRef(0);
   const yRef = useRef(0);
   const frameRef = useRef<number | null>(null);
@@ -27,18 +26,14 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
   useEffect(() => {
     const animate = () => {
       if (!slideRef.current) return;
-
       const x = xRef.current;
       const y = yRef.current;
-
       slideRef.current.style.setProperty("--x", `${x}px`);
       slideRef.current.style.setProperty("--y", `${y}px`);
-
       frameRef.current = requestAnimationFrame(animate);
     };
 
     frameRef.current = requestAnimationFrame(animate);
-
     return () => {
       if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
@@ -49,7 +44,6 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
   const handleMouseMove = (event: React.MouseEvent) => {
     const el = slideRef.current;
     if (!el) return;
-
     const r = el.getBoundingClientRect();
     xRef.current = event.clientX - (r.left + Math.floor(r.width / 2));
     yRef.current = event.clientY - (r.top + Math.floor(r.height / 2));
@@ -60,10 +54,6 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
     yRef.current = 0;
   };
 
-  const imageLoaded = (event: React.SyntheticEvent<HTMLImageElement>) => {
-    event.currentTarget.style.opacity = "1";
-  };
-
   const { src, title, priority } = slide;
 
   return (
@@ -72,18 +62,18 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
         ref={slideRef}
         className="flex flex-1 flex-col items-center justify-center relative text-center opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[45vmin] mx-[4vmin] z-10 cursor-pointer"
         onClick={() => {
-          handleSlideClick(index);
           if (current === index) {
             onImageClick(src);
+          } else {
+            handleSlideClick(index);
           }
         }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         style={{
-          transform:
-            current !== index
-              ? "scale(0.98) rotateX(8deg)"
-              : "scale(1) rotateX(0deg)",
+          transform: current !== index
+            ? "scale(0.98) rotateX(8deg)"
+            : "scale(1) rotateX(0deg)",
           transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           transformOrigin: "bottom",
         }}
@@ -91,10 +81,9 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
         <div
           className="absolute top-0 left-0 w-full h-full bg-[#1D1F2F] rounded-[1%] overflow-hidden transition-all duration-150 ease-out"
           style={{
-            transform:
-              current === index
-                ? "translate3d(calc(var(--x) / 30), calc(var(--y) / 30), 0)"
-                : "none",
+            transform: current === index
+              ? "translate3d(calc(var(--x) / 30), calc(var(--y) / 30), 0)"
+              : "none",
           }}
         >
           <div className="relative w-full h-full">
@@ -109,7 +98,6 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
               sizes="(max-width: 768px) 90vw, 70vmin"
               priority={priority || index === current}
               quality={85}
-              onLoad={imageLoaded}
             />
           </div>
         </div>
@@ -124,11 +112,7 @@ interface CarouselControlProps {
   handleClick: () => void;
 }
 
-const CarouselControl = ({
-  type,
-  title,
-  handleClick,
-}: CarouselControlProps) => {
+const CarouselControl = ({ type, title, handleClick }: CarouselControlProps) => {
   return (
     <button
       className={`w-10 h-10 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
@@ -142,15 +126,13 @@ const CarouselControl = ({
   );
 };
 
-interface CarouselProps {
-  slides: SlideData[];
-}
-
-export function Carousel({ slides }: CarouselProps) {
+export function Carousel({ slides }: { slides: SlideData[] }) {
   const [current, setCurrent] = useState(0);
   const [modalImage, setModalImage] = useState<string | null>(null);
+  const [modalIndex, setModalIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState(false);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const touchStart = useRef<number>(0);
+  const touchEnd = useRef<number>(0);
 
   const handlePreviousClick = () => {
     const previous = current - 1;
@@ -163,12 +145,12 @@ export function Carousel({ slides }: CarouselProps) {
   };
 
   const handleSlideClick = (index: number) => {
-    if (current !== index) {
-      setCurrent(index);
-    }
+    setCurrent(index);
   };
 
   const handleImageClick = (src: string) => {
+    const index = slides.findIndex(slide => slide.src === src);
+    setModalIndex(index);
     setModalImage(src);
   };
 
@@ -176,23 +158,48 @@ export function Carousel({ slides }: CarouselProps) {
     setModalImage(null);
   };
 
-  // Auto-scroll functionality
-  useEffect(() => {
-    const startInterval = () => {
-      intervalRef.current = setInterval(() => {
-        if (!isPaused) {
-          handleNextClick();
-        }
-      }, 5000); // Change slide every 5 seconds
-    };
+  const handleModalPrevious = () => {
+    const prevIndex = modalIndex - 1;
+    const newIndex = prevIndex < 0 ? slides.length - 1 : prevIndex;
+    setModalIndex(newIndex);
+    setModalImage(slides[newIndex].src);
+  };
 
-    startInterval();
+  const handleModalNext = () => {
+    const nextIndex = modalIndex + 1;
+    const newIndex = nextIndex === slides.length ? 0 : nextIndex;
+    setModalIndex(newIndex);
+    setModalImage(slides[newIndex].src);
+  };
 
-    return () => {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEnd.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 50; // minimum distance for a swipe
+    const swipeDistance = touchStart.current - touchEnd.current;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        // Swiped left
+        handleModalNext();
+      } else {
+        // Swiped right
+        handleModalPrevious();
       }
-    };
+    }
+  };
+
+  useEffect(() => {
+    if (!isPaused) {
+      const interval = setInterval(handleNextClick, 5000);
+      return () => clearInterval(interval);
+    }
   }, [current, isPaused]);
 
   const id = useId();
@@ -229,7 +236,6 @@ export function Carousel({ slides }: CarouselProps) {
             title="Go to previous slide"
             handleClick={handlePreviousClick}
           />
-
           <CarouselControl
             type="next"
             title="Go to next slide"
@@ -243,21 +249,51 @@ export function Carousel({ slides }: CarouselProps) {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={closeModal}
         >
-          <div className="relative max-w-[90vw] max-h-[90vh]">
+          <div 
+            className="relative w-[90vw] h-[90vh] max-w-7xl"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <button
-              onClick={closeModal}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeModal();
+              }}
               className="absolute -top-10 right-0 text-white hover:text-primary transition-colors"
             >
               <IconX size={24} />
             </button>
-            <div className="relative w-full h-[90vh]">
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleModalPrevious();
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:left-4"
+            >
+              <IconArrowNarrowRight className="w-8 h-8 rotate-180" />
+            </button>
+            
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleModalNext();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:right-4"
+            >
+              <IconArrowNarrowRight className="w-8 h-8" />
+            </button>
+
+            <div className="w-full h-full relative bg-black/40 rounded-lg overflow-hidden">
               <Image
                 src={modalImage}
-                alt="Full size"
+                alt="Full size view"
                 className="object-contain"
                 fill
                 sizes="90vw"
-                quality={90}
+                quality={100}
                 priority
                 onClick={(e) => e.stopPropagation()}
               />

@@ -4,13 +4,39 @@ import { Carousel } from "@/components/ui/carousel";
 
 export default function WinShowcase() {
   const slideData = [
+    // Stock Wins
+    {
+      title: "Stock Win 1",
+      src: "/wins/stockwin1.png",
+    },
+    {
+      title: "Stock Win 2",
+      src: "/wins/stockwin2.png",
+    },
+    {
+      title: "Stock Win 3",
+      src: "/wins/stockwin3.png",
+    },
+    {
+      title: "Stock Win 4",
+      src: "/wins/stockwin4.png",
+    },
+    {
+      title: "Stock Win 5",
+      src: "/wins/stockwin5.png",
+    },
+    {
+      title: "Stock Win 6",
+      src: "/wins/stockwin6.png",
+    },
+    {
+      title: "Stock Win 7",
+      src: "/wins/stockwin7.png",
+    },
+    // Crypto & Other Wins
     {
       title: "Win 1",
       src: "/wins/win1.png",
-    },
-    {
-      title: "Win 2",
-      src: "/wins/win2.png",
     },
     {
       title: "Win 3",
@@ -27,10 +53,6 @@ export default function WinShowcase() {
     {
       title: "Win 6",
       src: "/wins/win6.png",
-    },
-    {
-      title: "Win 7",
-      src: "/wins/win7.jpg",
     },
     {
       title: "Win 8",
