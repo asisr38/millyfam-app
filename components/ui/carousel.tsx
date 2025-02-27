@@ -129,7 +129,10 @@ const CarouselControl = ({ type, title, handleClick }: CarouselControlProps) => 
 export function Carousel({ slides }: { slides: SlideData[] }) {
   const [current, setCurrent] = useState(0);
   const [modalImage, setModalImage] = useState<string | null>(null);
+  const [modalIndex, setModalIndex] = useState<number>(0);
   const [isPaused, setIsPaused] = useState(false);
+  const touchStart = useRef<number>(0);
+  const touchEnd = useRef<number>(0);
 
   const handlePreviousClick = () => {
     const previous = current - 1;
@@ -146,11 +149,50 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
   };
 
   const handleImageClick = (src: string) => {
+    const index = slides.findIndex(slide => slide.src === src);
+    setModalIndex(index);
     setModalImage(src);
   };
 
   const closeModal = () => {
     setModalImage(null);
+  };
+
+  const handleModalPrevious = () => {
+    const prevIndex = modalIndex - 1;
+    const newIndex = prevIndex < 0 ? slides.length - 1 : prevIndex;
+    setModalIndex(newIndex);
+    setModalImage(slides[newIndex].src);
+  };
+
+  const handleModalNext = () => {
+    const nextIndex = modalIndex + 1;
+    const newIndex = nextIndex === slides.length ? 0 : nextIndex;
+    setModalIndex(newIndex);
+    setModalImage(slides[newIndex].src);
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStart.current = e.touches[0].clientX;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEnd.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    const swipeThreshold = 50; // minimum distance for a swipe
+    const swipeDistance = touchStart.current - touchEnd.current;
+
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+      if (swipeDistance > 0) {
+        // Swiped left
+        handleModalNext();
+      } else {
+        // Swiped right
+        handleModalPrevious();
+      }
+    }
   };
 
   useEffect(() => {
@@ -207,7 +249,12 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={closeModal}
         >
-          <div className="relative w-[90vw] h-[90vh] max-w-7xl">
+          <div 
+            className="relative w-[90vw] h-[90vh] max-w-7xl"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -217,6 +264,28 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
             >
               <IconX size={24} />
             </button>
+            
+            {/* Navigation Arrows */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleModalPrevious();
+              }}
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:left-4"
+            >
+              <IconArrowNarrowRight className="w-8 h-8 rotate-180" />
+            </button>
+            
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleModalNext();
+              }}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:right-4"
+            >
+              <IconArrowNarrowRight className="w-8 h-8" />
+            </button>
+
             <div className="w-full h-full relative bg-black/40 rounded-lg overflow-hidden">
               <Image
                 src={modalImage}
