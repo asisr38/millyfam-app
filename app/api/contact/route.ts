@@ -1,205 +1,101 @@
 import { NextResponse } from "next/server"
 import nodemailer from "nodemailer"
+import { generateNotificationEmail, generateNotificationEmailText } from "@/app/email-templates/notification-template"
+import { generateConfirmationEmail, generateConfirmationEmailText } from "@/app/email-templates/confirmation-template"
 
 export async function POST(req: Request) {
   try {
     // 1. Parse the data sent from the client
     const { name, email, message } = await req.json()
     
-    // Validate that environment variables are set
-    if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.RECIPIENT_EMAIL) {
-      console.error("Missing required environment variables for email sending");
-      return NextResponse.json(
-        { error: "Server configuration error. Please contact the administrator." }, 
-        { status: 500 }
-      );
+    console.log("Contact form submission received from:", email)
+    console.log("Will send notification to:", process.env.RECIPIENT_EMAIL)
+    if (process.env.CC_EMAIL) console.log("CC to:", process.env.CC_EMAIL)
+    if (process.env.BCC_EMAIL) console.log("BCC to:", process.env.BCC_EMAIL)
+    
+    // Verify environment variables are correctly loaded
+    if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
+      console.error("SMTP credentials are missing in environment variables")
+      return NextResponse.json({ error: "Email configuration error" }, { status: 500 })
     }
     
-    // 2. Create a transporter using your SMTP credentials
+    // 2. Create a transporter using your SMTP credentials from .env.local
+    console.log("Setting up SMTP transporter with user:", process.env.SMTP_USER)
     const transporter = nodemailer.createTransport({
       service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
+      debug: true,
     })
-
-    // Verify SMTP connection configuration
+    
+    // Verify SMTP connection
     try {
-      await transporter.verify();
-      console.log("SMTP connection verified successfully");
+      console.log("Verifying SMTP connection...")
+      await transporter.verify()
+      console.log("SMTP connection verified successfully")
     } catch (verifyError) {
-      console.error("SMTP verification failed:", verifyError);
-      return NextResponse.json(
-        { error: "Email service unavailable. Please try again later or contact us directly." }, 
-        { status: 500 }
-      );
+      console.error("SMTP connection verification failed:", verifyError)
+      return NextResponse.json({ error: "Failed to connect to email server" }, { status: 500 })
     }
 
-    // 3. Send the email
+    // 3. Send the email to your recipient
     const mailOptions = {
-      from: `"MillyFam Team" <${process.env.SMTP_USER}>`, // sender address
-      to: process.env.RECIPIENT_EMAIL,                    // your destination email
-      subject: "New Contact Form Submission",
-      html: `
-       <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>New Contact Form Submission</title>
-        <style>
-          body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-          table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-          img { -ms-interpolation-mode: bicubic; }
-          img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-          table { border-collapse: collapse !important; }
-          body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
-          a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
-          div[style*="margin: 16px 0;"] { margin: 0 !important; }
-        </style>
-      </head>
-      <body style="background-color: #f7f7f7; margin: 0 !important; padding: 0 !important;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-          <tr>
-            <td align="center" style="padding: 40px 10px 40px 10px;">
-              <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
-                <tr>
-                  <td align="center" bgcolor="#000000" style="padding: 40px 20px 40px 20px; border-radius: 4px 4px 0px 0px;">
-                    <img src="https://drive.usercontent.google.com/download?id=1qmdJE69dxXIASMyA-ez8PZMUsbc9vMUO" alt="Millyfam Logo" width="100" height="100" style="display: block; border: 0px;" />
-                    <h1 style="font-size: 24px; color: #ffffff; font-family: Arial, sans-serif; margin-top: 20px;">New Contact Form Submission</h1>
-                  </td>
-                </tr>
-                <tr>
-                  <td bgcolor="#ffffff" style="padding: 20px 10px 20px 10px; border-radius: 0px 0px 4px 4px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
-                          <strong>Name:</strong> ${name}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
-                          <strong>Email:</strong> ${email}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding: 10px 0;">
-                          <strong>Message:</strong>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="background-color: #f7f7f7; padding: 20px; border-radius: 4px; font-family: Arial, sans-serif; font-size: 16px;">
-                          ${message}
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td bgcolor="#000000" style="padding: 20px; border-radius: 0px 0px 4px 4px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                        <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" align="center">
-                          &copy; 2023 MillyFam. All rights reserved.
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
-      `,
+      from: `"MillyFam Contact Form" <${process.env.SMTP_USER}>`,
+      to: process.env.RECIPIENT_EMAIL,
+      cc: process.env.CC_EMAIL || undefined,
+      bcc: process.env.BCC_EMAIL || undefined,
+      subject: "New Contact Form Submission - MillyFam",
+      html: generateNotificationEmail(name, email, message),
+      text: generateNotificationEmailText(name, email, message), // Plain text fallback
     }
 
-    await transporter.sendMail(mailOptions)
+    let notificationSent = false;
+    try {
+      console.log("Attempting to send notification email to business...")
+      const notificationInfo = await transporter.sendMail(mailOptions)
+      console.log("Notification email sent successfully:", notificationInfo.messageId)
+      notificationSent = true;
+    } catch (notificationError) {
+      console.error("Error sending notification email to business:", notificationError)
+      // Continue to try sending confirmation email even if notification fails
+    }
 
     // 4. Send a confirmation email to the sender
     const confirmationMailOptions = {
-      from: `"MillyFam Contact Us" <${process.env.SMTP_USER}>`, // sender address
-      to: email, // sender's email
-      subject: "We Received Your Message",
-      html: `
-        <!DOCTYPE html>
-      <html lang="en">
-      <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Thank You for Contacting Us</title>
-        <style>
-          body, table, td, a { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
-          table, td { mso-table-lspace: 0pt; mso-table-rspace: 0pt; }
-          img { -ms-interpolation-mode: bicubic; }
-          img { border: 0; height: auto; line-height: 100%; outline: none; text-decoration: none; }
-          table { border-collapse: collapse !important; }
-          body { height: 100% !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
-          a[x-apple-data-detectors] { color: inherit !important; text-decoration: none !important; font-size: inherit !important; font-family: inherit !important; font-weight: inherit !important; line-height: inherit !important; }
-          div[style*="margin: 16px 0;"] { margin: 0 !important; }
-        </style>
-      </head>
-      <body style="background-color: #f7f7f7; margin: 0 !important; padding: 0 !important;">
-        <table border="0" cellpadding="0" cellspacing="0" width="100%">
-          <tr>
-            <td align="center" style="padding: 40px 10px 40px 10px;">
-              <table border="0" cellpadding="0" cellspacing="0" width="600" style="border-collapse: collapse;">
-                <tr>
-                  <td align="center" bgcolor="#000000" style="padding: 20px 10px 20px 10px; border-radius: 4px 4px 0px 0px;">
-                    <img src="https://drive.usercontent.google.com/download?id=1qmdJE69dxXIASMyA-ez8PZMUsbc9vMUO" alt="Millyfam Logo" width="100" height="100" style="display: block; border: 0px;" />
-                    <h1 style="font-size: 24px; color: #ffffff; font-family: Arial, sans-serif; margin-top: 20px;">Thank You for Contacting Us!</h1>
-                  </td>
-                </tr>
-                <tr>
-                  <td bgcolor="#ffffff" style="padding: 40px 20px 40px 20px; border-radius: 0px 0px 4px 4px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
-                          Hi ${name},
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
-                          Thank you for reaching out to us. We have received your message and will get back to you as soon as possible.
-                        </td>
-                      </tr>
-                      <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 16px; padding-bottom: 20px;">
-                          Best regards,<br>
-                          The MillyFam Team
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td bgcolor="#000000" style="padding: 20px; border-radius: 0px 0px 4px 4px;">
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                      <tr>
-                        <td style="color: #ffffff; font-family: Arial, sans-serif; font-size: 14px;" align="center">
-                          This is an automated message, please do not reply.
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
-      </html>
-      `,
+      from: `"MillyFam Team" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Thank you for contacting MillyFam",
+      html: generateConfirmationEmail(name),
+      text: generateConfirmationEmailText(name), // Plain text fallback
     }
 
-    await transporter.sendMail(confirmationMailOptions)
+    let confirmationSent = false;
+    try {
+      console.log("Attempting to send confirmation email to sender...")
+      const confirmationInfo = await transporter.sendMail(confirmationMailOptions)
+      console.log("Confirmation email sent successfully:", confirmationInfo.messageId)
+      confirmationSent = true;
+    } catch (confirmationError) {
+      console.error("Error sending confirmation email to sender:", confirmationError)
+    }
 
-    // 5. Return a success response
-    return NextResponse.json({ message: "Email sent successfully." }, { status: 200 })
+    // 5. Return a response based on what happened
+    if (notificationSent && confirmationSent) {
+      return NextResponse.json({ message: "Both emails sent successfully." }, { status: 200 })
+    } else if (notificationSent) {
+      return NextResponse.json({ message: "Notification sent but confirmation failed.", partial: true }, { status: 200 })
+    } else if (confirmationSent) {
+      return NextResponse.json({ message: "Confirmation sent but notification failed.", partial: true }, { status: 200 })
+    } else {
+      return NextResponse.json({ error: "Failed to send any emails." }, { status: 500 })
+    }
   } catch (error) {
-    console.error("Error sending email:", error)
+    console.error("Error in contact form API:", error)
     // Log more details about the error
     if (error instanceof Error) {
       console.error("Error message:", error.message)
@@ -209,8 +105,10 @@ export async function POST(req: Request) {
     console.error("Environment check:", {
       hasSmtpUser: !!process.env.SMTP_USER,
       hasSmtpPass: !!process.env.SMTP_PASS,
-      hasRecipientEmail: !!process.env.RECIPIENT_EMAIL
+      hasRecipientEmail: !!process.env.RECIPIENT_EMAIL,
+      hasCcEmail: !!process.env.CC_EMAIL,
+      hasBccEmail: !!process.env.BCC_EMAIL
     })
-    return NextResponse.json({ error: "Failed to send email." }, { status: 500 })
+    return NextResponse.json({ error: "Failed to process email request." }, { status: 500 })
   }
 }
