@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useCallback, useState } from "react"
+import { memo, useCallback, useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -8,6 +8,7 @@ import { CheckCircle2, XCircle, Mail, User, MessageSquare } from "lucide-react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm, Control } from "react-hook-form"
 import * as z from "zod"
+import emailjs from '@emailjs/browser';
 import {
   Form,
   FormControl,
@@ -106,6 +107,25 @@ FormFieldWithIcon.displayName = "FormFieldWithIcon";
 const Contact = () => {
   const [showPopup, setShowPopup] = useState(false)
   const [popupMessage, setPopupMessage] = useState({ type: '', message: '' })
+  const [useEmailJS, setUseEmailJS] = useState(false)
+
+  // Initialize EmailJS
+  useEffect(() => {
+    // Check if we should use EmailJS as a fallback
+    const checkEmailService = async () => {
+      try {
+        const response = await fetch("/api/check-email-service");
+        const data = await response.json();
+        setUseEmailJS(!data.smtpAvailable);
+      } catch {
+        // If we can't check, default to using EmailJS as a fallback
+        setUseEmailJS(true);
+      }
+    };
+    
+    // Call the function to check email service availability
+    checkEmailService();
+  }, []);
 
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -125,27 +145,75 @@ const Contact = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const sendWithEmailJS = async (values: FormData) => {
+    try {
+      // Replace these with your actual EmailJS service, template, and user IDs
+      const serviceId = 'YOUR_EMAILJS_SERVICE_ID';
+      const templateId = 'YOUR_EMAILJS_TEMPLATE_ID';
+      const publicKey = 'YOUR_EMAILJS_PUBLIC_KEY';
+      
+      const result = await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: values.name,
+          from_email: values.email,
+          message: values.message,
+        },
+        publicKey
+      );
+      
+      return result;
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      throw error;
+    }
+  };
+
   const onSubmit = useCallback(async (values: FormData) => {
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
+      let success = false;
+      
+      if (useEmailJS) {
+        // Use EmailJS for client-side email sending
+        const result = await sendWithEmailJS(values);
+        success = result.status === 200;
+      } else {
+        // Use server API route
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
 
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`)
+        if (!response.ok) {
+          const errorData = await response.json().catch(() => ({}));
+          
+          // If server error is authentication related, try EmailJS as fallback
+          if (response.status === 500 && errorData.error?.includes("Email service unavailable")) {
+            console.log("Falling back to EmailJS");
+            const result = await sendWithEmailJS(values);
+            success = result.status === 200;
+          } else {
+            throw new Error(errorData.error || `Request failed with status ${response.status}`);
+          }
+        } else {
+          success = true;
+        }
       }
 
-      form.reset()
-      showNotification('success', 'Message sent successfully! We will get back to you soon.');
+      if (success) {
+        form.reset();
+        showNotification('success', 'Message sent successfully! We will get back to you soon.');
+      }
     } catch (error) {
-      console.error("Error sending email:", error)
-      showNotification('error', 'Failed to send message. Please try again.');
+      console.error("Error sending email:", error);
+      const errorMessage = error instanceof Error ? error.message : 'Failed to send message. Please try again.';
+      showNotification('error', errorMessage);
     }
-  }, [form, showNotification]);
+  }, [form, showNotification, useEmailJS]);
 
   return (
     <section id="contact" className="w-full min-h-[30vh] flex items-center justify-center py-10">
