@@ -72,11 +72,29 @@ export default {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+			'float': {
+				'0%': {
+					transform: 'translateY(0) rotate(0deg)',
+					opacity: '0'
+				},
+				'10%': {
+					opacity: 'var(--opacity, 0.3)'
+				},
+				'90%': {
+					opacity: 'var(--opacity, 0.3)',
+					transform: 'translateY(110vh) rotate(360deg)'
+				},
+				'100%': {
+					transform: 'translateY(120vh) rotate(720deg)',
+					opacity: '0'
+				}
+			}
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+			'float': 'float 10s linear infinite'
   		},
   		backgroundImage: {
   			'grid-pattern': '',

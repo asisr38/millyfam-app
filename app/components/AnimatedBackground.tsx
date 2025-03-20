@@ -5,9 +5,9 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const AnimatedBackground: React.FC = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const symbolCount = isDesktop ? 8 : 4
+  const symbolCount = isDesktop ? 12 : 6
   
-  const moneySymbols = useMemo(() => ['$', '💰', '💵'], [])
+  const moneySymbols = useMemo(() => ['$', '💰', '💵', '💎', '🚀', '📈'], [])
 
   const animatedElements = useMemo(() => {
     return Array.from({ length: symbolCount }, (_, i) => {
@@ -27,7 +27,8 @@ const AnimatedBackground: React.FC = () => {
             animationDelay: `${delay}s`,
             fontSize: `${fontSize}px`,
             animationDuration: `${duration}s`,
-          }}
+            '--opacity': '0.4',
+          } as React.CSSProperties}
         >
           {moneySymbols[symbolIndex]}
         </div>

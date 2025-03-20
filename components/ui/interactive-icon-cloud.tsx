@@ -64,6 +64,7 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
   const { theme = "dark" } = useTheme()
   const [mounted, setMounted] = useState(false)
   const [icons, setIcons] = useState<SimpleIcon[]>([])
+  const [loadingError, setLoadingError] = useState<string | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -72,10 +73,15 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
   useEffect(() => {
     const loadIcons = async () => {
       try {
+        setLoadingError(null)
+        console.log("Fetching icons for:", iconSlugs)
         const result = await fetchSimpleIcons({ slugs: iconSlugs })
-        setIcons(Object.values(result.simpleIcons))
+        const iconsArray = Object.values(result.simpleIcons)
+        console.log(`Successfully loaded ${iconsArray.length} icons`)
+        setIcons(iconsArray)
       } catch (error) {
         console.error("Failed to load icons:", error)
+        setLoadingError(String(error))
       }
     }
 
@@ -90,6 +96,16 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
   )
 
   if (!mounted) return null
+  
+  if (loadingError) {
+    console.warn("Icon Cloud Error:", loadingError)
+    return null
+  }
+  
+  if (icons.length === 0) {
+    console.warn("No icons loaded")
+    return null
+  }
 
   return (
     <Cloud {...cloudProps}>
