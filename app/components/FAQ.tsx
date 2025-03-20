@@ -67,7 +67,23 @@ export default function FAQ() {
           <p className="text-lg md:text-xl text-muted-foreground">Find answers to common questions about MillyFam</p>
         </div>
 
-        <div className="relative">
+        {/* Wrapper to catch and prevent any unintended redirects */}
+        <div 
+          className="relative" 
+          onClick={(e) => {
+            // Check if we're trying to navigate to a link that contains "whop.com"
+            const target = e.target as HTMLElement;
+            const closestLink = target.closest('a');
+            
+            if (closestLink && closestLink.href && closestLink.href.includes('whop.com')) {
+              // If this wasn't an intentional click on a whop link, prevent it
+              if (!closestLink.contains(target)) {
+                e.preventDefault();
+                e.stopPropagation();
+              }
+            }
+          }}
+        >
           <Accordions 
             type="single"
             collapsible
@@ -77,7 +93,7 @@ export default function FAQ() {
             {faqs.map((faq, index) => (
               <Accordion
                 key={`faq-${index}`}
-                id={`faq-${index}`}
+                id={`faq-item-${index}`}
                 title={faq.question}
                 className={`${
                   index % 2 === 0 

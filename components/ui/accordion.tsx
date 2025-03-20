@@ -70,12 +70,17 @@ export const Accordion = forwardRef<
         className="not-prose flex flex-row items-center font-medium text-foreground"
       >
         <AccordionPrimitive.Trigger 
-          className="flex flex-1 items-center gap-2 p-4 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="flex flex-1 items-center gap-2 p-4 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation"
+          style={{ WebkitTapHighlightColor: 'transparent' }}
+          onClick={(e) => {
+            // Make sure we're toggling the accordion and not navigating to a link
+            e.stopPropagation();
+          }}
         >
           <ChevronRight 
             className="-ms-1 h-4 w-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]/accordion:rotate-90" 
           />
-          {title}
+          <span className="leading-relaxed">{title}</span>
         </AccordionPrimitive.Trigger>
         {id ? <CopyButton id={id} /> : null}
       </AccordionPrimitive.Header>
@@ -91,7 +96,10 @@ export const Accordion = forwardRef<
 function CopyButton({ id }: { id: string }): React.ReactElement {
   const [copied, setCopied] = useState(false);
 
-  const onClick = () => {
+  const onClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation(); // Prevent event bubbling
+    
     const url = new URL(window.location.href);
     url.hash = id;
     navigator.clipboard.writeText(url.toString());
