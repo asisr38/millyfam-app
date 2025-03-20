@@ -162,7 +162,7 @@ const PricingCard = ({
                                 : "bg-primary/10 hover:bg-primary/20 text-foreground"
                         )}
                     >
-                        Buy Now
+                        Subscribe
                     </Link>
                 </div>
             </div>
