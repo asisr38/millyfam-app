@@ -46,13 +46,13 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 text-foreground"
+      className="relative w-full min-h-[100vh] flex items-center justify-center py-12 md:py-24 lg:py-32 text-foreground overflow-hidden"
     >
       {/* Icon Cloud Background */}
       {isMounted && (
         <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
-          <div className="w-full h-[50vh] md:h-[80vh] flex items-center justify-center">
-            <div className="w-full max-w-[90vw] md:max-w-full aspect-square md:aspect-auto">
+          <div className="w-full h-full flex items-center justify-center">
+            <div className="w-full h-full md:h-[90vh] flex items-center justify-center p-8 sm:p-12 md:p-16">
               <IconCloud iconSlugs={financeIcons} />
             </div>
           </div>
