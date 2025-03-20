@@ -103,10 +103,27 @@ export default function WinShowcase() {
     priority: index < 4, // Only prioritize loading first 4 images
   }));
 
+  // Prevent unintended whop.com redirects
+  const preventWhopRedirect = (e: React.MouseEvent | React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    const closestLink = target.closest('a');
+    
+    if (closestLink && closestLink.href && closestLink.href.includes('whop.com')) {
+      // If this wasn't an intentional click on a whop link, prevent it
+      if (!closestLink.contains(target)) {
+        e.preventDefault();
+        e.stopPropagation();
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <section
       id="winshowcase"
       className="w-full min-h-[70vh] py-6 md:py-8 lg:py-18 flex items-center justify-center"
+      onClick={preventWhopRedirect}
     >
       <div className="container px-3 md:px-4 mx-auto">
         <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-12 text-foreground">

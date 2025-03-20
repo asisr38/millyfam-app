@@ -56,6 +56,22 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
 
   const { src, title, priority } = slide;
 
+  // Prevent unintended whop.com redirects
+  const preventWhopRedirect = (e: React.MouseEvent | React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    const closestLink = target.closest('a');
+    
+    if (closestLink && closestLink.href && closestLink.href.includes('whop.com')) {
+      // If this wasn't an intentional click on a whop link, prevent it
+      if (!closestLink.contains(target)) {
+        e.preventDefault();
+        e.stopPropagation();
+        return true;
+      }
+    }
+    return false;
+  };
+
   return (
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
@@ -63,6 +79,9 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
         className="flex flex-1 flex-col items-center justify-center relative text-center opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[45vmin] mx-[4vmin] z-10 cursor-pointer touch-manipulation"
         onClick={(e) => {
           e.preventDefault();
+          // Prevent any unintended whop redirects
+          if (preventWhopRedirect(e)) return;
+
           if (current === index) {
             onImageClick(src);
           } else {
@@ -142,6 +161,22 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
   const touchStart = useRef<number>(0);
   const touchEnd = useRef<number>(0);
 
+  // Prevent unintended whop.com redirects
+  const preventWhopRedirect = (e: React.MouseEvent | React.TouchEvent) => {
+    const target = e.target as HTMLElement;
+    const closestLink = target.closest('a');
+    
+    if (closestLink && closestLink.href && closestLink.href.includes('whop.com')) {
+      // If this wasn't an intentional click on a whop link, prevent it
+      if (!closestLink.contains(target)) {
+        e.preventDefault();
+        e.stopPropagation();
+        return true;
+      }
+    }
+    return false;
+  };
+
   const handlePreviousClick = () => {
     const previous = current - 1;
     setCurrent(previous < 0 ? slides.length - 1 : previous);
@@ -162,7 +197,11 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
     setModalImage(src);
   };
 
-  const closeModal = () => {
+  const closeModal = (e?: React.MouseEvent) => {
+    if (e) {
+      // Prevent any unintended whop redirects when closing the modal
+      if (preventWhopRedirect(e)) return;
+    }
     setModalImage(null);
   };
 
@@ -219,6 +258,7 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
         aria-labelledby={`carousel-heading-${id}`}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
+        onClick={(e) => preventWhopRedirect(e)}
       >
         <ul
           className="absolute flex mx-[-4vmin] transition-transform duration-1000 ease-in-out"
@@ -255,7 +295,10 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
       {modalImage && (
         <div
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
-          onClick={closeModal}
+          onClick={(e) => {
+            preventWhopRedirect(e);
+            closeModal(e);
+          }}
         >
           <div 
             className="relative w-[90vw] h-[90vh] max-w-7xl"
@@ -266,7 +309,7 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                closeModal();
+                closeModal(e);
               }}
               className="absolute -top-10 right-0 text-white hover:text-primary transition-colors z-50"
               aria-label="Close modal"
@@ -306,7 +349,10 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
                 sizes="90vw"
                 quality={100}
                 priority
-                onClick={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  preventWhopRedirect(e);
+                  e.stopPropagation();
+                }}
               />
             </div>
           </div>
