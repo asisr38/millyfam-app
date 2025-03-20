@@ -10,6 +10,7 @@ import {
   SimpleIcon,
 } from "react-icon-cloud"
 
+// Cloud props with disabled interactions
 export const cloudProps: Omit<ICloud, "children"> = {
   containerProps: {
     style: {
@@ -19,6 +20,7 @@ export const cloudProps: Omit<ICloud, "children"> = {
       width: "100%",
       paddingTop: 40,
     },
+    className: "pointer-events-none", // Disable pointer events on container
   },
   options: {
     reverse: true,
@@ -26,34 +28,14 @@ export const cloudProps: Omit<ICloud, "children"> = {
     wheelZoom: false,
     imageScale: 2,
     activeCursor: "default",
-    tooltip: "native",
+    tooltip: null,
     initial: [0.1, -0.1],
-    clickToFront: 500,
+    clickToFront: false,
     tooltipDelay: 0,
     outlineColour: "#0000",
-    maxSpeed: 0.04,
-    minSpeed: 0.02,
+    maxSpeed: 0.01, // Reduce speed
+    minSpeed: 0.005, // Reduce speed
   },
-}
-
-export const renderCustomIcon = (icon: SimpleIcon, theme: string) => {
-  const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
-  const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
-  const minContrastRatio = theme === "dark" ? 2 : 1.2
-
-  return renderSimpleIcon({
-    icon,
-    bgHex,
-    fallbackHex,
-    minContrastRatio,
-    size: 42,
-    aProps: {
-      href: undefined,
-      target: undefined,
-      rel: undefined,
-      onClick: (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault(),
-    },
-  })
 }
 
 export type IconCloudProps = {
@@ -90,8 +72,28 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
     }
   }, [iconSlugs, mounted])
 
+  const renderCustomIcon = (icon: SimpleIcon) => {
+    const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
+    const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
+    const minContrastRatio = theme === "dark" ? 2 : 1.2
+
+    return renderSimpleIcon({
+      icon,
+      bgHex,
+      fallbackHex,
+      minContrastRatio,
+      size: 42,
+      aProps: {
+        href: undefined,
+        target: undefined,
+        rel: undefined,
+        onClick: (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault(),
+      },
+    })
+  }
+
   const renderedIcons = useMemo(
-    () => icons.map((icon) => renderCustomIcon(icon, theme)),
+    () => icons.map((icon) => renderCustomIcon(icon)),
     [icons, theme]
   )
 
