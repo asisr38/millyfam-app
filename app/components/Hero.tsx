@@ -50,7 +50,7 @@ export default function Hero() {
     >
       {/* Icon Cloud Background */}
       {isMounted && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+        <div className="absolute inset-0 flex items-center justify-center opacity-40 sm:opacity-30 pointer-events-none">
           <div className="w-full h-full flex items-center justify-center">
             <div className="w-full h-full md:h-[90vh] flex items-center justify-center p-8 sm:p-12 md:p-16">
               <IconCloud iconSlugs={financeIcons} />

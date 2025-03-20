@@ -14,7 +14,7 @@ const AnimatedBackground: React.FC = () => {
       const leftPos = (i * (100 / symbolCount)) % 100
       const delay = (i * 0.8) % 5
       const duration = 8 + (i % 3)
-      const fontSize = isDesktop ? 18 + (i % 12) : 24 + (i % 12)
+      const fontSize = isDesktop ? 18 + (i % 12) : 16 + (i % 8)
       const symbolIndex = i % moneySymbols.length
 
       return (
@@ -27,7 +27,7 @@ const AnimatedBackground: React.FC = () => {
             animationDelay: `${delay}s`,
             fontSize: `${fontSize}px`,
             animationDuration: `${duration}s`,
-            '--opacity': '0.4',
+            '--opacity': isDesktop ? '0.4' : '0.3',
           } as React.CSSProperties}
         >
           {moneySymbols[symbolIndex]}

@@ -42,6 +42,9 @@ export const getCloudProps = (prev?: Partial<{
     initialY = Math.cos(radians) * 0.1
   }
   
+  // Check if we're on mobile
+  const isMobileView = typeof window !== 'undefined' && window.innerWidth <= 768
+  
   return {
     containerProps: {
       style: {
@@ -59,9 +62,9 @@ export const getCloudProps = (prev?: Partial<{
     },
     options: {
       reverse,
-      depth: 1.5, // Increased depth for more 3D feel
+      depth: isMobileView ? 1.2 : 1.5, // Slightly less depth on mobile
       wheelZoom: false,
-      imageScale: 2,
+      imageScale: isMobileView ? 2.5 : 2, // Bigger image scale on mobile
       activeCursor: "default", 
       tooltip: null,
       initial: [initialX, initialY], 
@@ -72,8 +75,8 @@ export const getCloudProps = (prev?: Partial<{
       minSpeed: 0.015, // Slightly lower for smoother movement
       dragControl: false,
       decel: 0.98, // Higher value (closer to 1) means slower deceleration = smoother
-      radiusX: 0.9, // Slightly smaller radius to keep icons contained
-      radiusY: 0.9, // Slightly smaller radius to keep icons contained
+      radiusX: isMobileView ? 0.8 : 0.9, // Tighter radius on mobile
+      radiusY: isMobileView ? 0.8 : 0.9, // Tighter radius on mobile
       stretchX: 1, // Avoid stretching
       stretchY: 1, // Avoid stretching
       noSelect: true,
@@ -152,10 +155,10 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
       try {
         setLoadingError(null)
         
-        // Use fewer icons on mobile
+        // Use fewer icons on mobile for bigger but fewer icons
         let slugsToUse = iconSlugs
-        if (isMobile && iconSlugs.length > 8) {
-          slugsToUse = iconSlugs.slice(0, Math.min(8, Math.ceil(iconSlugs.length / 2))) 
+        if (isMobile && iconSlugs.length > 6) {
+          slugsToUse = iconSlugs.slice(0, 6) // Only show 6 bigger icons on mobile
         }
         
         console.log(`Fetching ${slugsToUse.length} icons:`, slugsToUse)
@@ -179,8 +182,8 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
     const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
     const minContrastRatio = theme === "dark" ? 2 : 1.2
 
-    // Adjust size based on viewport
-    const size = isMobile ? 32 : 42
+    // Increase size on mobile for better visibility
+    const size = isMobile ? 48 : 42
     
     return renderSimpleIcon({
       icon,
