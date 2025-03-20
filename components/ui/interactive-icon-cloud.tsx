@@ -155,11 +155,8 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
       try {
         setLoadingError(null)
         
-        // Use fewer icons on mobile for bigger but fewer icons
-        let slugsToUse = iconSlugs
-        if (isMobile && iconSlugs.length > 6) {
-          slugsToUse = iconSlugs.slice(0, 6) // Only show 6 bigger icons on mobile
-        }
+        // Use all icons regardless of device type
+        const slugsToUse = iconSlugs
         
         console.log(`Fetching ${slugsToUse.length} icons:`, slugsToUse)
         const result = await fetchSimpleIcons({ slugs: slugsToUse })

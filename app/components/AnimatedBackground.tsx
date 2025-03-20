@@ -5,7 +5,7 @@ import { useMediaQuery } from '@/hooks/useMediaQuery'
 
 const AnimatedBackground: React.FC = () => {
   const isDesktop = useMediaQuery('(min-width: 768px)')
-  const symbolCount = isDesktop ? 12 : 6
+  const symbolCount = 12 // Always use 12 symbols regardless of device
   
   const moneySymbols = useMemo(() => ['$', '💰', '💵', '💎', '🚀', '📈'], [])
 
