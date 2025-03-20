@@ -60,8 +60,9 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
     <div className="[perspective:1200px] [transform-style:preserve-3d]">
       <li
         ref={slideRef}
-        className="flex flex-1 flex-col items-center justify-center relative text-center opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[45vmin] mx-[4vmin] z-10 cursor-pointer"
-        onClick={() => {
+        className="flex flex-1 flex-col items-center justify-center relative text-center opacity-100 transition-all duration-300 ease-in-out w-[70vmin] h-[45vmin] mx-[4vmin] z-10 cursor-pointer touch-manipulation"
+        onClick={(e) => {
+          e.preventDefault();
           if (current === index) {
             onImageClick(src);
           } else {
@@ -76,6 +77,7 @@ const Slide = ({ slide, index, current, handleSlideClick, onImageClick }: SlideP
             : "scale(1) rotateX(0deg)",
           transition: "transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
           transformOrigin: "bottom",
+          WebkitTapHighlightColor: "transparent",
         }}
       >
         <div
@@ -115,13 +117,19 @@ interface CarouselControlProps {
 const CarouselControl = ({ type, title, handleClick }: CarouselControlProps) => {
   return (
     <button
-      className={`w-10 h-10 flex items-center mx-2 justify-center bg-neutral-200 dark:bg-neutral-800 border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 ${
+      className={`w-14 h-14 sm:w-10 sm:h-10 flex items-center mx-2 justify-center bg-neutral-200/90 dark:bg-neutral-800/90 backdrop-blur-sm border-3 border-transparent rounded-full focus:border-[#6D64F7] focus:outline-none hover:-translate-y-0.5 active:translate-y-0.5 transition duration-200 z-10 ${
         type === "previous" ? "rotate-180" : ""
       }`}
       title={title}
-      onClick={handleClick}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleClick();
+      }}
+      aria-label={title}
+      type="button"
     >
-      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200" />
+      <IconArrowNarrowRight className="text-neutral-600 dark:text-neutral-200 w-6 h-6 sm:w-5 sm:h-5" />
     </button>
   );
 };
@@ -207,7 +215,7 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
   return (
     <>
       <div
-        className="relative w-[70vmin] h-[70vmin] mx-auto"
+        className="relative w-[80vmin] sm:w-[70vmin] h-[70vmin] mx-auto"
         aria-labelledby={`carousel-heading-${id}`}
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
@@ -230,7 +238,7 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
           ))}
         </ul>
 
-        <div className="absolute flex justify-center w-full top-[calc(100%+1rem)]">
+        <div className="absolute flex justify-between w-full px-2 sm:px-0 sm:justify-center items-center top-1/2 -translate-y-1/2 sm:top-[calc(100%+1rem)] sm:translate-y-0 z-20 pointer-events-auto">
           <CarouselControl
             type="previous"
             title="Go to previous slide"
@@ -260,7 +268,8 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
                 e.stopPropagation();
                 closeModal();
               }}
-              className="absolute -top-10 right-0 text-white hover:text-primary transition-colors"
+              className="absolute -top-10 right-0 text-white hover:text-primary transition-colors z-50"
+              aria-label="Close modal"
             >
               <IconX size={24} />
             </button>
@@ -271,7 +280,8 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
                 e.stopPropagation();
                 handleModalPrevious();
               }}
-              className="absolute left-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:left-4"
+              className="absolute left-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:left-4 z-50 w-14 h-14 sm:w-12 sm:h-12 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-full"
+              aria-label="Previous image"
             >
               <IconArrowNarrowRight className="w-8 h-8 rotate-180" />
             </button>
@@ -281,7 +291,8 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
                 e.stopPropagation();
                 handleModalNext();
               }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:right-4"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-white hover:text-primary transition-colors md:right-4 z-50 w-14 h-14 sm:w-12 sm:h-12 flex items-center justify-center bg-black/50 backdrop-blur-sm rounded-full"
+              aria-label="Next image"
             >
               <IconArrowNarrowRight className="w-8 h-8" />
             </button>

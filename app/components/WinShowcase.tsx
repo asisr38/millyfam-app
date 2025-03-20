@@ -106,14 +106,14 @@ export default function WinShowcase() {
   return (
     <section
       id="winshowcase"
-      className="w-full min-h-[60vh] py-6 md:py-8 lg:py-18 flex items-center justify-center"
+      className="w-full min-h-[70vh] py-6 md:py-8 lg:py-18 flex items-center justify-center"
     >
       <div className="container px-3 md:px-4 mx-auto">
-        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8 md:mb-12 text-foreground">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-6 md:mb-12 text-foreground">
           Some of our <span className="text-[#27Ae60]">WINS</span>
         </h2>
         
-        <div className="relative overflow-hidden w-full h-full py-20">
+        <div className="relative overflow-visible w-full h-full py-10 md:py-20">
           <Carousel slides={slideData} />
         </div>
       </div>
