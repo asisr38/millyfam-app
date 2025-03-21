@@ -8,7 +8,35 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
+    screens: {
+      xs: '375px',      // Small mobile
+      sm: '640px',      // Mobile
+      md: '768px',      // Tablet
+      lg: '1024px',     // Desktop
+      xl: '1280px',     // Large desktop
+      '2xl': '1536px',  // Extra large desktop
+    },
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        md: '2rem',
+      },
+    },
   	extend: {
+      fontSize: {
+        '2xs': '0.625rem', // 10px
+        xs: '0.75rem',     // 12px
+        sm: '0.875rem',    // 14px
+        base: '1rem',      // 16px
+        lg: '1.125rem',    // 18px
+        xl: '1.25rem',     // 20px
+        '2xl': '1.5rem',   // 24px
+        '3xl': '1.875rem', // 30px
+        '4xl': '2.25rem',  // 36px
+        '5xl': '3rem',     // 48px
+      },
   		colors: {
   			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
@@ -89,17 +117,32 @@ export default {
 					transform: 'translateY(120vh) rotate(720deg)',
 					opacity: '0'
 				}
-			}
+			},
+      'pulse-slow': {
+        '0%, 100%': { opacity: 1 },
+        '50%': { opacity: 0.8 },
+      }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-			'float': 'float 10s linear infinite'
+			  'float': 'float 10s linear infinite',
+        'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
   		},
   		backgroundImage: {
   			'grid-pattern': '',
   			'grid-pattern-light': ''
-  		}
+  		},
+      spacing: {
+        '18': '4.5rem',
+        '68': '17rem',
+        '84': '21rem',
+        '88': '22rem',
+        '128': '32rem',
+      },
+      lineHeight: {
+        'tighter': '1.1',
+      },
   	}
-  }
+  },
 } satisfies Config;
