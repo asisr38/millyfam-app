@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/theme-provider";
 import Script from "next/script";
+import HeaderWrapper from "@/app/components/HeaderWrapper";
 
 const montserrat = Montserrat({ 
   subsets: ["latin"],
@@ -87,8 +88,10 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          {/* Header is not rendered for ebook routes in app/ebook/layout.tsx */}
-          <main className="flex-1 w-full">{children}</main>
+          {/* HeaderWrapper handles conditional rendering of Header */}
+          <HeaderWrapper>
+            {children}
+          </HeaderWrapper>
           <Footer />
           <Analytics />
           <SpeedInsights />
