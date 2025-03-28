@@ -2,11 +2,24 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import dynamic from 'next/dynamic';
+import { Suspense, useState, useEffect } from 'react';
 import { TradingEbookSyllabusPDF } from "@/app/ebook/components/TradingEbookSyllabusPDF";
 import EbookLayout from "../components/EbookLayout";
 
+// Dynamically import PDFDownloadLink with no SSR
+const PDFDownloadLinkClient = dynamic(
+  () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
+  { ssr: false }
+);
+
 export default function DownloadPage() {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+  
   return (
     <EbookLayout title="Download Ebook">
       <div className="text-center mb-12">
@@ -18,21 +31,35 @@ export default function DownloadPage() {
         </p>
         
         <div className="flex flex-col items-center justify-center gap-6 mt-10">
-          <PDFDownloadLink 
-            document={<TradingEbookSyllabusPDF />}
-            fileName="trading-fundamentals-ebook.pdf"
-            className="w-full max-w-xs"
-          >
-            {({ loading }) => (
-              <Button 
-                size="lg" 
-                className="w-full bg-primary hover:bg-primary/90" 
-                disabled={loading}
-              >
-                {loading ? "Generating PDF..." : "Download PDF Now"}
-              </Button>
-            )}
-          </PDFDownloadLink>
+          {isClient ? (
+            <Suspense fallback={<Button size="lg" className="w-full max-w-xs bg-primary hover:bg-primary/90" disabled>Preparing Download...</Button>}>
+              <div className="w-full max-w-xs">
+                <PDFDownloadLinkClient 
+                  document={<TradingEbookSyllabusPDF />}
+                  fileName="trading-fundamentals-ebook.pdf"
+                  className="w-full"
+                >
+                  {({ loading }) => (
+                    <Button 
+                      size="lg" 
+                      className="w-full bg-primary hover:bg-primary/90" 
+                      disabled={loading}
+                    >
+                      {loading ? "Generating PDF..." : "Download PDF Now"}
+                    </Button>
+                  )}
+                </PDFDownloadLinkClient>
+              </div>
+            </Suspense>
+          ) : (
+            <Button 
+              size="lg" 
+              className="w-full max-w-xs bg-primary hover:bg-primary/90" 
+              disabled
+            >
+              Loading...
+            </Button>
+          )}
           
           <p className="text-sm text-muted-foreground mt-2">
             PDF format, optimized for both screen reading and printing
