@@ -2,16 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import dynamic from 'next/dynamic';
 import { Suspense, useState, useEffect } from 'react';
-import { TradingEbookSyllabusPDF } from "@/app/ebook/components/TradingEbookSyllabusPDF";
 import EbookLayout from "../components/EbookLayout";
-
-// Dynamically import PDFDownloadLink with no SSR
-const PDFDownloadLinkClient = dynamic(
-  () => import('@react-pdf/renderer').then(mod => mod.PDFDownloadLink),
-  { ssr: false }
-);
+import { TradingEbookSyllabusPDF, PDFDownloadLinkClient } from "../components/DynamicPDFComponents";
 
 export default function DownloadPage() {
   const [isClient, setIsClient] = useState(false);

@@ -4,10 +4,16 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import EbookLayout from "../../components/EbookLayout";
 import { ArrowLeft, Download, Printer } from "lucide-react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { TradingEbookSyllabusPDF } from "../../components/TradingEbookSyllabusPDF";
+import { useState, useEffect, Suspense } from 'react';
+import { TradingEbookSyllabusPDF, PDFDownloadLinkClient } from "../../components/DynamicPDFComponents";
 
 export default function FullSyllabusPage() {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const weeks = [
     {
       id: 1,
@@ -344,18 +350,32 @@ export default function FullSyllabusPage() {
               <Printer className="h-4 w-4 mr-2" />
               Print Syllabus
             </Button>
-            <PDFDownloadLink 
-              document={<TradingEbookSyllabusPDF />}
-              fileName="trading-course-syllabus.pdf"
-              className="flex"
-            >
-              {({ loading }) => (
-                <Button variant="outline" className="flex items-center" disabled={loading}>
+            {isClient ? (
+              <Suspense fallback={
+                <Button variant="outline" className="flex items-center" disabled>
                   <Download className="h-4 w-4 mr-2" />
-                  {loading ? "Generating PDF..." : "Download PDF"}
+                  Preparing Download...
                 </Button>
-              )}
-            </PDFDownloadLink>
+              }>
+                <PDFDownloadLinkClient 
+                  document={<TradingEbookSyllabusPDF />}
+                  fileName="trading-course-syllabus.pdf"
+                  className="flex"
+                >
+                  {({ loading }) => (
+                    <Button variant="outline" className="flex items-center" disabled={loading}>
+                      <Download className="h-4 w-4 mr-2" />
+                      {loading ? "Generating PDF..." : "Download PDF"}
+                    </Button>
+                  )}
+                </PDFDownloadLinkClient>
+              </Suspense>
+            ) : (
+              <Button variant="outline" className="flex items-center" disabled>
+                <Download className="h-4 w-4 mr-2" />
+                Loading...
+              </Button>
+            )}
           </div>
         </div>
 

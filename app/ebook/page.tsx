@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { 
@@ -10,10 +10,15 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
-import { PDFDownloadLink } from '@react-pdf/renderer';
-import { TradingEbookSyllabusPDF } from "@/app/ebook/components/TradingEbookSyllabusPDF";
+import { TradingEbookSyllabusPDF, PDFDownloadLinkClient } from "./components/DynamicPDFComponents";
 
 export default function EbookPage() {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   const sections = [
     {
       id: 1,
@@ -99,17 +104,25 @@ export default function EbookPage() {
           A comprehensive guide designed to transform complete beginners into competent traders through visual learning and practical exercises.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <PDFDownloadLink 
-            document={<TradingEbookSyllabusPDF />}
-            fileName="trading-fundamentals-ebook.pdf"
-            className="flex"
-          >
-            {({ loading }) => (
-              <Button size="lg" className="bg-primary hover:bg-primary/90" disabled={loading}>
-                {loading ? "Generating PDF..." : "Download Full Ebook (PDF)"}
-              </Button>
-            )}
-          </PDFDownloadLink>
+          {isClient ? (
+            <Suspense fallback={<Button size="lg" className="bg-primary hover:bg-primary/90" disabled>Preparing Download...</Button>}>
+              <PDFDownloadLinkClient 
+                document={<TradingEbookSyllabusPDF />}
+                fileName="trading-fundamentals-ebook.pdf"
+                className="flex"
+              >
+                {({ loading }) => (
+                  <Button size="lg" className="bg-primary hover:bg-primary/90" disabled={loading}>
+                    {loading ? "Generating PDF..." : "Download Full Ebook (PDF)"}
+                  </Button>
+                )}
+              </PDFDownloadLinkClient>
+            </Suspense>
+          ) : (
+            <Button size="lg" className="bg-primary hover:bg-primary/90" disabled>
+              Loading...
+            </Button>
+          )}
           <Link href="/ebook/syllabus">
             <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
               View 12-Week Course Syllabus

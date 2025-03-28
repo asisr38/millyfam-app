@@ -4,10 +4,16 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import EbookLayout from "../components/EbookLayout";
 import { ArrowLeft, Download } from "lucide-react";
-import { PDFDownloadLink } from "@react-pdf/renderer";
-import { TradingEbookSyllabusPDF } from "../components/TradingEbookSyllabusPDF";
+import { useState, useEffect, Suspense } from 'react';
+import { TradingEbookSyllabusPDF, PDFDownloadLinkClient } from "../components/DynamicPDFComponents";
 
 export default function SyllabusPage() {
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   return (
     <EbookLayout title="Trading Course Syllabus">
       <div className="container mx-auto px-4 py-8">
@@ -16,18 +22,32 @@ export default function SyllabusPage() {
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to Ebook Home
           </Link>
-          <PDFDownloadLink 
-            document={<TradingEbookSyllabusPDF />}
-            fileName="trading-course-syllabus.pdf"
-            className="flex"
-          >
-            {({ loading }) => (
-              <Button variant="outline" className="flex items-center" disabled={loading}>
+          {isClient ? (
+            <Suspense fallback={
+              <Button variant="outline" className="flex items-center" disabled>
                 <Download className="h-4 w-4 mr-2" />
-                {loading ? "Generating PDF..." : "Download Syllabus"}
+                Preparing Download...
               </Button>
-            )}
-          </PDFDownloadLink>
+            }>
+              <PDFDownloadLinkClient 
+                document={<TradingEbookSyllabusPDF />}
+                fileName="trading-course-syllabus.pdf"
+                className="flex"
+              >
+                {({ loading }) => (
+                  <Button variant="outline" className="flex items-center" disabled={loading}>
+                    <Download className="h-4 w-4 mr-2" />
+                    {loading ? "Generating PDF..." : "Download Syllabus"}
+                  </Button>
+                )}
+              </PDFDownloadLinkClient>
+            </Suspense>
+          ) : (
+            <Button variant="outline" className="flex items-center" disabled>
+              <Download className="h-4 w-4 mr-2" />
+              Loading...
+            </Button>
+          )}
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
