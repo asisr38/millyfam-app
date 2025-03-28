@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { TradingEbookPDF } from "../components/TradingEbookPDF";
+import { TradingEbookSyllabusPDF } from "@/app/ebook/components/TradingEbookSyllabusPDF";
 import EbookLayout from "../components/EbookLayout";
 
 export default function DownloadPage() {
@@ -19,7 +19,7 @@ export default function DownloadPage() {
         
         <div className="flex flex-col items-center justify-center gap-6 mt-10">
           <PDFDownloadLink 
-            document={<TradingEbookPDF />}
+            document={<TradingEbookSyllabusPDF />}
             fileName="trading-fundamentals-ebook.pdf"
             className="w-full max-w-xs"
           >

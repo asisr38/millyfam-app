@@ -1,5 +1,6 @@
 "use client";
 
+import React from 'react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { 
@@ -9,6 +10,8 @@ import {
   CardHeader, 
   CardTitle 
 } from "@/components/ui/card";
+import { PDFDownloadLink } from '@react-pdf/renderer';
+import { TradingEbookSyllabusPDF } from "@/app/ebook/components/TradingEbookSyllabusPDF";
 
 export default function EbookPage() {
   const sections = [
@@ -96,11 +99,17 @@ export default function EbookPage() {
           A comprehensive guide designed to transform complete beginners into competent traders through visual learning and practical exercises.
         </p>
         <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link href="/ebook/download">
-            <Button size="lg" className="bg-primary hover:bg-primary/90">
-              Download Full Ebook (PDF)
-            </Button>
-          </Link>
+          <PDFDownloadLink 
+            document={<TradingEbookSyllabusPDF />}
+            fileName="trading-fundamentals-ebook.pdf"
+            className="flex"
+          >
+            {({ loading }) => (
+              <Button size="lg" className="bg-primary hover:bg-primary/90" disabled={loading}>
+                {loading ? "Generating PDF..." : "Download Full Ebook (PDF)"}
+              </Button>
+            )}
+          </PDFDownloadLink>
           <Link href="/ebook/syllabus">
             <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary/10">
               View 12-Week Course Syllabus
