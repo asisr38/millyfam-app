@@ -1,7 +1,6 @@
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Montserrat } from "next/font/google";
-import Header from "@/app/components/Header";
 import Footer from "@/app/components/Footer";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -88,7 +87,7 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <Header />
+          {/* Header is not rendered for ebook routes in app/ebook/layout.tsx */}
           <main className="flex-1 w-full">{children}</main>
           <Footer />
           <Analytics />
