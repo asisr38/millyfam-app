@@ -89,7 +89,8 @@ const InvoicePage = () => {
                 src={pdfLogoSrc}
                 alt="Milly Fam Logo"
                 className="h-full w-auto object-contain"
-                style={{ maxWidth: '100%', maxHeight: '100%' }}ails                 onLoad={() => setImageLoaded(true)}
+                style={{ maxWidth: '100%', maxHeight: '100%' }}
+                onLoad={() => setImageLoaded(true)}
               />
             </div>
             <div className="text-center">
