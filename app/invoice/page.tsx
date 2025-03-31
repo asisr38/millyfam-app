@@ -151,22 +151,7 @@ const InvoicePage = () => {
           
           <div className="mb-4 text-sm">
             <h3 className="font-bold mb-1 text-[hsl(43,74%,60%)]">Payment Instructions:</h3>
-            <div className="border border-[hsl(43,74%,60%)] rounded-md p-2 bg-gray-50">
-              <h4 className="font-semibold mb-1 text-sm">Bank Transfer Details:</h4>
-              <div className="grid grid-cols-2 gap-x-2 gap-y-0.5 text-xs">
-                <div>
-                  <p><span className="font-medium">Bank Name:</span> First National Bank</p>
-                  <p><span className="font-medium">Account Name:</span> Milly Fam LLC</p>
-                  <p><span className="font-medium">Account Number:</span> 789045123765</p>
-                </div>
-                <div>
-                  <p><span className="font-medium">Routing Number:</span> 074000078</p>
-                  <p><span className="font-medium">Account Type:</span> Business Checking</p>
-                  <p><span className="font-medium">Swift Code:</span> FNBWUS44</p>
-                </div>
-              </div>
-              <p className="mt-1 text-xs">Please include your invoice number as reference when making payment.</p>
-            </div>
+            <p>Please contact us for payment instructions.</p>
           </div>
           
           <div className="text-center text-sm">
