@@ -99,7 +99,7 @@ const PricingCard = ({
         >
             <div
                 className={cn(
-                    "relative h-full rounded-2xl border bg-card p-6 shadow-lg transition-shadow hover:shadow-xl",
+                    "relative h-full rounded-2xl border bg-card p-6 flex flex-col shadow-lg transition-shadow hover:shadow-xl",
                     isPopular && "border-primary/50 shadow-primary/10"
                 )}
                 style={{
@@ -118,7 +118,7 @@ const PricingCard = ({
                     </motion.div>
                 )}
 
-                <div className="space-y-4">
+                <div className="space-y-4 text-center">
                     <h3 className="text-xl font-bold">{name}</h3>
                     <div className="text-3xl font-bold">
                         $<Counter from={0} to={monthlyPrice || price || 0} />
@@ -149,13 +149,13 @@ const PricingCard = ({
                     </ul>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-auto pt-2 md:pt-3">
                     <Link
                         href={link || "#"}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={cn(
-                            "inline-flex w-full items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition-colors",
+                            "inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
                             accent
                                 ? cn(accent, "bg-opacity-10 hover:bg-opacity-20 text-foreground")
                                 : "bg-primary/10 hover:bg-primary/20 text-foreground"
@@ -176,7 +176,7 @@ export const PricingContainer = ({ title = "Pricing Plans", plans, className = "
             <BackgroundEffects />
             <div className="relative space-y-12 w-full">
                 <PricingHeader title={title} />
-                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 w-full items-stretch">
                     {plans.map((plan, i) => (
                         <PricingCard
                             key={i}
