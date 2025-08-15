@@ -66,8 +66,7 @@ const PricingHeader = ({ title }: { title: string }) => (
 const BackgroundEffects = () => (
     <>
         <div
-            className="absolute inset-0 bg-gradient-to-t from-background to-transparent"
-            style={{ mixBlendMode: "multiply" }}
+            className="absolute inset-0 bg-gradient-to-t from-background to-transparent mix-blend-multiply"
         />
         <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />

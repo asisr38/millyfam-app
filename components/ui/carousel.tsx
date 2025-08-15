@@ -243,11 +243,15 @@ export function Carousel({ slides }: { slides: SlideData[] }) {
   };
 
   useEffect(() => {
-    if (!isPaused) {
-      const interval = setInterval(handleNextClick, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [current, isPaused]);
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrent((prev) => {
+        const next = prev + 1;
+        return next === slides.length ? 0 : next;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused, slides.length]);
 
   const id = useId();
 

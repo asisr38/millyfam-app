@@ -103,8 +103,7 @@ const Card = ({
         src={src}
         alt={alt}
         fill
-        style={{ objectFit: 'cover' }}
-        className="rounded-xl"
+        className="rounded-xl object-cover"
       />
     </motion.div>
   );

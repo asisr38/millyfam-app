@@ -17,18 +17,19 @@ const AnimatedBackground: React.FC = () => {
       const fontSize = isDesktop ? 18 + (i % 12) : 16 + (i % 8)
       const symbolIndex = i % moneySymbols.length
 
+      const styleProps: React.CSSProperties & Record<'--opacity', string> = {
+        left: `${leftPos}%`,
+        animationDelay: `${delay}s`,
+        fontSize: `${fontSize}px`,
+        animationDuration: `${duration}s`,
+        ['--opacity']: isDesktop ? '0.4' : '0.3',
+      };
+
       return (
         <div
           key={i}
-          className="absolute text-[#D4AF37] opacity-30 animate-float"
-          style={{
-            left: `${leftPos}%`,
-            top: '-20%',
-            animationDelay: `${delay}s`,
-            fontSize: `${fontSize}px`,
-            animationDuration: `${duration}s`,
-            '--opacity': isDesktop ? '0.4' : '0.3',
-          } as React.CSSProperties}
+          className="absolute -top-[20%] text-[#D4AF37] opacity-30 animate-float"
+          style={styleProps}
         >
           {moneySymbols[symbolIndex]}
         </div>

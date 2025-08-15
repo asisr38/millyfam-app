@@ -70,8 +70,7 @@ export const Accordion = forwardRef<
         className="not-prose flex flex-row items-center font-medium text-foreground"
       >
         <AccordionPrimitive.Trigger 
-          className="flex flex-1 items-center gap-2 p-4 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation"
-          style={{ WebkitTapHighlightColor: 'transparent' }}
+          className="flex flex-1 items-center gap-2 p-4 text-start focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring touch-manipulation [-webkit-tap-highlight-color:transparent]"
           onClick={(e) => {
             // Make sure we're toggling the accordion and not navigating to a link
             e.stopPropagation();

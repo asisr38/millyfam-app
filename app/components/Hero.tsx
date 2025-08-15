@@ -95,7 +95,7 @@ export default function Hero() {
             {/* Added CTA Button for better mobile conversion */}
             <div className="mt-6 sm:mt-8 md:mt-10 flex justify-center">
               <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-6 text-lg rounded-xl">
-                <Link href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" target="_blank" rel="noopener noreferrer">
+                <Link href="https://whop.com/checkout/plan_vpWoem9qt1Ok4?d2c=true" target="_blank" rel="noopener noreferrer">
                   Join Now
                 </Link>
               </Button>

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState, useRef } from "react"
+import { useEffect, useMemo, useState, useRef, useCallback } from "react"
 import { useTheme } from "next-themes"
 import {
   Cloud,
@@ -114,19 +114,15 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
   // Periodically update cloud direction with smooth transitions
   useEffect(() => {
     if (!mounted) return
-    
-    // Change direction more gradually (longer interval = smoother appearance)
     const interval = setInterval(() => {
-      const currentOptions = cloudPropsRef.current?.options;
+      const currentOptions = cloudPropsRef.current?.options
       const newProps = getCloudProps({
         reverse: currentOptions?.reverse ?? false,
-        initial: currentOptions?.initial as [number, number] || [0.1, 0.1]
+        initial: (currentOptions?.initial as [number, number]) || [0.1, 0.1],
       })
-      
       cloudPropsRef.current = newProps
       setCloudProps(newProps)
-    }, 8000 + Math.random() * 4000) // Longer intervals for smoother transitions
-    
+    }, 8000 + Math.random() * 4000)
     return () => clearInterval(interval)
   }, [mounted])
 
@@ -154,27 +150,17 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
     const loadIcons = async () => {
       try {
         setLoadingError(null)
-        
-        // Use all icons regardless of device type
-        const slugsToUse = iconSlugs
-        
-        console.log(`Fetching ${slugsToUse.length} icons:`, slugsToUse)
-        const result = await fetchSimpleIcons({ slugs: slugsToUse })
+        const result = await fetchSimpleIcons({ slugs: iconSlugs })
         const iconsArray = Object.values(result.simpleIcons)
-        console.log(`Successfully loaded ${iconsArray.length} icons`)
         setIcons(iconsArray)
       } catch (error) {
-        console.error("Failed to load icons:", error)
         setLoadingError(String(error))
       }
     }
+    if (mounted) loadIcons()
+  }, [iconSlugs, mounted])
 
-    if (mounted) {
-      loadIcons()
-    }
-  }, [iconSlugs, mounted, isMobile])
-
-  const renderCustomIcon = (icon: SimpleIcon) => {
+  const renderCustomIcon = useCallback((icon: SimpleIcon) => {
     const bgHex = theme === "light" ? "#f3f2ef" : "#080510"
     const fallbackHex = theme === "light" ? "#6e6e73" : "#ffffff"
     const minContrastRatio = theme === "dark" ? 2 : 1.2
@@ -195,12 +181,9 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
         onClick: (e: React.MouseEvent<HTMLAnchorElement>) => e.preventDefault(),
       },
     })
-  }
+  }, [theme, isMobile])
 
-  const renderedIcons = useMemo(
-    () => icons.map((icon) => renderCustomIcon(icon)),
-    [icons, theme, isMobile]
-  )
+  const renderedIcons = useMemo(() => icons.map((icon) => renderCustomIcon(icon)), [icons, renderCustomIcon])
 
   if (!mounted) return null
   
@@ -217,12 +200,7 @@ export function IconCloud({ iconSlugs }: IconCloudProps) {
   return (
     <div 
       ref={containerRef} 
-      className="w-full h-full flex items-center justify-center"
-      style={{ 
-        overflow: 'hidden',
-        position: 'relative',
-        minHeight: '300px'
-      }}
+      className="w-full h-full min-h-[300px] overflow-hidden relative flex items-center justify-center"
     >
       <Cloud {...cloudProps}>
         {renderedIcons}

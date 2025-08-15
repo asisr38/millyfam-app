@@ -30,7 +30,7 @@ export default function Footer() {
             <h3 className="text-[20px] md:text-[24px] font-bold text-foreground mb-4">Connect With Us</h3>
             <p className="text-[16px] md:text-[18px] text-muted-foreground mb-4">Join our Discord community for exclusive updates and insights.</p>
             <Link 
-              href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" 
+              href="https://whop.com/checkout/plan_vpWoem9qt1Ok4?d2c=true" 
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-primary text-primary-foreground hover:bg-primary/90 font-bold py-2 px-4 rounded text-[16px] md:text-[18px]"

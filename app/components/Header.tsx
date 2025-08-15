@@ -23,6 +23,7 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -33,6 +34,10 @@ export default function Header() {
     };
 
     const handleClickOutside = (event: MouseEvent) => {
+      // Ignore clicks on the menu toggle button itself to avoid double toggle
+      if (menuButtonRef.current && menuButtonRef.current.contains(event.target as Node)) {
+        return;
+      }
       if (menuRef.current && !menuRef.current.contains(event.target as Node) && isMenuOpen) {
         setIsMenuOpen(false);
       }
@@ -52,7 +57,7 @@ export default function Header() {
   };
 
   const handleMenuToggle = () => {
-    setIsMenuOpen(!isMenuOpen);
+    setIsMenuOpen((prev) => !prev);
   };
 
   if (!mounted) return null;
@@ -81,11 +86,12 @@ export default function Header() {
             <ThemeToggle />
             {/* Join Button */}
             <Button asChild className="hidden md:block bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-2 px-4 rounded-xl text-lg">
-              <Link href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" target="_blank" rel="noopener noreferrer">Join Now</Link>
+              <Link href="https://whop.com/checkout/plan_vpWoem9qt1Ok4?d2c=true" target="_blank" rel="noopener noreferrer">Join Now</Link>
             </Button>
 
             {/* Mobile Menu Button */}
             <motion.button 
+              ref={menuButtonRef}
               className="flex items-center justify-center md:hidden h-10 w-10 rounded-md text-foreground bg-muted/30 hover:bg-muted/50 transition-colors"
               onClick={handleMenuToggle}
               aria-label={isMenuOpen ? "Close menu" : "Open menu"}
@@ -142,7 +148,7 @@ export default function Header() {
               })}
               <Button asChild className="bg-[#D4AF37] text-black hover:bg-[#C4A030] font-bold py-3 mt-2 rounded-lg text-lg">
                 <Link 
-                  href="https://whop.com/checkout/plan_50jVOC4QyHzvh?d2c=true" 
+                  href="https://whop.com/checkout/plan_vpWoem9qt1Ok4?d2c=true" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   onClick={handleLinkClick}
