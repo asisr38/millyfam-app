@@ -3,10 +3,15 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTheme } from "next-themes";
+import { Poppins } from "next/font/google";
 import { Menu, X, Users, DollarSign, Trophy, UserRound, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import logo from "@/public/logo/MF-Logo1.png";
+const LOGO_LIGHT = "/logo/MFBLACKSOLO.png";
+const LOGO_DARK = "/logo/MFWHITESOLO.png";
+
+const brandFont = Poppins({ subsets: ["latin"], weight: ["800"] });
 import { NavBar } from "@/components/ui/tubelight-navbar";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -24,6 +29,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     setMounted(true);
@@ -72,8 +78,10 @@ export default function Header() {
         <div className="flex items-center justify-between py-3 md:py-4">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2" onClick={handleLinkClick} aria-label="MillyFam Home">
-            <Image src={logo} alt="MillyFam Logo" className="h-10 w-10 md:h-12 md:w-12" priority />
-            <span className="text-xl md:text-2xl font-bold text-foreground">MillyFam</span>
+            <Image src={theme === 'dark' ? LOGO_DARK : LOGO_LIGHT} alt="MillyFam Logo" width={140} height={48} className="h-12 w-auto md:h-14" priority />
+            <span className={`${brandFont.className} text-2xl md:text-3xl font-extrabold tracking-tight text-foreground`}>
+              MillyFam
+            </span>
           </Link>
 
           {/* Desktop Navigation */}

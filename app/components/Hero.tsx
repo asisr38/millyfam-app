@@ -2,7 +2,6 @@
 
 import { useMemo, useEffect, useState } from "react";
 import { Typewriter } from "@/components/ui/typewriter";
-import { IconCloud } from "@/components/ui/interactive-icon-cloud";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -14,32 +13,11 @@ const TYPEWRITER_TEXTS = [
   "level up our lives 🔥",
 ];
 
-const FINANCE_ICONS = [
-  "bitcoin",
-  "ethereum",
-  "binance",
-  "coinbase",
-  "mastercard",
-  "visa",
-  "paypal",
-  "stripe",
-  "cashapp",
-  "venmo",
-  "chase",
-  "americanexpress",
-  "robinhood",
-  "xrp",
-  "litecoin",
-  "dogecoin",
-  "monero",
-  "tether",
-  "discord",
-  "tradingview",
- ];
+// IconCloud removed for a cleaner hero
 
 export default function Hero() {
   const [isMounted, setIsMounted] = useState(false);
-  const financeIcons = useMemo(() => FINANCE_ICONS, []);
+  // IconCloud removed
 
   useEffect(() => {
     setIsMounted(true);
@@ -51,16 +29,7 @@ export default function Hero() {
       className="relative w-full min-h-[90vh] sm:min-h-[100vh] flex items-center justify-center py-8 md:py-16 lg:py-24 text-foreground overflow-hidden"
       aria-labelledby="hero-heading"
     >
-      {/* Icon Cloud Background */}
-      {isMounted && (
-        <div className="absolute inset-0 flex items-center justify-center opacity-40 sm:opacity-30 pointer-events-none">
-          <div className="w-full h-full flex items-center justify-center">
-            <div className="w-full h-full md:h-[90vh] flex items-center justify-center p-4 sm:p-8 md:p-16">
-              <IconCloud iconSlugs={financeIcons} />
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Icon Cloud removed */}
 
       <div className="container px-4 sm:px-6 md:px-8 relative z-10">
         <div className="flex flex-col items-center space-y-4 md:space-y-8">

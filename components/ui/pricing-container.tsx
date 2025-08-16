@@ -3,6 +3,8 @@ import React, { useRef, useEffect } from 'react'
 import { motion, animate } from 'framer-motion'
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Check } from 'lucide-react';
 
 interface PricingPlan {
     name: string;
@@ -99,8 +101,8 @@ const PricingCard = ({
         >
             <div
                 className={cn(
-                    "relative h-full rounded-2xl border bg-card p-6 flex flex-col shadow-lg transition-shadow hover:shadow-xl",
-                    isPopular && "border-primary/50 shadow-primary/10"
+                    "relative h-full rounded-2xl border border-border bg-card p-6 md:p-8 flex flex-col shadow-sm transition-shadow hover:shadow-md",
+                    isPopular && "ring-1 ring-primary/30"
                 )}
                 style={{
                     transform: `rotate(${rotation}deg)`,
@@ -108,19 +110,19 @@ const PricingCard = ({
             >
                 {isPopular && (
                     <motion.div
-                        initial={{ y: -10, opacity: 0 }}
+                        initial={{ y: -8, opacity: 0 }}
                         animate={{ y: 0, opacity: 1 }}
-                        className="absolute -top-5 left-0 right-0 mx-auto w-fit rounded-full bg-primary px-4 py-1.5 text-sm font-semibold text-black shadow-lg"
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
+                        className="absolute -top-5 left-0 right-0 mx-auto w-fit rounded-full bg-amber-400/90 px-4 py-1.5 text-sm font-semibold text-black shadow"
+                        whileHover={{ scale: 1.03 }}
+                        whileTap={{ scale: 0.98 }}
                     >
                         Popular
                     </motion.div>
                 )}
 
                 <div className="space-y-4 text-center">
-                    <h3 className="text-xl font-bold">{name}</h3>
-                    <div className="text-3xl font-bold">
+                    <h3 className="text-xl md:text-2xl font-semibold tracking-tight">{name}</h3>
+                    <div className="text-3xl md:text-4xl font-bold tracking-tight">
                         $<Counter from={0} to={monthlyPrice || price || 0} />
                         <span className="text-base font-normal text-muted-foreground">
                             {monthlyPrice ? "/mo" : billingPeriod ? `/${billingPeriod}` : ""}
@@ -134,35 +136,27 @@ const PricingCard = ({
                         )}
                     />
 
-                    <ul className="space-y-2.5">
+                    <ul className="space-y-2.5 text-left mx-auto max-w-sm">
                         {features.map((feature, i) => (
                             <li key={i} className="flex items-center gap-2">
-                                <div
-                                    className={cn(
-                                        "h-1.5 w-1.5 rounded-full",
-                                        accent ? accent : "bg-foreground"
-                                    )}
-                                />
-                                <span className="text-muted-foreground">{feature}</span>
+                                <Check className="h-4 w-4 text-emerald-500" aria-hidden="true" />
+                                <span className="text-muted-foreground leading-relaxed">{feature}</span>
                             </li>
                         ))}
                     </ul>
                 </div>
 
-                <div className="mt-auto pt-2 md:pt-3">
-                    <Link
-                        href={link || "#"}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={cn(
-                            "inline-flex w-full items-center justify-center rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
-                            accent
-                                ? cn(accent, "bg-opacity-10 hover:bg-opacity-20 text-foreground")
-                                : "bg-primary/10 hover:bg-primary/20 text-foreground"
-                        )}
-                    >
-                        Subscribe
-                    </Link>
+                <div className="mt-auto pt-3 md:pt-4">
+                    <Button asChild className="w-full h-11 text-sm font-semibold">
+                        <Link
+                            href={link || "#"}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Subscribe to ${name}`}
+                        >
+                            Subscribe
+                        </Link>
+                    </Button>
                 </div>
             </div>
         </motion.div>
