@@ -1,9 +1,12 @@
 "use client"
 
-import { useMemo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Typewriter } from "@/components/ui/typewriter";
+import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+
+const brandFont = Poppins({ subsets: ["latin"], weight: ["800"] });
 
 const TYPEWRITER_TEXTS = [
   "build wealth 💰",
@@ -38,28 +41,33 @@ export default function Hero() {
               id="hero-heading"
               className="text-[32px] font-bold tracking-tighter sm:text-[40px] md:text-[45px] lg:text-[50px] mb-2 md:mb-4"
             >
-              Join the <span className="text-[#27AE60]">MILLYFAM</span>
+              Join the <span className={`${brandFont.className} text-[#27AE60]`}>MILLYFAM</span>
             </h1>
-            <div className="w-full h-full md:text-3xl lg:text-4xl sm:text-2xl text-xl flex flex-row items-start justify-start bg-background font-normal px-2 py-1 md:p-4 md:pt-2">
-              <p className="whitespace-pre-wrap">
-                <span>{"We're here to "}</span>
+            <div className="w-full h-full flex flex-col items-center justify-center bg-background font-normal px-2 py-1 md:p-4 md:pt-2">
+              <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-center whitespace-nowrap">
+                {"We're here to"}
+              </p>
+              <div className="text-xl sm:text-2xl md:text-3xl lg:text-4xl min-h-[28px] sm:min-h-[32px] md:min-h-[36px] lg:min-h-[40px]">
                 {isMounted && (
                   <Typewriter
                     text={TYPEWRITER_TEXTS}
                     speed={70}
-                    className="text-yellow-500"
+                    className="text-yellow-500 whitespace-nowrap"
                     waitTime={1500}
                     deleteSpeed={40}
                     cursorChar={"_"}
                   />
                 )}
+              </div>
+            </div>
+            <div className="mx-auto max-w-[860px] space-y-3 sm:space-y-4 mt-2 sm:mt-4">
+              <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] leading-relaxed text-muted-foreground">
+                Exclusive access to a tight-knit community with live alerts for options and day trading, powerful AI trading bots, and wealth-building strategies.
+              </p>
+              <p className="text-[16px] sm:text-[18px] md:text-[20px] lg:text-[22px] leading-relaxed text-muted-foreground">
+                We keep a strong focus on health and lifestyle balance. Trade smarter with real-time insights, learn from experienced members, and network with like-minded individuals—all striving for growth and freedom.
               </p>
             </div>
-            <p className="mx-auto max-w-[700px] text-[16px] sm:text-[18px] md:text-[20px] lg:text-[24px] text-muted-foreground mt-2 sm:mt-4">
-              Exclusive access to a tight-knit community focused on
-              wealth-building, ongoing content, and networking with like-minded
-              individuals.
-            </p>
 
             {/* Added CTA Button for better mobile conversion */}
             <div className="mt-6 sm:mt-8 md:mt-10 flex justify-center">
